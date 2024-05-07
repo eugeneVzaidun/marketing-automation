@@ -270,8 +270,8 @@
         "type": "get database",
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
-        "x": 310,
-        "y": 400,
+        "x": 280,
+        "y": 300,
         "wires": [
             [
                 "50c7790dd2fc5c98"
@@ -304,8 +304,8 @@
         "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 130,
-        "y": 400,
+        "x": 100,
+        "y": 300,
         "wires": [
             [
                 "edea20d0b7b2b37f"
@@ -324,8 +324,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
-        "y": 400,
+        "x": 520,
+        "y": 300,
         "wires": []
     }
 ]
