@@ -14,6 +14,30 @@
         "apiKey": "secret_LUT6cPMFaoFhTXNSqxhUSsSSPDndlQMvqYLRFTBDeGu"
     },
     {
+        "id": "0765a7445c5bec6e",
+        "type": "mongodb4-client",
+        "name": "",
+        "protocol": "mongodb",
+        "hostname": "localhost",
+        "port": "",
+        "dbName": "marketing",
+        "appName": "",
+        "authSource": "",
+        "authMechanism": "DEFAULT",
+        "tls": false,
+        "tlsCAFile": "",
+        "tlsCertificateKeyFile": "",
+        "tlsInsecure": false,
+        "connectTimeoutMS": "30000",
+        "socketTimeoutMS": "0",
+        "minPoolSize": "0",
+        "maxPoolSize": "100",
+        "maxIdleTimeMS": "0",
+        "uri": "",
+        "advanced": "{}",
+        "uriTabActive": "tab-uri-simple"
+    },
+    {
         "id": "fff9da97b05a4227",
         "type": "query database",
         "z": "98d41cddef00471d",
@@ -81,8 +105,8 @@
         "type": "get page",
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
-        "x": 280,
-        "y": 120,
+        "x": 300,
+        "y": 500,
         "wires": [
             [
                 "b8e7ba38e9493f1c"
@@ -115,8 +139,8 @@
         "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 110,
-        "y": 120,
+        "x": 130,
+        "y": 500,
         "wires": [
             [
                 "76530509eae4d170"
@@ -135,8 +159,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 500,
-        "y": 120,
+        "x": 520,
+        "y": 500,
         "wires": []
     },
     {
@@ -144,8 +168,8 @@
         "type": "update page",
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
-        "x": 290,
-        "y": 180,
+        "x": 310,
+        "y": 560,
         "wires": [
             [
                 "e79573c740e73354"
@@ -178,8 +202,8 @@
         "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 110,
-        "y": 180,
+        "x": 130,
+        "y": 560,
         "wires": [
             [
                 "ee4850bd45e11287"
@@ -198,8 +222,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 500,
-        "y": 180,
+        "x": 520,
+        "y": 560,
         "wires": []
     },
     {
@@ -207,8 +231,8 @@
         "type": "get block children",
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
-        "x": 310,
-        "y": 240,
+        "x": 330,
+        "y": 620,
         "wires": [
             [
                 "4e69eaea9bdb65ac"
@@ -241,8 +265,8 @@
         "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 110,
-        "y": 240,
+        "x": 130,
+        "y": 620,
         "wires": [
             [
                 "0c00abc48d7dc668"
@@ -261,8 +285,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 500,
-        "y": 240,
+        "x": 520,
+        "y": 620,
         "wires": []
     },
     {
@@ -271,7 +295,7 @@
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
         "x": 290,
-        "y": 300,
+        "y": 120,
         "wires": [
             [
                 "50c7790dd2fc5c98"
@@ -305,7 +329,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 110,
-        "y": 300,
+        "y": 120,
         "wires": [
             [
                 "edea20d0b7b2b37f"
@@ -325,7 +349,347 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 500,
-        "y": 300,
+        "y": 120,
         "wires": []
+    },
+    {
+        "id": "0c9bd70ef30aaee1",
+        "type": "create page",
+        "z": "98d41cddef00471d",
+        "integration": "2e9215f9fed73afd",
+        "x": 290,
+        "y": 200,
+        "wires": [
+            [
+                "f3cfd246699e3f43"
+            ]
+        ]
+    },
+    {
+        "id": "42c9342d9466c1bb",
+        "type": "inject",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"parent\":{\"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"},\"properties\":{\"Name\":{\"title\":[{\"text\":{\"content\":\"Hello, world!\"}}]},\"Date\":{\"date\":{\"start\":\"2024-05-07\"}}}}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "0c9bd70ef30aaee1"
+            ]
+        ]
+    },
+    {
+        "id": "7a89a58b2e647ec1",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "blockId",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "195e44edbb584018",
+        "type": "append block children",
+        "z": "98d41cddef00471d",
+        "integration": "2e9215f9fed73afd",
+        "x": 320,
+        "y": 280,
+        "wires": [
+            [
+                "bc2b6b34cd235c2e"
+            ]
+        ]
+    },
+    {
+        "id": "a439177eeb3489f0",
+        "type": "inject",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            },
+            {
+                "p": "blockId",
+                "v": "48585397-846f-4c56-a829-243bfdc9ae42",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"children\":[{\"heading_2\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale\"}}]}},{\"paragraph\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.\",\"link\":{\"url\":\"https://en.wikipedia.org/wiki/Lacinato_kale\"}}}]}}]}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "195e44edbb584018"
+            ]
+        ]
+    },
+    {
+        "id": "bc2b6b34cd235c2e",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f3cfd246699e3f43",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "blockId",
+                "pt": "msg",
+                "to": "payload.id",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"children\":[{\"heading_2\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale\"}}]}},{\"paragraph\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.\",\"link\":{\"url\":\"https://en.wikipedia.org/wiki/Lacinato_kale\"}}}]}}]}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 200,
+        "wires": [
+            [
+                "7a89a58b2e647ec1",
+                "195e44edbb584018"
+            ]
+        ]
+    },
+    {
+        "id": "b61d28486ad60365",
+        "type": "queue",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "input": "payload",
+        "inputType": "msg",
+        "addFields": "[\"news\",\"tech\"]",
+        "addFieldsType": "json",
+        "pourType": "interval",
+        "pourTypeType": "pourType",
+        "pourTime": "1",
+        "pourTimeType": "num",
+        "pourAmount": "1",
+        "pourAmountType": "num",
+        "maxUseMemory": "",
+        "x": 610,
+        "y": 740,
+        "wires": [
+            [
+                "d8448d89a0af5831"
+            ]
+        ]
+    },
+    {
+        "id": "06fe21b91623c385",
+        "type": "feedparse",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "url": "https://feeds.nos.nl/nosnieuwstech",
+        "interval": "1",
+        "ignorefirst": true,
+        "x": 180,
+        "y": 740,
+        "wires": [
+            [
+                "4bf9d21f8d23e77d"
+            ]
+        ]
+    },
+    {
+        "id": "03c1c9a32f485f20",
+        "type": "mongodb4",
+        "z": "98d41cddef00471d",
+        "clientNode": "0765a7445c5bec6e",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 310,
+        "y": 940,
+        "wires": [
+            [
+                "f3b0486264920b37"
+            ]
+        ]
+    },
+    {
+        "id": "a65fc00d2d86a3ef",
+        "type": "inject",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "collection",
+                "v": "feeds",
+                "vt": "str"
+            },
+            {
+                "p": "operation",
+                "v": "insertOne",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 100,
+        "y": 940,
+        "wires": [
+            [
+                "03c1c9a32f485f20"
+            ]
+        ]
+    },
+    {
+        "id": "f3b0486264920b37",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "d8448d89a0af5831",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "collection",
+                "pt": "msg",
+                "to": "feeds",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "operation",
+                "pt": "msg",
+                "to": "insertOne",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"content\": payload[0].content\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 740,
+        "wires": [
+            [
+                "03c1c9a32f485f20"
+            ]
+        ]
+    },
+    {
+        "id": "4bf9d21f8d23e77d",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"content\": payload\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 740,
+        "wires": [
+            [
+                "b61d28486ad60365"
+            ]
+        ]
     }
 ]

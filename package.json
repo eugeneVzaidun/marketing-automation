@@ -1,11 +1,17 @@
 {
-    "name": "node-red-project",
-    "description": "A Node-RED Project",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies": {
-        "@notionhq/client": "^2.2.15",
-        "dotenv": "^16.4.5",
-        "node-red-notion": "~1.1.0"
-    }
+  "name": "node-red-project",
+  "description": "A Node-RED Project",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node-red -u ."
+  },
+  "dependencies": {
+    "@ba47/node-red-queue": "~0.5.4",
+    "@notionhq/client": "^2.2.15",
+    "dotenv": "^16.4.5",
+    "node-red-contrib-mongodb4": "~2.5.2",
+    "node-red-node-feedparser": "~0.3.0",
+    "node-red-notion": "~1.1.0"
+  }
 }
