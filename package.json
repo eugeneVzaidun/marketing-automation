@@ -1,0 +1,11 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "@notionhq/client": "^2.2.15",
+        "dotenv": "^16.4.5",
+        "node-red-notion": "~1.1.0"
+    }
+}
