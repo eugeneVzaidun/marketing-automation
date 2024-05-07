@@ -18,7 +18,7 @@
         "type": "query database",
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
-        "x": 290,
+        "x": 300,
         "y": 60,
         "wires": [
             [
@@ -52,7 +52,7 @@
         "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 120,
+        "x": 110,
         "y": 60,
         "wires": [
             [
@@ -72,7 +72,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 470,
+        "x": 500,
         "y": 60,
         "wires": []
     },
@@ -81,7 +81,7 @@
         "type": "get page",
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
-        "x": 290,
+        "x": 280,
         "y": 120,
         "wires": [
             [
@@ -135,7 +135,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 490,
+        "x": 500,
         "y": 120,
         "wires": []
     },
@@ -198,7 +198,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 490,
+        "x": 500,
         "y": 180,
         "wires": []
     },
@@ -207,7 +207,7 @@
         "type": "get block children",
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
-        "x": 290,
+        "x": 310,
         "y": 240,
         "wires": [
             [
@@ -261,7 +261,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 480,
+        "x": 500,
         "y": 240,
         "wires": []
     },
@@ -270,7 +270,7 @@
         "type": "get database",
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
-        "x": 280,
+        "x": 290,
         "y": 300,
         "wires": [
             [
@@ -304,7 +304,7 @@
         "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 100,
+        "x": 110,
         "y": 300,
         "wires": [
             [
@@ -324,7 +324,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 520,
+        "x": 500,
         "y": 300,
         "wires": []
     }
