@@ -3,3 +3,4 @@ node_modules
 .env
 .flows.json.*
 data
+.flows_cred.json.*
