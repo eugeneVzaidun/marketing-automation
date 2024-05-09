@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@ba47/node-red-queue": "~0.5.4",
+    "@meowwolf/node-red-contrib-amqp": "~2.4.2",
     "@notionhq/client": "^2.2.15",
     "dotenv": "^16.4.5",
     "node-red-contrib-mongodb4": "~2.5.2",

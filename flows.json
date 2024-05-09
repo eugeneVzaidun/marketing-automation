@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "be070c1ddf78f5bd",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "2e9215f9fed73afd",
         "type": "notion integration",
         "name": "test",
@@ -38,12 +46,732 @@
         "uriTabActive": "tab-uri-simple"
     },
     {
-        "id": "fff9da97b05a4227",
-        "type": "query database",
+        "id": "204746069e0ec785",
+        "type": "amqp-broker",
+        "name": "",
+        "host": "localhost",
+        "port": "5672",
+        "vhost": "",
+        "tls": false,
+        "credsFromSettings": false
+    },
+    {
+        "id": "b61d28486ad60365",
+        "type": "queue",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "input": "payload",
+        "inputType": "msg",
+        "addFields": "[\"news\",\"tech\"]",
+        "addFieldsType": "json",
+        "pourType": "interval",
+        "pourTypeType": "pourType",
+        "pourTime": "1",
+        "pourTimeType": "num",
+        "pourAmount": "1",
+        "pourAmountType": "num",
+        "maxUseMemory": "",
+        "x": 590,
+        "y": 60,
+        "wires": [
+            [
+                "245fad708cf8508a"
+            ]
+        ]
+    },
+    {
+        "id": "06fe21b91623c385",
+        "type": "feedparse",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "url": "https://feeds.nos.nl/nosnieuwstech",
+        "interval": "1",
+        "ignorefirst": true,
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "4bf9d21f8d23e77d"
+            ]
+        ]
+    },
+    {
+        "id": "03c1c9a32f485f20",
+        "type": "mongodb4",
+        "z": "98d41cddef00471d",
+        "clientNode": "0765a7445c5bec6e",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 1090,
+        "y": 180,
+        "wires": [
+            [
+                "d774365088ace81d"
+            ]
+        ]
+    },
+    {
+        "id": "d8448d89a0af5831",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "collection",
+                "pt": "msg",
+                "to": "feeds",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "operation",
+                "pt": "msg",
+                "to": "insertOne",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 180,
+        "wires": [
+            [
+                "03c1c9a32f485f20",
+                "3e966b38d0ebee08"
+            ]
+        ]
+    },
+    {
+        "id": "4bf9d21f8d23e77d",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"title\": article.title,\t    \"description\": article.description,\t    \"summary\": article.summary,\t    \"date\": article.date,\t    \"pubdate\": article.pubdate,\t    \"link\": article.link,\t    \"guid\": article.guid,\t    \"author\": article.author,\t    \"image\": article.image,\t    \"enclosures\": article.enclosures\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 60,
+        "wires": [
+            [
+                "b61d28486ad60365"
+            ]
+        ]
+    },
+    {
+        "id": "f992a2982aed6115",
+        "type": "amqp-out",
+        "z": "98d41cddef00471d",
+        "name": "Feeds exchange",
+        "broker": "204746069e0ec785",
+        "exchangeName": "feeds",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "",
+        "exchangeRoutingKeyType": "str",
+        "exchangeDurable": true,
+        "amqpProperties": "{\"headers\":{}}",
+        "rpcTimeoutMilliseconds": 3000,
+        "outputs": 0,
+        "x": 1080,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a3bb3d801f56a891",
+        "type": "amqp-in",
+        "z": "98d41cddef00471d",
+        "name": "detect language",
+        "broker": "204746069e0ec785",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "feeds",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "language_detection",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": true,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "{}",
+        "x": 100,
+        "y": 240,
+        "wires": [
+            [
+                "ace441b12579fbbd"
+            ]
+        ]
+    },
+    {
+        "id": "95a586729c7e7efb",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "routingKey",
+                "pt": "msg",
+                "to": "router",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 240,
+        "wires": [
+            [
+                "f992a2982aed6115"
+            ]
+        ]
+    },
+    {
+        "id": "ace441b12579fbbd",
+        "type": "function",
+        "z": "98d41cddef00471d",
+        "name": "language detected",
+        "func": "msg.payload.language='en'\nmsg.payload.languageDeteced = true\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 240,
+        "wires": [
+            [
+                "95a586729c7e7efb"
+            ]
+        ]
+    },
+    {
+        "id": "245fad708cf8508a",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "routingKey",
+                "pt": "msg",
+                "to": "router",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 60,
+        "wires": [
+            [
+                "f992a2982aed6115"
+            ]
+        ]
+    },
+    {
+        "id": "5cca478464e689ce",
+        "type": "amqp-in",
+        "z": "98d41cddef00471d",
+        "name": "router",
+        "broker": "204746069e0ec785",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "feeds",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "router",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": true,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "{}",
+        "x": 70,
+        "y": 180,
+        "wires": [
+            [
+                "ff354ce87bb3dae0"
+            ]
+        ]
+    },
+    {
+        "id": "ff354ce87bb3dae0",
+        "type": "function",
+        "z": "98d41cddef00471d",
+        "name": "route key detector",
+        "func": "if (msg.payload.languageDeteced && \n    msg.payload.keywordsExtracted && \n    msg.payload.formated && \n    msg.payload.linkedInPostCreated) \n{\n    return [null,msg];\n}\n\nif (!msg.payload.languageDeteced) {\n    msg.routingKey = 'language_detection';\n    return [msg, null];\n}\n\nif (!msg.payload.keywordsExtracted) {\n    msg.routingKey = 'extract_keywords';\n    return [msg, null];\n}\n\nif (!msg.payload.formated) {\n    msg.routingKey = 'format';\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostCreated) {\n    msg.routingKey = 'linkedin_post'\n    return [msg, null];\n}\n\n\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 180,
+        "wires": [
+            [
+                "f992a2982aed6115"
+            ],
+            [
+                "d8448d89a0af5831"
+            ]
+        ]
+    },
+    {
+        "id": "52832d31a11c171a",
+        "type": "amqp-in",
+        "z": "98d41cddef00471d",
+        "name": "extract keywords",
+        "broker": "204746069e0ec785",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "feeds",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "extract_keywords",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": true,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "{}",
+        "x": 100,
+        "y": 300,
+        "wires": [
+            [
+                "62b8f589f3539e51"
+            ]
+        ]
+    },
+    {
+        "id": "abea33f2dc930680",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "routingKey",
+                "pt": "msg",
+                "to": "router",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 300,
+        "wires": [
+            [
+                "f992a2982aed6115"
+            ]
+        ]
+    },
+    {
+        "id": "62b8f589f3539e51",
+        "type": "function",
+        "z": "98d41cddef00471d",
+        "name": "keywords extracted",
+        "func": "msg.payload.keywords = ['tech', 'ai']\nmsg.payload.keywordsExtracted = true\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 300,
+        "wires": [
+            [
+                "abea33f2dc930680"
+            ]
+        ]
+    },
+    {
+        "id": "d70f6ded4a099c43",
+        "type": "amqp-in",
+        "z": "98d41cddef00471d",
+        "name": "format",
+        "broker": "204746069e0ec785",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "feeds",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "format",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": true,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "{}",
+        "x": 70,
+        "y": 360,
+        "wires": [
+            [
+                "564a05423536d0cc"
+            ]
+        ]
+    },
+    {
+        "id": "917d55892f1a8d89",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "routingKey",
+                "pt": "msg",
+                "to": "router",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 360,
+        "wires": [
+            [
+                "f992a2982aed6115"
+            ]
+        ]
+    },
+    {
+        "id": "564a05423536d0cc",
+        "type": "function",
+        "z": "98d41cddef00471d",
+        "name": "formated",
+        "func": "function htmlToText(html) {\n  return html.replace(/<[^>]*>/g, '');\n}\n\nmsg.payload.descriptionText = htmlToText(msg.payload.description);\nmsg.payload.formated = true\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 360,
+        "wires": [
+            [
+                "917d55892f1a8d89"
+            ]
+        ]
+    },
+    {
+        "id": "f00cdd31d2754ede",
+        "type": "http request",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://agi-receiver.lelos.xyz/message",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 530,
+        "y": 420,
+        "wires": [
+            [
+                "a1d209727a873f8b"
+            ]
+        ]
+    },
+    {
+        "id": "31df8fdb18d6b3b2",
+        "type": "amqp-in",
+        "z": "98d41cddef00471d",
+        "name": "linked post",
+        "broker": "204746069e0ec785",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "feeds",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "linkedin_post",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": true,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "{}",
+        "x": 80,
+        "y": 420,
+        "wires": [
+            [
+                "b432ce9ae78eb871"
+            ]
+        ]
+    },
+    {
+        "id": "57a5539f4a3c1b02",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "routingKey",
+                "pt": "msg",
+                "to": "router",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 420,
+        "wires": [
+            [
+                "f992a2982aed6115"
+            ]
+        ]
+    },
+    {
+        "id": "b4b8d51af8fa5745",
+        "type": "function",
+        "z": "98d41cddef00471d",
+        "name": "mapper",
+        "func": "const linkedInPostPayload = msg.payload;\nnode.log(JSON.stringify(linkedInPostPayload.content))\nmsg.payload = msg.tempPayload;\nmsg.payload.linkedInPostCreated = true\nmsg.payload.linkedInPost = linkedInPostPayload.content;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 420,
+        "wires": [
+            [
+                "57a5539f4a3c1b02"
+            ]
+        ]
+    },
+    {
+        "id": "b432ce9ae78eb871",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "tempPayload",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"content\": tempPayload.descriptionText\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 420,
+        "wires": [
+            [
+                "f00cdd31d2754ede"
+            ]
+        ]
+    },
+    {
+        "id": "a1d209727a873f8b",
+        "type": "json",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 710,
+        "y": 420,
+        "wires": [
+            [
+                "b4b8d51af8fa5745"
+            ]
+        ]
+    },
+    {
+        "id": "ce693590a88e6a61",
+        "type": "create page",
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
+        "x": 330,
+        "y": 500,
+        "wires": [
+            [
+                "d8672b5385713798"
+            ]
+        ]
+    },
+    {
+        "id": "38d4a32f35eb6966",
+        "type": "append block children",
+        "z": "98d41cddef00471d",
+        "integration": "2e9215f9fed73afd",
+        "x": 740,
+        "y": 500,
+        "wires": [
+            [
+                "5aacab88bd9f1f69"
+            ]
+        ]
+    },
+    {
+        "id": "d8672b5385713798",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "blockId",
+                "pt": "msg",
+                "to": "payload.id",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"children\":[\t       {\t           \"paragraph\":{\t               \"rich_text\":[\t                   {\t                       \"text\":{\t                           \"content\":tempPayload.linkedInPost\t                       }\t                   }\t               ]\t           }\t       }\t   ]\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 500,
+        "wires": [
+            [
+                "38d4a32f35eb6966"
+            ]
+        ]
+    },
+    {
+        "id": "5aacab88bd9f1f69",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "3e966b38d0ebee08",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "tempPayload",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"parent\":{\t       \"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"\t   },\t   \"properties\":{\t       \"Name\":{\t           \"title\":[{\"text\":{\"content\":tempPayload.title}}]\t       },\t       \"Date\":{\"date\":{\"start\": $moment($moment()).format(\"YYYY-MM-DD\")}}\t   }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 140,
+        "y": 500,
+        "wires": [
+            [
+                "ce693590a88e6a61"
+            ]
+        ]
+    },
+    {
+        "id": "d774365088ace81d",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "fff9da97b05a4227",
+        "type": "query database",
+        "z": "be070c1ddf78f5bd",
+        "integration": "2e9215f9fed73afd",
         "x": 300,
-        "y": 60,
+        "y": 80,
         "wires": [
             [
                 "12d01e0d30838de8"
@@ -53,7 +781,7 @@
     {
         "id": "4507c4c4d9e4554f",
         "type": "inject",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "",
         "props": [
             {
@@ -77,7 +805,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 110,
-        "y": 60,
+        "y": 80,
         "wires": [
             [
                 "fff9da97b05a4227"
@@ -87,7 +815,7 @@
     {
         "id": "12d01e0d30838de8",
         "type": "debug",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "debug 1",
         "active": true,
         "tosidebar": true,
@@ -97,16 +825,16 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 500,
-        "y": 60,
+        "y": 80,
         "wires": []
     },
     {
         "id": "76530509eae4d170",
         "type": "get page",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
-        "x": 300,
-        "y": 500,
+        "x": 280,
+        "y": 400,
         "wires": [
             [
                 "b8e7ba38e9493f1c"
@@ -116,7 +844,7 @@
     {
         "id": "99c3205dcfe8daae",
         "type": "inject",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "",
         "props": [
             {
@@ -139,8 +867,8 @@
         "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 130,
-        "y": 500,
+        "x": 110,
+        "y": 400,
         "wires": [
             [
                 "76530509eae4d170"
@@ -150,7 +878,7 @@
     {
         "id": "b8e7ba38e9493f1c",
         "type": "debug",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "debug 2",
         "active": true,
         "tosidebar": true,
@@ -159,17 +887,17 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 520,
-        "y": 500,
+        "x": 500,
+        "y": 400,
         "wires": []
     },
     {
         "id": "ee4850bd45e11287",
         "type": "update page",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
-        "x": 310,
-        "y": 560,
+        "x": 290,
+        "y": 460,
         "wires": [
             [
                 "e79573c740e73354"
@@ -179,7 +907,7 @@
     {
         "id": "e2eb8f7519f98cae",
         "type": "inject",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "",
         "props": [
             {
@@ -202,8 +930,8 @@
         "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 130,
-        "y": 560,
+        "x": 110,
+        "y": 460,
         "wires": [
             [
                 "ee4850bd45e11287"
@@ -213,7 +941,7 @@
     {
         "id": "e79573c740e73354",
         "type": "debug",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "debug 3",
         "active": true,
         "tosidebar": true,
@@ -222,17 +950,17 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 520,
-        "y": 560,
+        "x": 500,
+        "y": 460,
         "wires": []
     },
     {
         "id": "0c00abc48d7dc668",
         "type": "get block children",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
-        "x": 330,
-        "y": 620,
+        "x": 310,
+        "y": 520,
         "wires": [
             [
                 "4e69eaea9bdb65ac"
@@ -242,7 +970,7 @@
     {
         "id": "ac7d58b5cb1a7d58",
         "type": "inject",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "",
         "props": [
             {
@@ -265,8 +993,8 @@
         "topic": "",
         "payload": "{}",
         "payloadType": "json",
-        "x": 130,
-        "y": 620,
+        "x": 110,
+        "y": 520,
         "wires": [
             [
                 "0c00abc48d7dc668"
@@ -276,7 +1004,7 @@
     {
         "id": "4e69eaea9bdb65ac",
         "type": "debug",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "debug 4",
         "active": true,
         "tosidebar": true,
@@ -285,17 +1013,17 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 520,
-        "y": 620,
+        "x": 500,
+        "y": 520,
         "wires": []
     },
     {
         "id": "edea20d0b7b2b37f",
         "type": "get database",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 290,
-        "y": 120,
+        "y": 140,
         "wires": [
             [
                 "50c7790dd2fc5c98"
@@ -305,7 +1033,7 @@
     {
         "id": "012911f5a79e75d0",
         "type": "inject",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "",
         "props": [
             {
@@ -329,7 +1057,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 110,
-        "y": 120,
+        "y": 140,
         "wires": [
             [
                 "edea20d0b7b2b37f"
@@ -339,7 +1067,7 @@
     {
         "id": "50c7790dd2fc5c98",
         "type": "debug",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "debug 5",
         "active": true,
         "tosidebar": true,
@@ -349,16 +1077,16 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 500,
-        "y": 120,
+        "y": 140,
         "wires": []
     },
     {
         "id": "0c9bd70ef30aaee1",
         "type": "create page",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 290,
-        "y": 200,
+        "y": 220,
         "wires": [
             [
                 "f3cfd246699e3f43"
@@ -368,7 +1096,7 @@
     {
         "id": "42c9342d9466c1bb",
         "type": "inject",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "",
         "props": [
             {
@@ -387,7 +1115,7 @@
         "payload": "{\"parent\":{\"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"},\"properties\":{\"Name\":{\"title\":[{\"text\":{\"content\":\"Hello, world!\"}}]},\"Date\":{\"date\":{\"start\":\"2024-05-07\"}}}}",
         "payloadType": "json",
         "x": 110,
-        "y": 200,
+        "y": 220,
         "wires": [
             [
                 "0c9bd70ef30aaee1"
@@ -397,7 +1125,7 @@
     {
         "id": "7a89a58b2e647ec1",
         "type": "debug",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "debug 6",
         "active": true,
         "tosidebar": true,
@@ -408,16 +1136,16 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 700,
-        "y": 200,
+        "y": 220,
         "wires": []
     },
     {
         "id": "195e44edbb584018",
         "type": "append block children",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 320,
-        "y": 280,
+        "y": 300,
         "wires": [
             [
                 "bc2b6b34cd235c2e"
@@ -427,7 +1155,7 @@
     {
         "id": "a439177eeb3489f0",
         "type": "inject",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "",
         "props": [
             {
@@ -451,7 +1179,7 @@
         "payload": "{\"children\":[{\"heading_2\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale\"}}]}},{\"paragraph\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.\",\"link\":{\"url\":\"https://en.wikipedia.org/wiki/Lacinato_kale\"}}}]}}]}",
         "payloadType": "json",
         "x": 110,
-        "y": 280,
+        "y": 300,
         "wires": [
             [
                 "195e44edbb584018"
@@ -461,7 +1189,7 @@
     {
         "id": "bc2b6b34cd235c2e",
         "type": "debug",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "debug 7",
         "active": true,
         "tosidebar": true,
@@ -471,13 +1199,13 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 540,
-        "y": 280,
+        "y": 300,
         "wires": []
     },
     {
         "id": "f3cfd246699e3f43",
         "type": "change",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "",
         "rules": [
             {
@@ -491,7 +1219,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"children\":[{\"heading_2\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale\"}}]}},{\"paragraph\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.\",\"link\":{\"url\":\"https://en.wikipedia.org/wiki/Lacinato_kale\"}}}]}}]}",
+                "to": "{\"children\":[{\"paragraph\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.\"}}]}}]}",
                 "tot": "json"
             }
         ],
@@ -501,7 +1229,7 @@
         "to": "",
         "reg": false,
         "x": 480,
-        "y": 200,
+        "y": 220,
         "wires": [
             [
                 "7a89a58b2e647ec1",
@@ -510,87 +1238,17 @@
         ]
     },
     {
-        "id": "b61d28486ad60365",
-        "type": "queue",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "input": "payload",
-        "inputType": "msg",
-        "addFields": "[\"news\",\"tech\"]",
-        "addFieldsType": "json",
-        "pourType": "interval",
-        "pourTypeType": "pourType",
-        "pourTime": "1",
-        "pourTimeType": "num",
-        "pourAmount": "1",
-        "pourAmountType": "num",
-        "maxUseMemory": "",
-        "x": 610,
-        "y": 740,
-        "wires": [
-            [
-                "d8448d89a0af5831"
-            ]
-        ]
-    },
-    {
-        "id": "06fe21b91623c385",
-        "type": "feedparse",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "url": "https://feeds.nos.nl/nosnieuwstech",
-        "interval": "1",
-        "ignorefirst": true,
-        "x": 180,
-        "y": 740,
-        "wires": [
-            [
-                "4bf9d21f8d23e77d"
-            ]
-        ]
-    },
-    {
-        "id": "03c1c9a32f485f20",
-        "type": "mongodb4",
-        "z": "98d41cddef00471d",
-        "clientNode": "0765a7445c5bec6e",
-        "mode": "collection",
-        "collection": "",
-        "operation": "",
-        "output": "toArray",
-        "maxTimeMS": "0",
-        "handleDocId": false,
-        "name": "",
-        "x": 310,
-        "y": 940,
-        "wires": [
-            [
-                "f3b0486264920b37"
-            ]
-        ]
-    },
-    {
-        "id": "a65fc00d2d86a3ef",
+        "id": "fbad852278ef807c",
         "type": "inject",
-        "z": "98d41cddef00471d",
+        "z": "be070c1ddf78f5bd",
         "name": "",
         "props": [
-            {
-                "p": "payload"
-            },
             {
                 "p": "topic",
                 "vt": "str"
             },
             {
-                "p": "collection",
-                "v": "feeds",
-                "vt": "str"
-            },
-            {
-                "p": "operation",
-                "v": "insertOne",
-                "vt": "str"
+                "p": "payload"
             }
         ],
         "repeat": "",
@@ -598,97 +1256,13 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{}",
-        "payloadType": "json",
-        "x": 100,
-        "y": 940,
+        "payload": "{\t   \"parent\":{\t       \"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"\t   },\t   \"properties\":{\t       \"Name\":{\t           \"title\":[{\"text\":{\"content\":\"Hello, world!\"}}]\t       },\t       \"Date\":{\"date\":{\"start\": $moment($moment()).format(\"YYYY-MM-DD\")}}\t   }\t}",
+        "payloadType": "jsonata",
+        "x": 110,
+        "y": 260,
         "wires": [
             [
-                "03c1c9a32f485f20"
-            ]
-        ]
-    },
-    {
-        "id": "f3b0486264920b37",
-        "type": "debug",
-        "z": "98d41cddef00471d",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 520,
-        "y": 940,
-        "wires": []
-    },
-    {
-        "id": "d8448d89a0af5831",
-        "type": "change",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "collection",
-                "pt": "msg",
-                "to": "feeds",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "operation",
-                "pt": "msg",
-                "to": "insertOne",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\t    \"content\": payload[0].content\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 780,
-        "y": 740,
-        "wires": [
-            [
-                "03c1c9a32f485f20"
-            ]
-        ]
-    },
-    {
-        "id": "4bf9d21f8d23e77d",
-        "type": "change",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\t    \"content\": payload\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 440,
-        "y": 740,
-        "wires": [
-            [
-                "b61d28486ad60365"
+                "0c9bd70ef30aaee1"
             ]
         ]
     }
