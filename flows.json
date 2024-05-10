@@ -84,15 +84,13 @@
         "type": "feedparse",
         "z": "98d41cddef00471d",
         "name": "",
-        "url": "https://feeds.nos.nl/nosnieuwstech",
+        "url": "https://www.nu.nl/rss/Tech",
         "interval": "1",
         "ignorefirst": true,
-        "x": 160,
-        "y": 60,
+        "x": 130,
+        "y": 80,
         "wires": [
-            [
-                "4bf9d21f8d23e77d"
-            ]
+            []
         ]
     },
     {
@@ -141,12 +139,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 740,
-        "y": 180,
+        "x": 720,
+        "y": 160,
         "wires": [
             [
                 "03c1c9a32f485f20",
-                "3e966b38d0ebee08"
+                "85af023d3021e9bb"
             ]
         ]
     },
@@ -170,7 +168,7 @@
         "to": "",
         "reg": false,
         "x": 400,
-        "y": 60,
+        "y": 80,
         "wires": [
             [
                 "b61d28486ad60365"
@@ -252,7 +250,7 @@
         "type": "function",
         "z": "98d41cddef00471d",
         "name": "language detected",
-        "func": "msg.payload.language='en'\nmsg.payload.languageDeteced = true\nreturn msg;",
+        "func": "try {\n    const detectLanguage = global.get('detectLanguage');\n\n    msg.payload.language = detectLanguage(msg.payload.descriptionText);\n    msg.payload.languageDeteced = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -331,14 +329,14 @@
         "type": "function",
         "z": "98d41cddef00471d",
         "name": "route key detector",
-        "func": "if (msg.payload.languageDeteced && \n    msg.payload.keywordsExtracted && \n    msg.payload.formated && \n    msg.payload.linkedInPostCreated) \n{\n    return [null,msg];\n}\n\nif (!msg.payload.languageDeteced) {\n    msg.routingKey = 'language_detection';\n    return [msg, null];\n}\n\nif (!msg.payload.keywordsExtracted) {\n    msg.routingKey = 'extract_keywords';\n    return [msg, null];\n}\n\nif (!msg.payload.formated) {\n    msg.routingKey = 'format';\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostCreated) {\n    msg.routingKey = 'linkedin_post'\n    return [msg, null];\n}\n\n\n",
-        "outputs": 2,
+        "func": "if (msg.payload.error) {\n    return [null, null, msg];\n}\n\nif (msg.payload.languageDeteced && \n    msg.payload.keywordsExtracted && \n    msg.payload.formated && \n    msg.payload.linkedInPostCreated) \n{\n    return [null,msg];\n}\n\nif (!msg.payload.formated) {\n    msg.routingKey = 'format';\n    return [msg, null];\n}\n\nif (!msg.payload.languageDeteced) {\n    msg.routingKey = 'language_detection';\n    return [msg, null];\n}\n\nif (!msg.payload.keywordsExtracted) {\n    msg.routingKey = 'extract_keywords';\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostCreated) {\n    msg.routingKey = 'linkedin_post'\n    return [msg, null];\n}\n\n\n",
+        "outputs": 3,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
+        "x": 450,
         "y": 180,
         "wires": [
             [
@@ -346,6 +344,9 @@
             ],
             [
                 "d8448d89a0af5831"
+            ],
+            [
+                "d27546c2de7ec273"
             ]
         ]
     },
@@ -406,7 +407,7 @@
         "type": "function",
         "z": "98d41cddef00471d",
         "name": "keywords extracted",
-        "func": "msg.payload.keywords = ['tech', 'ai']\nmsg.payload.keywordsExtracted = true\nreturn msg;",
+        "func": "const generateTags = global.get('generateTags')\ntry {\n    msg.payload.keywords = generateTags(msg.payload.descriptionText);\n    msg.payload.keywordsExtracted = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -478,7 +479,7 @@
         "type": "function",
         "z": "98d41cddef00471d",
         "name": "formated",
-        "func": "function htmlToText(html) {\n  return html.replace(/<[^>]*>/g, '');\n}\n\nmsg.payload.descriptionText = htmlToText(msg.payload.description);\nmsg.payload.formated = true\nreturn msg;",
+        "func": "function htmlToText(html) {\n  return html.replace(/<[^>]*>/g, '');\n}\n\ntry {\n  msg.payload.descriptionText = htmlToText(msg.payload.description);\n  msg.payload.formated = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;\n\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -640,33 +641,158 @@
         ]
     },
     {
-        "id": "ce693590a88e6a61",
+        "id": "d774365088ace81d",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "ca67469557bdb35b",
+        "type": "http in",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "url": "/feeds",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "b30ad77929c1d5fd"
+            ]
+        ]
+    },
+    {
+        "id": "b30ad77929c1d5fd",
+        "type": "template",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet href=\"/public/style.xsl\" type=\"text/xsl\"?>\n<rss xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" xmlns:dcterms=\"http://purl.org/dc/terms/\" version=\"2.0\">\n  <channel>\n    <title><![CDATA[NOS Tech]]></title>\n    <link><![CDATA[https://nos.nl]]></link>\n    <description><![CDATA[NOS Tech]]></description>\n    <language>nl</language>\n    <copyright>Copyright NOS</copyright>\n    <pubDate>Thu, 09 May 2024 19:10:18 +0200</pubDate>\n    <webMaster>podcast@nos.nl (NOS Podcast Beheer)</webMaster>\n    <item>\n      <title><![CDATA[TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod]]></title>\n      <link>https://nos.nl/l/2519665</link>\n      <description><![CDATA[<p>Video-app TikTok heeft een rechtszaak aangespannen tegen de Amerikaanse overheid. Doel is om een wet te voorkomen waarmee het Chinese moederbedrijf ByteDance wordt gedwongen TikTok te verkopen. Het is het begin van een waarschijnlijk lange procedure die vermoedelijk eindigt bij het Hooggerechtshof.</p>\n<p>\"Voor de eerste keer in de geschiedenis heeft het Congres een wet aangenomen die een platform onderwerpt aan een permanent landelijk verbod\", zegt TikTok. Het bedrijf noemt de wet \"ongrondwettelijk\" en stelt dat de wet ingaat tegen de vrijheid van meningsuiting, een zeer groot goed in de VS.</p>\n<h2>Verkopen of verboden</h2>\n<p>Aanleiding voor de aanklacht is een wet die twee weken geleden werd ondertekend door president Biden. Die stelt dat TikTok verkocht moet worden binnen negen maanden, een periode die nog eens kan worden verlengd met drie maanden. Lukt dat niet binnen die tijd, dan wordt de app in feite verboden in de VS.</p>\n<p>In de praktijk mogen de downloadwinkels van Apple en Google - die samen de mobiele markt domineren - de app dan niet meer aanbieden aan nieuwe klanten. Nog belangrijker is dat ook hostingpartijen, die zorgen dat dit soort apps functioneren, ook geen zaken meer mogen doen met TikTok.</p>\n<p>In de aanklacht zegt TikTok dat een verkoop \"simpelweg niet mogelijk is: niet commercieel, niet technologisch, niet juridisch\". En volgens het bedrijf kan dit helemaal niet binnen de gestelde negen maanden. \"Er is geen twijfel: de wet dwingt het sluiten van TikTok af per 15 januari 2025, waarmee 170 miljoen Amerikanen die het platform gebruiken het zwijgen wordt opgelegd.\"</p>\n<p>Ook stelt het bedrijf dat een losstaande Amerikaanse versie van TikTok niet \"commercieel realistisch is\". Dit omdat TikTok, net als concurrenten, wereldwijd opereren met content die overal beschikbaar is. Als de app in de VS wordt losgetrokken van de rest, zo betoogt het bedrijf, wordt de app een \"eiland\". Gebruikers zien dan dus niets vanuit andere delen van de wereld en daarmee wordt de app veel minder waard.</p>\n<h2>Chinese makelij</h2>\n<p>Amerikaanse politici zijn al tijden heel kritisch op TikTok. Dat heeft ermee te maken dat de app van Chinese makelij is en onderdeel is van het in China opgerichte ByteDance. De vrees is dat Peking via de app bij data van tientallen miljoenen Amerikanen kan komen en dat de overheid via het algoritme desinformatie kan verspreiden.</p>\n<p>Bewijs dat dit ook daadwerkelijk gebeurt is nog nooit gegeven. TikTok heeft de beschuldigingen over inmenging vanuit Peking altijd tegengesproken. Ook het feit dat veel kinderen in de VS vermoedelijk verslaafd zijn aan de app is een belangrijk punt.</p>\n<p>Het leidde al tot meerdere pogingen om de app te verbieden. Zo probeerde in 2020 toenmalig president Trump dat, maar zijn poging strandde in de rechtszaal. Vorig jaar maart leek een verbod opnieuw nabij, na een zeer pittige hoorzitting van de ceo van TikTok voor het Amerikaanse Congres. Wetsvoorstellen verdwenen daarna echter van het toneel.</p>\n<p>Daarna werd het maandenlang stil. Maar schijn bedriegt: achter de schermen werd gewerkt aan een wet die mogelijk wel een rechtszaak zou overleven. Die wet kwam in maart door het Huis van Afgevaardigden, maar leek vervolgens te stranden in de Senaat. Totdat deze werd toegevoegd aan steunpakketten voor Israël en Oekraïne. Daarbij werd de periode die ByteDance kreeg om de verkoop te regelen langer gemaakt.</p>\n<p>ByteDance lijkt ondertussen een verkoop niet te zien zitten. Persbureau Reuters meldde eind vorige maand op basis van bronnen dat het moederbedrijf liever TikTok ziet verdwijnen uit de VS dan dat het tot een overname komt. De enige optie die dan overblijft, is de juridische weg. Die is vandaag officieel ingeslagen.</p>\n]]></description>\n      <enclosure type=\"image/jpeg\" url=\"https://cdn.nos.nl/image/2024/05/07/1079944/1008x567.jpg\"/>\n      <pubDate>Tue, 07 May 2024 20:13:27 +0200</pubDate>\n      <guid isPermaLink=\"true\">https://nos.nl/l/2519665</guid>\n    </item>\n   \n  </channel>\n</rss>\n",
+        "output": "str",
+        "x": 220,
+        "y": 40,
+        "wires": [
+            [
+                "681988b4f2ceae79"
+            ]
+        ]
+    },
+    {
+        "id": "681988b4f2ceae79",
+        "type": "http response",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 360,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c0e054ead90d8160",
+        "type": "feedparse",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "url": "http://localhost:1880/feeds",
+        "interval": "1",
+        "ignorefirst": false,
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "4bf9d21f8d23e77d"
+            ]
+        ]
+    },
+    {
+        "id": "d27546c2de7ec273",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "collection",
+                "pt": "msg",
+                "to": "feeds",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "operation",
+                "pt": "msg",
+                "to": "insertOne",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 200,
+        "wires": [
+            [
+                "03c1c9a32f485f20"
+            ]
+        ]
+    },
+    {
+        "id": "b2954be27c6eed59",
+        "type": "link in",
+        "z": "98d41cddef00471d",
+        "name": "link in 1",
+        "links": [],
+        "x": 45,
+        "y": 580,
+        "wires": [
+            [
+                "272c9f5b9c872375"
+            ]
+        ]
+    },
+    {
+        "id": "c90be7dfa8ba550d",
         "type": "create page",
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
-        "x": 330,
-        "y": 500,
+        "x": 410,
+        "y": 580,
         "wires": [
             [
-                "d8672b5385713798"
+                "abfc52a6d7caabee"
             ]
         ]
     },
     {
-        "id": "38d4a32f35eb6966",
+        "id": "624c2c82ab96a6b2",
         "type": "append block children",
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
-        "x": 740,
-        "y": 500,
+        "x": 820,
+        "y": 580,
         "wires": [
-            [
-                "5aacab88bd9f1f69"
-            ]
+            []
         ]
     },
     {
-        "id": "d8672b5385713798",
+        "id": "abfc52a6d7caabee",
         "type": "change",
         "z": "98d41cddef00471d",
         "name": "",
@@ -691,32 +817,16 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 520,
-        "y": 500,
+        "x": 600,
+        "y": 580,
         "wires": [
             [
-                "38d4a32f35eb6966"
+                "624c2c82ab96a6b2"
             ]
         ]
     },
     {
-        "id": "5aacab88bd9f1f69",
-        "type": "debug",
-        "z": "98d41cddef00471d",
-        "name": "debug 13",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 940,
-        "y": 500,
-        "wires": []
-    },
-    {
-        "id": "3e966b38d0ebee08",
+        "id": "272c9f5b9c872375",
         "type": "change",
         "z": "98d41cddef00471d",
         "name": "",
@@ -741,29 +851,29 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 140,
-        "y": 500,
+        "x": 220,
+        "y": 580,
         "wires": [
             [
-                "ce693590a88e6a61"
+                "c90be7dfa8ba550d"
             ]
         ]
     },
     {
-        "id": "d774365088ace81d",
-        "type": "debug",
+        "id": "85af023d3021e9bb",
+        "type": "link call",
         "z": "98d41cddef00471d",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1290,
-        "y": 180,
-        "wires": []
+        "name": "",
+        "links": [
+            "b2954be27c6eed59"
+        ],
+        "linkType": "static",
+        "timeout": "300",
+        "x": 1160,
+        "y": 140,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "fff9da97b05a4227",

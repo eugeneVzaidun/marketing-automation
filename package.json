@@ -11,8 +11,11 @@
     "@meowwolf/node-red-contrib-amqp": "~2.4.2",
     "@notionhq/client": "^2.2.15",
     "dotenv": "^16.4.5",
+    "franc": "^5.0.0",
+    "natural": "^7.0.5",
     "node-red-contrib-mongodb4": "~2.5.2",
     "node-red-node-feedparser": "~0.3.0",
-    "node-red-notion": "~1.1.0"
+    "node-red-notion": "~1.1.0",
+    "stopword": "^3.0.1"
   }
 }

@@ -20,6 +20,8 @@
  *
  **/
 
+const { detectLanguage } = require("./lang.mjs");
+
 module.exports = {
   /*******************************************************************************
    * Flow File and User Directory Settings
@@ -477,8 +479,7 @@ module.exports = {
    */
   functionGlobalContext: {
     // os:require('os'),
-    detectLanguage: require("./detect-language.js"),
-    generateTags: require("./detect-tags.js"),
+    detectLanguage: require("./lang.mjs").detectLanguage,
   },
 
   /** The maximum number of messages nodes will buffer internally as part of their
