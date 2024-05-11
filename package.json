@@ -14,6 +14,7 @@
     "franc": "^5.0.0",
     "natural": "^7.0.5",
     "node-red-contrib-mongodb4": "~2.5.2",
+    "node-red-debugger": "~1.1.1",
     "node-red-node-feedparser": "~0.3.0",
     "node-red-notion": "~1.1.0",
     "stopword": "^3.0.1"

@@ -106,7 +106,7 @@
         "handleDocId": false,
         "name": "",
         "x": 1090,
-        "y": 180,
+        "y": 260,
         "wires": [
             [
                 "d774365088ace81d"
@@ -140,7 +140,7 @@
         "to": "",
         "reg": false,
         "x": 720,
-        "y": 160,
+        "y": 240,
         "wires": [
             [
                 "03c1c9a32f485f20",
@@ -189,8 +189,8 @@
         "amqpProperties": "{\"headers\":{}}",
         "rpcTimeoutMilliseconds": 3000,
         "outputs": 0,
-        "x": 1080,
-        "y": 60,
+        "x": 1100,
+        "y": 140,
         "wires": []
     },
     {
@@ -211,7 +211,7 @@
         "queueAutoDelete": true,
         "headers": "{}",
         "x": 100,
-        "y": 240,
+        "y": 420,
         "wires": [
             [
                 "ace441b12579fbbd"
@@ -238,7 +238,7 @@
         "to": "",
         "reg": false,
         "x": 670,
-        "y": 240,
+        "y": 420,
         "wires": [
             [
                 "f992a2982aed6115"
@@ -258,7 +258,7 @@
         "finalize": "",
         "libs": [],
         "x": 430,
-        "y": 240,
+        "y": 420,
         "wires": [
             [
                 "95a586729c7e7efb"
@@ -317,7 +317,7 @@
         "queueAutoDelete": true,
         "headers": "{}",
         "x": 70,
-        "y": 180,
+        "y": 260,
         "wires": [
             [
                 "ff354ce87bb3dae0"
@@ -329,7 +329,7 @@
         "type": "function",
         "z": "98d41cddef00471d",
         "name": "route key detector",
-        "func": "if (msg.payload.error) {\n    return [null, null, msg];\n}\n\nif (msg.payload.languageDeteced && \n    msg.payload.keywordsExtracted && \n    msg.payload.formated && \n    msg.payload.linkedInPostCreated) \n{\n    return [null,msg];\n}\n\nif (!msg.payload.formated) {\n    msg.routingKey = 'format';\n    return [msg, null];\n}\n\nif (!msg.payload.languageDeteced) {\n    msg.routingKey = 'language_detection';\n    return [msg, null];\n}\n\nif (!msg.payload.keywordsExtracted) {\n    msg.routingKey = 'extract_keywords';\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostCreated) {\n    msg.routingKey = 'linkedin_post'\n    return [msg, null];\n}\n\n\n",
+        "func": "if (msg.payload.error) {\n    return [null, null, msg];\n}\n\nif (msg.payload.documentCount > 0) {\n    return null\n}\nif (msg.payload.languageDeteced && \n    msg.payload.keywordsExtracted && \n    msg.payload.formated && \n    msg.payload.linkedInPostCreated &&\n    msg.payload.documentCount !== undefined) \n{\n    return [null,msg];\n}\n\nif (msg.payload.documentCount === undefined) {\n    msg.routingKey = 'deduplication_check';\n    return [msg, null];\n}\nif (!msg.payload.formated) {\n    msg.routingKey = 'format';\n    return [msg, null];\n}\n\nif (!msg.payload.languageDeteced) {\n    msg.routingKey = 'language_detection';\n    return [msg, null];\n}\n\nif (!msg.payload.keywordsExtracted) {\n    msg.routingKey = 'extract_keywords';\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostCreated) {\n    msg.routingKey = 'linkedin_post'\n    return [msg, null];\n}\n\n\n",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -337,7 +337,7 @@
         "finalize": "",
         "libs": [],
         "x": 450,
-        "y": 180,
+        "y": 260,
         "wires": [
             [
                 "f992a2982aed6115"
@@ -368,7 +368,7 @@
         "queueAutoDelete": true,
         "headers": "{}",
         "x": 100,
-        "y": 300,
+        "y": 480,
         "wires": [
             [
                 "62b8f589f3539e51"
@@ -395,7 +395,7 @@
         "to": "",
         "reg": false,
         "x": 670,
-        "y": 300,
+        "y": 480,
         "wires": [
             [
                 "f992a2982aed6115"
@@ -415,7 +415,7 @@
         "finalize": "",
         "libs": [],
         "x": 430,
-        "y": 300,
+        "y": 480,
         "wires": [
             [
                 "abea33f2dc930680"
@@ -440,7 +440,7 @@
         "queueAutoDelete": true,
         "headers": "{}",
         "x": 70,
-        "y": 360,
+        "y": 540,
         "wires": [
             [
                 "564a05423536d0cc"
@@ -467,7 +467,7 @@
         "to": "",
         "reg": false,
         "x": 670,
-        "y": 360,
+        "y": 540,
         "wires": [
             [
                 "f992a2982aed6115"
@@ -487,7 +487,7 @@
         "finalize": "",
         "libs": [],
         "x": 400,
-        "y": 360,
+        "y": 540,
         "wires": [
             [
                 "917d55892f1a8d89"
@@ -511,7 +511,7 @@
         "senderr": false,
         "headers": [],
         "x": 530,
-        "y": 420,
+        "y": 600,
         "wires": [
             [
                 "a1d209727a873f8b"
@@ -536,7 +536,7 @@
         "queueAutoDelete": true,
         "headers": "{}",
         "x": 80,
-        "y": 420,
+        "y": 600,
         "wires": [
             [
                 "b432ce9ae78eb871"
@@ -563,7 +563,7 @@
         "to": "",
         "reg": false,
         "x": 1130,
-        "y": 420,
+        "y": 560,
         "wires": [
             [
                 "f992a2982aed6115"
@@ -583,7 +583,7 @@
         "finalize": "",
         "libs": [],
         "x": 900,
-        "y": 420,
+        "y": 560,
         "wires": [
             [
                 "57a5539f4a3c1b02"
@@ -617,7 +617,7 @@
         "to": "",
         "reg": false,
         "x": 300,
-        "y": 420,
+        "y": 600,
         "wires": [
             [
                 "f00cdd31d2754ede"
@@ -633,7 +633,7 @@
         "action": "",
         "pretty": false,
         "x": 710,
-        "y": 420,
+        "y": 600,
         "wires": [
             [
                 "b4b8d51af8fa5745"
@@ -653,7 +653,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1290,
-        "y": 180,
+        "y": 260,
         "wires": []
     },
     {
@@ -746,7 +746,7 @@
         "to": "",
         "reg": false,
         "x": 720,
-        "y": 200,
+        "y": 280,
         "wires": [
             [
                 "03c1c9a32f485f20"
@@ -760,7 +760,7 @@
         "name": "link in 1",
         "links": [],
         "x": 45,
-        "y": 580,
+        "y": 660,
         "wires": [
             [
                 "272c9f5b9c872375"
@@ -773,7 +773,7 @@
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
         "x": 410,
-        "y": 580,
+        "y": 660,
         "wires": [
             [
                 "abfc52a6d7caabee"
@@ -786,9 +786,11 @@
         "z": "98d41cddef00471d",
         "integration": "2e9215f9fed73afd",
         "x": 820,
-        "y": 580,
+        "y": 660,
         "wires": [
-            []
+            [
+                "3d8efdacb869e5a0"
+            ]
         ]
     },
     {
@@ -818,7 +820,7 @@
         "to": "",
         "reg": false,
         "x": 600,
-        "y": 580,
+        "y": 660,
         "wires": [
             [
                 "624c2c82ab96a6b2"
@@ -852,7 +854,7 @@
         "to": "",
         "reg": false,
         "x": 220,
-        "y": 580,
+        "y": 660,
         "wires": [
             [
                 "c90be7dfa8ba550d"
@@ -870,7 +872,270 @@
         "linkType": "static",
         "timeout": "300",
         "x": 1160,
-        "y": 140,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "65b36b3b357f78fd",
+        "type": "amqp-in",
+        "z": "98d41cddef00471d",
+        "name": "deduplication checker",
+        "broker": "204746069e0ec785",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "feeds",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "deduplication_check",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": true,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "{}",
+        "x": 120,
+        "y": 360,
+        "wires": [
+            [
+                "22f1ef9d5be9e078"
+            ]
+        ]
+    },
+    {
+        "id": "6595ead082118444",
+        "type": "inject",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "operation",
+                "v": "count",
+                "vt": "str"
+            },
+            {
+                "p": "collection",
+                "v": "feeds",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"title\":\"TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod\",\"date\":\"2024-05-07T18:13:27.000Z\"}",
+        "payloadType": "json",
+        "x": 370,
+        "y": 800,
+        "wires": [
+            [
+                "9c9473c896a4491c"
+            ]
+        ]
+    },
+    {
+        "id": "9c9473c896a4491c",
+        "type": "mongodb4",
+        "z": "98d41cddef00471d",
+        "clientNode": "0765a7445c5bec6e",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 600,
+        "y": 800,
+        "wires": [
+            [
+                "e38e62e1758f41b2"
+            ]
+        ]
+    },
+    {
+        "id": "e38e62e1758f41b2",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "22f1ef9d5be9e078",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "tempPayload",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "collection",
+                "pt": "msg",
+                "to": "feeds",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "operation",
+                "pt": "msg",
+                "to": "count",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 360,
+        "wires": [
+            [
+                "120f44f157dacde7"
+            ]
+        ]
+    },
+    {
+        "id": "120f44f157dacde7",
+        "type": "mongodb4",
+        "z": "98d41cddef00471d",
+        "clientNode": "0765a7445c5bec6e",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 530,
+        "y": 360,
+        "wires": [
+            [
+                "061986e926e2b373"
+            ]
+        ]
+    },
+    {
+        "id": "061986e926e2b373",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "documentCount",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "tempPayload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.documentCount",
+                "pt": "msg",
+                "to": "documentCount",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "documentCount",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "routingKey",
+                "pt": "msg",
+                "to": "router",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 360,
+        "wires": [
+            [
+                "f992a2982aed6115"
+            ]
+        ]
+    },
+    {
+        "id": "3d8efdacb869e5a0",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "e4c6c2033fb735ed",
+        "type": "inject",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "article",
+                "v": "{\"title\":\"TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod\",\"description\":\"<p>Video-app TikTok heeft een rechtszaak aangespannen tegen de Amerikaanse overheid. Doel is om een wet te voorkomen waarmee het Chinese moederbedrijf ByteDance wordt gedwongen TikTok te verkopen. Het is het begin van een waarschijnlijk lange procedure die vermoedelijk eindigt bij het Hooggerechtshof.</p>\\n<p>\\\"Voor de eerste keer in de geschiedenis heeft het Congres een wet aangenomen die een platform onderwerpt aan een permanent landelijk verbod\\\", zegt TikTok. Het bedrijf noemt de wet \\\"ongrondwettelijk\\\" en stelt dat de wet ingaat tegen de vrijheid van meningsuiting, een zeer groot goed in de VS.</p>\\n<h2>Verkopen of verboden</h2>\\n<p>Aanleiding voor de aanklacht is een wet die twee weken geleden werd ondertekend door president Biden. Die stelt dat TikTok verkocht moet worden binnen negen maanden, een periode die nog eens kan worden verlengd met drie maanden. Lukt dat niet binnen die tijd, dan wordt de app in feite verboden in de VS.</p>\\n<p>In de praktijk mogen de downloadwinkels van Appl...\",\"summary\":\"<p>Video-app TikTok heeft een rechtszaak aangespannen tegen de Amerikaanse overheid. Doel is om een wet te voorkomen waarmee het Chinese moederbedrijf ByteDance wordt gedwongen TikTok te verkopen. Het is het begin van een waarschijnlijk lange procedure die vermoedelijk eindigt bij het Hooggerechtshof.</p>\\n<p>\\\"Voor de eerste keer in de geschiedenis heeft het Congres een wet aangenomen die een platform onderwerpt aan een permanent landelijk verbod\\\", zegt TikTok. Het bedrijf noemt de wet \\\"ongrondwettelijk\\\" en stelt dat de wet ingaat tegen de vrijheid van meningsuiting, een zeer groot goed in de VS.</p>\\n<h2>Verkopen of verboden</h2>\\n<p>Aanleiding voor de aanklacht is een wet die twee weken geleden werd ondertekend door president Biden. Die stelt dat TikTok verkocht moet worden binnen negen maanden, een periode die nog eens kan worden verlengd met drie maanden. Lukt dat niet binnen die tijd, dan wordt de app in feite verboden in de VS.</p>\\n<p>In de praktijk mogen de downloadwinkels van Appl...\",\"date\":\"2024-05-07T18:13:27.000Z\",\"pubdate\":\"2024-05-07T18:13:27.000Z\",\"pubDate\":\"2024-05-07T18:13:27.000Z\",\"link\":\"https://nos.nl/l/2519665\",\"guid\":\"https://nos.nl/l/2519665\",\"author\":\"NOS Podcast Beheer\",\"comments\":null,\"origlink\":null,\"image\":{},\"source\":{},\"categories\":[],\"enclosures\":[{\"url\":\"https://cdn.nos.nl/image/2024/05/07/1079944/1008x567.jpg\",\"type\":\"image/jpeg\",\"length\":null}],\"rss:@\":{},\"rss:title\":{\"@\":{},\"#\":\"TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod\"},\"rss:link\":{\"@\":{},\"#\":\"https://nos.nl/l/2519665\"},\"rss:description\":{\"@\":{},\"#\":\"<p>Video-app TikTok heeft een rechtszaak aangespannen tegen de Amerikaanse overheid. Doel is om een wet te voorkomen waarmee het Chinese moederbedrijf ByteDance wordt gedwongen TikTok te verkopen. Het is het begin van een waarschijnlijk lange procedure die vermoedelijk eindigt bij het Hooggerechtshof.</p>\\n<p>\\\"Voor de eerste keer in de geschiedenis heeft het Congres een wet aangenomen die een platform onderwerpt aan een permanent landelijk verbod\\\", zegt TikTok. Het bedrijf noemt de wet \\\"ongrondwettelijk\\\" en stelt dat de wet ingaat tegen de vrijheid van meningsuiting, een zeer groot goed in de VS.</p>\\n<h2>Verkopen of verboden</h2>\\n<p>Aanleiding voor de aanklacht is een wet die twee weken geleden werd ondertekend door president Biden. Die stelt dat TikTok verkocht moet worden binnen negen maanden, een periode die nog eens kan worden verlengd met drie maanden. Lukt dat niet binnen die tijd, dan wordt de app in feite verboden in de VS.</p>\\n<p>In de praktijk mogen de downloadwinkels van Appl...\"},\"rss:enclosure\":{\"@\":{\"type\":\"image/jpeg\",\"url\":\"https://cdn.nos.nl/image/2024/05/07/1079944/1008x567.jpg\"}},\"rss:pubdate\":{\"@\":{},\"#\":\"Tue, 07 May 2024 20:13:27 +0200\"},\"permalink\":\"https://nos.nl/l/2519665\",\"rss:guid\":{\"@\":{\"ispermalink\":\"true\"},\"#\":\"https://nos.nl/l/2519665\"},\"meta\":{\"#ns\":[{\"xmlns:itunes\":\"http://www.itunes.com/dtds/podcast-1.0.dtd\"},{\"xmlns:dcterms\":\"http://purl.org/dc/terms/\"}],\"@\":[{\"xmlns:itunes\":\"http://www.itunes.com/dtds/podcast-1.0.dtd\"},{\"xmlns:dcterms\":\"http://purl.org/dc/terms/\"}],\"#xml\":{\"version\":\"1.0\",\"encoding\":\"UTF-8\"},\"#type\":\"rss\",\"#version\":\"2.0\",\"title\":\"NOS Tech\",\"description\":\"NOS Tech\",\"date\":\"2024-05-09T17:10:18.000Z\",\"pubdate\":\"2024-05-09T17:10:18.000Z\",\"pubDate\":\"2024-05-09T17:10:18.000Z\",\"link\":\"https://nos.nl\",\"xmlurl\":null,\"xmlUrl\":null,\"author\":\"NOS Podcast Beheer\",\"language\":\"nl\",\"favicon\":null,\"copyright\":\"Copyright NOS\",\"generator\":null,\"cloud\":{},\"image\":{},\"categories\":[],\"rss:@\":{},\"rss:title\":{\"@\":{},\"#\":\"NOS Tech\"},\"rss:link\":{\"@\":{},\"#\":\"https://nos.nl/\"},\"rss:description\":{\"@\":{},\"#\":\"NOS Tech\"},\"rss:language\":{\"@\":{},\"#\":\"nl\"},\"rss:copyright\":{\"@\":{},\"#\":\"Copyright NOS\"},\"rss:pubdate\":{\"@\":{},\"#\":\"Thu, 09 May 2024 19:10:18 +0200\"},\"rss:webmaster\":{\"@\":{},\"#\":\"podcast@nos.nl (NOS Podcast Beheer)\",\"name\":\"NOS Podcast Beheer\",\"email\":\"podcast@nos.nl\"}}}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 160,
         "wires": [
             []
         ]
