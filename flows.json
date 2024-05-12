@@ -229,7 +229,8 @@
         "y": 220,
         "wires": [
             [
-                "4bf9d21f8d23e77d"
+                "4bf9d21f8d23e77d",
+                "a0a2d63120f972d0"
             ]
         ]
     },
@@ -309,6 +310,419 @@
         "statusType": "auto",
         "x": 240,
         "y": 40,
+        "wires": []
+    },
+    {
+        "id": "afd096a87e22e8bd",
+        "type": "http in",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "url": "/rss",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 460,
+        "wires": [
+            [
+                "631fc859cb7c6a74"
+            ]
+        ]
+    },
+    {
+        "id": "2e28d97213516e63",
+        "type": "http response",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "statusCode": "",
+        "headers": {
+            "content-type": "application/xml"
+        },
+        "x": 870,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "501222a40bb4f594",
+        "type": "function",
+        "z": "98d41cddef00471d",
+        "name": "function 1",
+        "func": "const RSS = global.get('RSS')\n\nvar feed = new RSS({\n  title: \"title\",\n  description: \"description\",\n});\n\nfeed.item({\n  title: \"item title\",\n  description: \"use this for the content. It can include html.\",\n});\n\nvar xml = feed.xml({ indent: false });\n\nmsg.payload = xml\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 460,
+        "wires": [
+            [
+                "2e28d97213516e63"
+            ]
+        ]
+    },
+    {
+        "id": "a0a2d63120f972d0",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 390,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "7f5b781608648101",
+        "type": "feedparse",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "url": "http://localhost:1880/rss",
+        "interval": "1",
+        "ignorefirst": false,
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "8cd6d882a037ce4b"
+            ]
+        ]
+    },
+    {
+        "id": "8cd6d882a037ce4b",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "631fc859cb7c6a74",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "collection",
+                "pt": "msg",
+                "to": "upwork",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "operation",
+                "pt": "msg",
+                "to": "find",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[{\"query\":{\"limit\":20}}]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 460,
+        "wires": [
+            [
+                "376af23897bef38c"
+            ]
+        ]
+    },
+    {
+        "id": "376af23897bef38c",
+        "type": "mongodb4",
+        "z": "98d41cddef00471d",
+        "clientNode": "0765a7445c5bec6e",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 510,
+        "y": 460,
+        "wires": [
+            [
+                "501222a40bb4f594",
+                "0df8e8a786235ad1"
+            ]
+        ]
+    },
+    {
+        "id": "271bfa66a73b7cca",
+        "type": "inject",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 580,
+        "wires": [
+            [
+                "0244f35f10f93926"
+            ]
+        ]
+    },
+    {
+        "id": "0244f35f10f93926",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "collection",
+                "pt": "msg",
+                "to": "upwork",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "operation",
+                "pt": "msg",
+                "to": "insertOne",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 580,
+        "wires": [
+            [
+                "c71bd34f172b9cff"
+            ]
+        ]
+    },
+    {
+        "id": "b359af44360a2411",
+        "type": "mongodb4",
+        "z": "98d41cddef00471d",
+        "clientNode": "0765a7445c5bec6e",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 810,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c71bd34f172b9cff",
+        "type": "function",
+        "z": "98d41cddef00471d",
+        "name": "function 2",
+        "func": "const title = 'AI MVP Development';\nconst description = `I am seeking a talented developer with expertise in MVP development, AI chatbot development, and API integrations to join a my startup in the AI-driven travel sector. We are considering the use of Bubble or similar no-code/low-code platforms to expedite development without compromising quality.\n\nWe are working with a limited budget initially, but this position offers substantial growth potential. The successful candidate will work closely with me to launch our first product. As we gain traction and secure further investment, there is a significant opportunity for you to advance to a leadership role, potentially becoming the Lead Developer or CTO.\n\nThis is more than a job—it's a chance to shape the future of travel with cutting-edge technology. If you're ready to take on this challenge and innovate in the dynamic intersection of tech and travel, let's discuss how we can make a global impact together.\n\nEffective communication is essential for this project. Therefore, we prefer candidates within three hours of Central European Time (CET) to ensure smooth collaboration. If you meet this criterion, we'd love to hear from you.`\n\nconst payload = {\n    title,\n    description,\n    date: new Date(),\n}\nmsg.payload = payload;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 580,
+        "wires": [
+            [
+                "b359af44360a2411"
+            ]
+        ]
+    },
+    {
+        "id": "0df8e8a786235ad1",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "82191106e97d23eb",
+        "type": "inject",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 520,
+        "wires": [
+            [
+                "631fc859cb7c6a74"
+            ]
+        ]
+    },
+    {
+        "id": "9eb3aaf1ef0d009a",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "collection",
+                "pt": "msg",
+                "to": "upwork",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "operation",
+                "pt": "msg",
+                "to": "find",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[{},{\"limit\":1}]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 800,
+        "wires": [
+            [
+                "9241633b808bf6b4"
+            ]
+        ]
+    },
+    {
+        "id": "9241633b808bf6b4",
+        "type": "mongodb4",
+        "z": "98d41cddef00471d",
+        "clientNode": "0765a7445c5bec6e",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 500,
+        "y": 800,
+        "wires": [
+            [
+                "f8dd69ef85182bdb"
+            ]
+        ]
+    },
+    {
+        "id": "243b8431645d480b",
+        "type": "inject",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 800,
+        "wires": [
+            [
+                "9eb3aaf1ef0d009a"
+            ]
+        ]
+    },
+    {
+        "id": "f8dd69ef85182bdb",
+        "type": "debug",
+        "z": "98d41cddef00471d",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 800,
         "wires": []
     },
     {

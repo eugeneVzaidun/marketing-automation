@@ -479,6 +479,7 @@ module.exports = {
     // os:require('os'),
     detectLanguage: require("./detect-language.js"),
     generateTags: require("./detect-tags.js"),
+    RSS: require("rss"),
   },
 
   /** The maximum number of messages nodes will buffer internally as part of their
