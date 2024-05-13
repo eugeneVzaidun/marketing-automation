@@ -4,3 +4,4 @@ node_modules
 .flows.json.*
 data
 .flows_cred.json.*
+.DS_Store

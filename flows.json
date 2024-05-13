@@ -32,6 +32,14 @@
         "env": []
     },
     {
+        "id": "89829a181a0a3d4b",
+        "type": "tab",
+        "label": "web",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "2e9215f9fed73afd",
         "type": "notion integration",
         "name": "test",
@@ -495,7 +503,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 110,
-        "y": 580,
+        "y": 740,
         "wires": [
             [
                 "0244f35f10f93926"
@@ -529,7 +537,7 @@
         "to": "",
         "reg": false,
         "x": 320,
-        "y": 580,
+        "y": 740,
         "wires": [
             [
                 "c71bd34f172b9cff"
@@ -549,7 +557,7 @@
         "handleDocId": false,
         "name": "",
         "x": 810,
-        "y": 580,
+        "y": 740,
         "wires": [
             []
         ]
@@ -567,7 +575,7 @@
         "finalize": "",
         "libs": [],
         "x": 540,
-        "y": 580,
+        "y": 740,
         "wires": [
             [
                 "b359af44360a2411"
@@ -2284,5 +2292,34 @@
         "x": 560,
         "y": 540,
         "wires": []
+    },
+    {
+        "id": "3d5731fdaf042ea2",
+        "type": "uibuilder",
+        "z": "89829a181a0a3d4b",
+        "name": "",
+        "topic": "",
+        "url": "web",
+        "okToGo": true,
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "templateFolder": "blank",
+        "extTemplate": "",
+        "showfolder": false,
+        "oldUrl": "/web",
+        "reload": false,
+        "sourceFolder": "src",
+        "deployedVersion": "6.8.2",
+        "showMsgUib": false,
+        "title": "",
+        "descr": "",
+        "x": 210,
+        "y": 100,
+        "wires": [
+            [],
+            []
+        ]
     }
 ]
