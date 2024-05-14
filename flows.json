@@ -240,38 +240,6 @@
         ]
     },
     {
-        "id": "e4c6c2033fb735ed",
-        "type": "inject",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            },
-            {
-                "p": "article",
-                "v": "{\"title\":\"TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod\",\"description\":\"<p>Video-app TikTok heeft een rechtszaak aangespannen tegen de Amerikaanse overheid. Doel is om een wet te voorkomen waarmee het Chinese moederbedrijf ByteDance wordt gedwongen TikTok te verkopen. Het is het begin van een waarschijnlijk lange procedure die vermoedelijk eindigt bij het Hooggerechtshof.</p>\\n<p>\\\"Voor de eerste keer in de geschiedenis heeft het Congres een wet aangenomen die een platform onderwerpt aan een permanent landelijk verbod\\\", zegt TikTok. Het bedrijf noemt de wet \\\"ongrondwettelijk\\\" en stelt dat de wet ingaat tegen de vrijheid van meningsuiting, een zeer groot goed in de VS.</p>\\n<h2>Verkopen of verboden</h2>\\n<p>Aanleiding voor de aanklacht is een wet die twee weken geleden werd ondertekend door president Biden. Die stelt dat TikTok verkocht moet worden binnen negen maanden, een periode die nog eens kan worden verlengd met drie maanden. Lukt dat niet binnen die tijd, dan wordt de app in feite verboden in de VS.</p>\\n<p>In de praktijk mogen de downloadwinkels van Appl...\",\"summary\":\"<p>Video-app TikTok heeft een rechtszaak aangespannen tegen de Amerikaanse overheid. Doel is om een wet te voorkomen waarmee het Chinese moederbedrijf ByteDance wordt gedwongen TikTok te verkopen. Het is het begin van een waarschijnlijk lange procedure die vermoedelijk eindigt bij het Hooggerechtshof.</p>\\n<p>\\\"Voor de eerste keer in de geschiedenis heeft het Congres een wet aangenomen die een platform onderwerpt aan een permanent landelijk verbod\\\", zegt TikTok. Het bedrijf noemt de wet \\\"ongrondwettelijk\\\" en stelt dat de wet ingaat tegen de vrijheid van meningsuiting, een zeer groot goed in de VS.</p>\\n<h2>Verkopen of verboden</h2>\\n<p>Aanleiding voor de aanklacht is een wet die twee weken geleden werd ondertekend door president Biden. Die stelt dat TikTok verkocht moet worden binnen negen maanden, een periode die nog eens kan worden verlengd met drie maanden. Lukt dat niet binnen die tijd, dan wordt de app in feite verboden in de VS.</p>\\n<p>In de praktijk mogen de downloadwinkels van Appl...\",\"date\":\"2024-05-07T18:13:27.000Z\",\"pubdate\":\"2024-05-07T18:13:27.000Z\",\"pubDate\":\"2024-05-07T18:13:27.000Z\",\"link\":\"https://nos.nl/l/2519665\",\"guid\":\"https://nos.nl/l/2519665\",\"author\":\"NOS Podcast Beheer\",\"comments\":null,\"origlink\":null,\"image\":{},\"source\":{},\"categories\":[],\"enclosures\":[{\"url\":\"https://cdn.nos.nl/image/2024/05/07/1079944/1008x567.jpg\",\"type\":\"image/jpeg\",\"length\":null}],\"rss:@\":{},\"rss:title\":{\"@\":{},\"#\":\"TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod\"},\"rss:link\":{\"@\":{},\"#\":\"https://nos.nl/l/2519665\"},\"rss:description\":{\"@\":{},\"#\":\"<p>Video-app TikTok heeft een rechtszaak aangespannen tegen de Amerikaanse overheid. Doel is om een wet te voorkomen waarmee het Chinese moederbedrijf ByteDance wordt gedwongen TikTok te verkopen. Het is het begin van een waarschijnlijk lange procedure die vermoedelijk eindigt bij het Hooggerechtshof.</p>\\n<p>\\\"Voor de eerste keer in de geschiedenis heeft het Congres een wet aangenomen die een platform onderwerpt aan een permanent landelijk verbod\\\", zegt TikTok. Het bedrijf noemt de wet \\\"ongrondwettelijk\\\" en stelt dat de wet ingaat tegen de vrijheid van meningsuiting, een zeer groot goed in de VS.</p>\\n<h2>Verkopen of verboden</h2>\\n<p>Aanleiding voor de aanklacht is een wet die twee weken geleden werd ondertekend door president Biden. Die stelt dat TikTok verkocht moet worden binnen negen maanden, een periode die nog eens kan worden verlengd met drie maanden. Lukt dat niet binnen die tijd, dan wordt de app in feite verboden in de VS.</p>\\n<p>In de praktijk mogen de downloadwinkels van Appl...\"},\"rss:enclosure\":{\"@\":{\"type\":\"image/jpeg\",\"url\":\"https://cdn.nos.nl/image/2024/05/07/1079944/1008x567.jpg\"}},\"rss:pubdate\":{\"@\":{},\"#\":\"Tue, 07 May 2024 20:13:27 +0200\"},\"permalink\":\"https://nos.nl/l/2519665\",\"rss:guid\":{\"@\":{\"ispermalink\":\"true\"},\"#\":\"https://nos.nl/l/2519665\"},\"meta\":{\"#ns\":[{\"xmlns:itunes\":\"http://www.itunes.com/dtds/podcast-1.0.dtd\"},{\"xmlns:dcterms\":\"http://purl.org/dc/terms/\"}],\"@\":[{\"xmlns:itunes\":\"http://www.itunes.com/dtds/podcast-1.0.dtd\"},{\"xmlns:dcterms\":\"http://purl.org/dc/terms/\"}],\"#xml\":{\"version\":\"1.0\",\"encoding\":\"UTF-8\"},\"#type\":\"rss\",\"#version\":\"2.0\",\"title\":\"NOS Tech\",\"description\":\"NOS Tech\",\"date\":\"2024-05-09T17:10:18.000Z\",\"pubdate\":\"2024-05-09T17:10:18.000Z\",\"pubDate\":\"2024-05-09T17:10:18.000Z\",\"link\":\"https://nos.nl\",\"xmlurl\":null,\"xmlUrl\":null,\"author\":\"NOS Podcast Beheer\",\"language\":\"nl\",\"favicon\":null,\"copyright\":\"Copyright NOS\",\"generator\":null,\"cloud\":{},\"image\":{},\"categories\":[],\"rss:@\":{},\"rss:title\":{\"@\":{},\"#\":\"NOS Tech\"},\"rss:link\":{\"@\":{},\"#\":\"https://nos.nl/\"},\"rss:description\":{\"@\":{},\"#\":\"NOS Tech\"},\"rss:language\":{\"@\":{},\"#\":\"nl\"},\"rss:copyright\":{\"@\":{},\"#\":\"Copyright NOS\"},\"rss:pubdate\":{\"@\":{},\"#\":\"Thu, 09 May 2024 19:10:18 +0200\"},\"rss:webmaster\":{\"@\":{},\"#\":\"podcast@nos.nl (NOS Podcast Beheer)\",\"name\":\"NOS Podcast Beheer\",\"email\":\"podcast@nos.nl\"}}}",
-                "vt": "json"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 180,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "ec10675d9ce489dc",
         "type": "link out",
         "z": "98d41cddef00471d",
@@ -367,53 +335,18 @@
         ]
     },
     {
-        "id": "a0a2d63120f972d0",
-        "type": "debug",
-        "z": "98d41cddef00471d",
-        "name": "debug 15",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 440,
-        "y": 300,
-        "wires": []
-    },
-    {
         "id": "7f5b781608648101",
         "type": "feedparse",
         "z": "98d41cddef00471d",
         "name": "",
         "url": "http://localhost:1880/rss",
-        "interval": "1",
+        "interval": "10",
         "ignorefirst": false,
         "x": 130,
-        "y": 400,
+        "y": 280,
         "wires": [
-            [
-                "8cd6d882a037ce4b"
-            ]
+            []
         ]
-    },
-    {
-        "id": "8cd6d882a037ce4b",
-        "type": "debug",
-        "z": "98d41cddef00471d",
-        "name": "debug 16",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 430,
-        "y": 400,
-        "wires": []
     },
     {
         "id": "631fc859cb7c6a74",
@@ -472,8 +405,7 @@
         "y": 460,
         "wires": [
             [
-                "501222a40bb4f594",
-                "0df8e8a786235ad1"
+                "501222a40bb4f594"
             ]
         ]
     },
@@ -575,51 +507,6 @@
         "wires": [
             [
                 "b359af44360a2411"
-            ]
-        ]
-    },
-    {
-        "id": "0df8e8a786235ad1",
-        "type": "debug",
-        "z": "98d41cddef00471d",
-        "name": "debug 17",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 430,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "82191106e97d23eb",
-        "type": "inject",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 100,
-        "y": 520,
-        "wires": [
-            [
-                "631fc859cb7c6a74"
             ]
         ]
     },
