@@ -1620,7 +1620,7 @@
         "props": [
             {
                 "p": "pageId",
-                "v": "86fac854e975475a8435b6fe3fe922b8",
+                "v": "528f47c1cc014ce1b601b8afacda9c23",
                 "vt": "str"
             },
             {
@@ -1636,7 +1636,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{}",
+        "payload": "{\"filter\":{\"property\":\"Active\",\"checkbox\":{\"equals\":true}}}",
         "payloadType": "json",
         "x": 90,
         "y": 40,
