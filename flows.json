@@ -35,7 +35,7 @@
         "id": "89829a181a0a3d4b",
         "type": "tab",
         "label": "web",
-        "disabled": false,
+        "disabled": true,
         "info": "",
         "env": []
     },
@@ -236,10 +236,7 @@
         "x": 130,
         "y": 220,
         "wires": [
-            [
-                "4bf9d21f8d23e77d",
-                "a0a2d63120f972d0"
-            ]
+            []
         ]
     },
     {
@@ -269,11 +266,9 @@
         "payload": "",
         "payloadType": "date",
         "x": 180,
-        "y": 260,
+        "y": 280,
         "wires": [
-            [
-                "4bf9d21f8d23e77d"
-            ]
+            []
         ]
     },
     {
@@ -313,7 +308,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "error",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 240,
@@ -355,7 +351,7 @@
         "type": "function",
         "z": "98d41cddef00471d",
         "name": "function 1",
-        "func": "const RSS = global.get('RSS')\n\nvar feed = new RSS({\n  title: \"title\",\n  description: \"description\",\n});\n\nfeed.item({\n  title: \"item title\",\n  description: \"use this for the content. It can include html.\",\n});\n\nvar xml = feed.xml({ indent: false });\n\nmsg.payload = xml\nreturn msg;",
+        "func": "const RSS = global.get('RSS')\nconst dbFeeds = msg.payload || [];\nvar feeds = new RSS({\n  title: \"title\",\n  description: \"description\",\n});\n\n// feeds.item({\n//   title: \"item title\",\n//   description: \"use this for the content. It can include html.\",\n// });\n\ndbFeeds.forEach(({ title, description}) => {\n  feeds.item({\n    title,\n    description,\n  })\n})\nconst xmlResponse = feeds.xml({ indent: false });\n\nmsg.payload = xmlResponse\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -382,7 +378,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 390,
+        "x": 440,
         "y": 300,
         "wires": []
     },
@@ -443,7 +439,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "[{\"query\":{\"limit\":20}}]",
+                "to": "[{},{\"sort\":{\"date\":-1},\"projection\":{\"_id\":0,\"title\":1,\"description\":1,\"date\":1},\"limit\":20}]",
                 "tot": "json"
             }
         ],
@@ -651,7 +647,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "[{},{\"limit\":1}]",
+                "to": "[{},{\"sort\":{\"date\":-1},\"projection\":{\"_id\":0,\"title\":1,\"description\":1,\"date\":1},\"limit\":20}]",
                 "tot": "json"
             }
         ],
