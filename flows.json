@@ -1,13 +1,5 @@
 [
     {
-        "id": "98d41cddef00471d",
-        "type": "tab",
-        "label": "rss",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "adb9cf7a321a3e04",
         "type": "tab",
         "label": "pipeline",
@@ -48,6 +40,11 @@
         "env": []
     },
     {
+        "id": "98d41cddef00471d",
+        "type": "tab",
+        "label": "rss"
+    },
+    {
         "id": "2e9215f9fed73afd",
         "type": "notion integration",
         "name": "test",
@@ -86,136 +83,6 @@
         "vhost": "",
         "tls": false,
         "credsFromSettings": false
-    },
-    {
-        "id": "b61d28486ad60365",
-        "type": "queue",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "input": "payload",
-        "inputType": "msg",
-        "addFields": "[\"news\",\"tech\"]",
-        "addFieldsType": "json",
-        "pourType": "interval",
-        "pourTypeType": "pourType",
-        "pourTime": "1",
-        "pourTimeType": "num",
-        "pourAmount": "1",
-        "pourAmountType": "num",
-        "maxUseMemory": "",
-        "x": 530,
-        "y": 40,
-        "wires": [
-            [
-                "245fad708cf8508a"
-            ]
-        ]
-    },
-    {
-        "id": "06fe21b91623c385",
-        "type": "feedparse",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "url": "https://www.nu.nl/rss/Tech",
-        "interval": "10",
-        "ignorefirst": true,
-        "x": 130,
-        "y": 40,
-        "wires": [
-            [
-                "4bf9d21f8d23e77d"
-            ]
-        ]
-    },
-    {
-        "id": "4bf9d21f8d23e77d",
-        "type": "change",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\t    \"title\": article.title,\t    \"description\": article.description,\t    \"summary\": article.summary,\t    \"date\": article.date,\t    \"pubdate\": article.pubdate,\t    \"link\": article.link,\t    \"guid\": article.guid,\t    \"author\": article.author,\t    \"image\": article.image,\t    \"enclosures\": article.enclosures\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 360,
-        "y": 40,
-        "wires": [
-            [
-                "b61d28486ad60365"
-            ]
-        ]
-    },
-    {
-        "id": "245fad708cf8508a",
-        "type": "change",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "routingKey",
-                "pt": "msg",
-                "to": "router",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[0]",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 700,
-        "y": 40,
-        "wires": [
-            [
-                "ec10675d9ce489dc"
-            ]
-        ]
-    },
-    {
-        "id": "c0e054ead90d8160",
-        "type": "feedparse",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "url": "http://localhost:1880/feeds",
-        "interval": "1",
-        "ignorefirst": false,
-        "x": 130,
-        "y": 100,
-        "wires": [
-            [
-                "4bf9d21f8d23e77d"
-            ]
-        ]
-    },
-    {
-        "id": "ec10675d9ce489dc",
-        "type": "link out",
-        "z": "98d41cddef00471d",
-        "name": "link out 1",
-        "mode": "link",
-        "links": [
-            "73c4bf0b72565dc6"
-        ],
-        "x": 835,
-        "y": 40,
-        "wires": []
     },
     {
         "id": "03c1c9a32f485f20",
@@ -1211,7 +1078,8 @@
         "y": 80,
         "wires": [
             [
-                "12d01e0d30838de8"
+                "12d01e0d30838de8",
+                "b68a394f45a3833b"
             ]
         ]
     },
@@ -1266,7 +1134,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 480,
+        "x": 660,
         "y": 80,
         "wires": []
     },
@@ -1938,9 +1806,9 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "onceDelay": 0.1,
+        "onceDelay": "10",
         "topic": "",
-        "payload": "{\"id\":\"98d41cddef00471d\",\"label\":\"rss\",\"nodes\":[[{\"id\":\"b61d28486ad60365\",\"type\":\"queue\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"input\":\"payload\",\"inputType\":\"msg\",\"addFields\":\"[\\\"news\\\",\\\"tech\\\"]\",\"addFieldsType\":\"json\",\"pourType\":\"interval\",\"pourTypeType\":\"pourType\",\"pourTime\":\"1\",\"pourTimeType\":\"num\",\"pourAmount\":\"1\",\"pourAmountType\":\"num\",\"maxUseMemory\":\"\",\"x\":530,\"y\":40,\"wires\":[[\"245fad708cf8508a\"]]},{\"id\":\"06fe21b91623c385\",\"type\":\"feedparse\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"url\":\"https://www.nu.nl/rss/Tech\",\"interval\":\"10\",\"ignorefirst\":true,\"x\":130,\"y\":40,\"wires\":[[\"4bf9d21f8d23e77d\"]]},{\"id\":\"4bf9d21f8d23e77d\",\"type\":\"change\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"rules\":[{\"t\":\"set\",\"p\":\"payload\",\"pt\":\"msg\",\"to\":\"{\\t    \\\"title\\\": article.title,\\t    \\\"description\\\": article.description,\\t    \\\"summary\\\": article.summary,\\t    \\\"date\\\": article.date,\\t    \\\"pubdate\\\": article.pubdate,\\t    \\\"link\\\": article.link,\\t    \\\"guid\\\": article.guid,\\t    \\\"author\\\": article.author,\\t    \\\"image\\\": article.image,\\t    \\\"enclosures\\\": article.enclosures\\t}\",\"tot\":\"jsonata\"}],\"action\":\"\",\"property\":\"\",\"from\":\"\",\"to\":\"\",\"reg\":false,\"x\":360,\"y\":40,\"wires\":[[\"b61d28486ad60365\"]]},{\"id\":\"245fad708cf8508a\",\"type\":\"change\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"rules\":[{\"t\":\"set\",\"p\":\"routingKey\",\"pt\":\"msg\",\"to\":\"router\",\"tot\":\"str\"},{\"t\":\"set\",\"p\":\"payload\",\"pt\":\"msg\",\"to\":\"payload[0]\",\"tot\":\"msg\"}],\"action\":\"\",\"property\":\"\",\"from\":\"\",\"to\":\"\",\"reg\":false,\"x\":700,\"y\":40,\"wires\":[[\"ec10675d9ce489dc\"]]},{\"id\":\"c0e054ead90d8160\",\"type\":\"feedparse\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"url\":\"http://localhost:1880/feeds\",\"interval\":\"1\",\"ignorefirst\":false,\"x\":130,\"y\":100,\"wires\":[[\"4bf9d21f8d23e77d\"]]},{\"id\":\"ec10675d9ce489dc\",\"type\":\"link out\",\"z\":\"98d41cddef00471d\",\"name\":\"link out 1\",\"mode\":\"link\",\"links\":[\"73c4bf0b72565dc6\"],\"x\":835,\"y\":40,\"wires\":[]}]]}",
+        "payload": "{\"id\":\"98d41cddef00471d\",\"label\":\"rss\",\"nodes\":[{\"id\":\"b61d28486ad60365\",\"type\":\"queue\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"input\":\"payload\",\"inputType\":\"msg\",\"addFields\":\"[\\\"news\\\",\\\"tech\\\"]\",\"addFieldsType\":\"json\",\"pourType\":\"interval\",\"pourTypeType\":\"pourType\",\"pourTime\":\"1\",\"pourTimeType\":\"num\",\"pourAmount\":\"1\",\"pourAmountType\":\"num\",\"maxUseMemory\":\"\",\"x\":630,\"y\":40,\"wires\":[[\"245fad708cf8508a\"]]},{\"id\":\"4bf9d21f8d23e77d\",\"type\":\"change\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"rules\":[{\"t\":\"set\",\"p\":\"payload\",\"pt\":\"msg\",\"to\":\"{\\n                    \\\"title\\\": article.title,\\n                    \\\"description\\\": article.description,\\n                    \\\"summary\\\": article.summary,\\n                    \\\"date\\\": article.date,\\n                    \\\"pubdate\\\": article.pubdate,\\n                    \\\"link\\\": article.link,\\n                    \\\"guid\\\": article.guid,\\n                    \\\"author\\\": article.author,\\n                    \\\"image\\\": article.image,\\n                    \\\"enclosures\\\": article.enclosures\\n                }\",\"tot\":\"jsonata\"}],\"action\":\"\",\"property\":\"\",\"from\":\"\",\"to\":\"\",\"reg\":false,\"x\":460,\"y\":40,\"wires\":[[\"b61d28486ad60365\"]]},{\"id\":\"245fad708cf8508a\",\"type\":\"change\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"rules\":[{\"t\":\"set\",\"p\":\"routingKey\",\"pt\":\"msg\",\"to\":\"router\",\"tot\":\"str\"},{\"t\":\"set\",\"p\":\"payload\",\"pt\":\"msg\",\"to\":\"payload[0]\",\"tot\":\"msg\"}],\"action\":\"\",\"property\":\"\",\"from\":\"\",\"to\":\"\",\"reg\":false,\"x\":800,\"y\":40,\"wires\":[[\"ec10675d9ce489dc\"]]},{\"id\":\"ec10675d9ce489dc\",\"type\":\"link out\",\"z\":\"98d41cddef00471d\",\"name\":\"link out 1\",\"mode\":\"link\",\"links\":[\"73c4bf0b72565dc6\"],\"x\":935,\"y\":40},{\"id\":\"06fe21b91623c380\",\"type\":\"feedparse\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"url\":\"https://www.nu.nl/rss/Tech\",\"interval\":\"10\",\"ignorefirst\":true,\"x\":130,\"y\":40,\"wires\":[[\"4bf9d21f8d23e77d\"]]},{\"id\":\"06fe21b91623c381\",\"type\":\"feedparse\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"url\":\"https://www.nu.nl/rss/Science\",\"interval\":\"10\",\"ignorefirst\":true,\"x\":130,\"y\":100,\"wires\":[[\"4bf9d21f8d23e77d\"]]}]}",
         "payloadType": "json",
         "x": 90,
         "y": 740,
@@ -2004,6 +1872,205 @@
         "statusType": "auto",
         "x": 740,
         "y": 740,
+        "wires": []
+    },
+    {
+        "id": "8591fb7189c30caa",
+        "type": "inject",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 800,
+        "wires": [
+            [
+                "ddfae9fa1b244a0c"
+            ]
+        ]
+    },
+    {
+        "id": "ddfae9fa1b244a0c",
+        "type": "http request",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:1880/flow/98d41cddef00471d",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 290,
+        "y": 800,
+        "wires": [
+            [
+                "f488d720f839f9e5"
+            ]
+        ]
+    },
+    {
+        "id": "f488d720f839f9e5",
+        "type": "json",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 450,
+        "y": 800,
+        "wires": [
+            [
+                "44c40b30965b508e"
+            ]
+        ]
+    },
+    {
+        "id": "44c40b30965b508e",
+        "type": "debug",
+        "z": "be070c1ddf78f5bd",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "e0063e379d6a4958",
+        "type": "inject",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "urls",
+                "v": "[\"https://www.nu.nl/rss/Tech\", \"https://www.nu.nl/rss/Science\"]",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 940,
+        "wires": [
+            [
+                "27cb914c8ad4cb84"
+            ]
+        ]
+    },
+    {
+        "id": "27cb914c8ad4cb84",
+        "type": "function",
+        "z": "be070c1ddf78f5bd",
+        "name": "function 4",
+        "func": "const urls = msg.urls;\n\nfunction addRSSFeedParser(urls) {\n    // Base Y coordinate for the first feedparse node\n    let baseY = 40;\n\n    // Base structure for all nodes\n    const nodes = [\n        {\n            id: \"b61d28486ad60365\",\n            type: \"queue\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            input: \"payload\",\n            inputType: \"msg\",\n            addFields: '[\"news\",\"tech\"]',\n            addFieldsType: \"json\",\n            pourType: \"interval\",\n            pourTypeType: \"pourType\",\n            pourTime: \"1\",\n            pourTimeType: \"num\",\n            pourAmount: \"1\",\n            pourAmountType: \"num\",\n            maxUseMemory: \"\",\n            x: 630,\n            y: 40,\n            wires: [[\"245fad708cf8508a\"]]\n        },\n        {\n            id: \"4bf9d21f8d23e77d\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [{\n                t: \"set\",\n                p: \"payload\",\n                pt: \"msg\",\n                to: `{\n                    \"title\": article.title,\n                    \"description\": article.description,\n                    \"summary\": article.summary,\n                    \"date\": article.date,\n                    \"pubdate\": article.pubdate,\n                    \"link\": article.link,\n                    \"guid\": article.guid,\n                    \"author\": article.author,\n                    \"image\": article.image,\n                    \"enclosures\": article.enclosures\n                }`,\n                tot: \"jsonata\"\n            }],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 460,\n            y: 40,\n            wires: [[\"b61d28486ad60365\"]]\n        },\n        {\n            id: \"245fad708cf8508a\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [\n                {t: \"set\", p: \"routingKey\", pt: \"msg\", to: \"router\", tot: \"str\"},\n                {t: \"set\", p: \"payload\", pt: \"msg\", to: \"payload[0]\", tot: \"msg\"}\n            ],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 800,\n            y: 40,\n            wires: [[\"ec10675d9ce489dc\"]]\n        },\n        {\n            id: \"ec10675d9ce489dc\",\n            type: \"link out\",\n            z: \"98d41cddef00471d\",\n            name: \"link out 1\",\n            mode: \"link\",\n            links: [\"73c4bf0b72565dc6\"],\n            x: 935,\n            y: 40\n        }\n    ];\n\n    // Add feedparse nodes for each URL\n    urls.forEach((url, index) => {\n        nodes.push({\n            id: \"06fe21b91623c38\" + index, // simple way to generate unique IDs\n            type: \"feedparse\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            url: url,\n            interval: \"10\",\n            ignorefirst: true,\n            x: 180,\n            y: baseY + 60 * index,\n            wires: [[\"4bf9d21f8d23e77d\"]]\n        });\n    });\n\n    return nodes;\n}\n\n// Example usage\nmsg.payload = {\n    id: \"98d41cddef00471d\",\n    label: \"rss\",\n    nodes: addRSSFeedParser(urls)\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 940,
+        "wires": [
+            [
+                "fd7d7b9982fc70db"
+            ]
+        ]
+    },
+    {
+        "id": "fd7d7b9982fc70db",
+        "type": "http request",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "method": "PUT",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:1880/flow/98d41cddef00471d",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 630,
+        "y": 940,
+        "wires": [
+            [
+                "94394a6ea904266c"
+            ]
+        ]
+    },
+    {
+        "id": "b68a394f45a3833b",
+        "type": "function",
+        "z": "be070c1ddf78f5bd",
+        "name": "function 5",
+        "func": "msg.urls = msg.payload.map(i => i.URL)\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 230,
+        "y": 880,
+        "wires": [
+            [
+                "27cb914c8ad4cb84"
+            ]
+        ]
+    },
+    {
+        "id": "94394a6ea904266c",
+        "type": "debug",
+        "z": "be070c1ddf78f5bd",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 940,
         "wires": []
     },
     {
@@ -2430,6 +2497,136 @@
         "wires": [
             [],
             []
+        ]
+    },
+    {
+        "id": "b61d28486ad60365",
+        "type": "queue",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "input": "payload",
+        "inputType": "msg",
+        "addFields": "[\"news\",\"tech\"]",
+        "addFieldsType": "json",
+        "pourType": "interval",
+        "pourTypeType": "pourType",
+        "pourTime": "1",
+        "pourTimeType": "num",
+        "pourAmount": "1",
+        "pourAmountType": "num",
+        "maxUseMemory": "",
+        "x": 630,
+        "y": 40,
+        "wires": [
+            [
+                "245fad708cf8508a"
+            ]
+        ]
+    },
+    {
+        "id": "4bf9d21f8d23e77d",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\n                    \"title\": article.title,\n                    \"description\": article.description,\n                    \"summary\": article.summary,\n                    \"date\": article.date,\n                    \"pubdate\": article.pubdate,\n                    \"link\": article.link,\n                    \"guid\": article.guid,\n                    \"author\": article.author,\n                    \"image\": article.image,\n                    \"enclosures\": article.enclosures\n                }",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 40,
+        "wires": [
+            [
+                "b61d28486ad60365"
+            ]
+        ]
+    },
+    {
+        "id": "245fad708cf8508a",
+        "type": "change",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "routingKey",
+                "pt": "msg",
+                "to": "router",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 40,
+        "wires": [
+            [
+                "ec10675d9ce489dc"
+            ]
+        ]
+    },
+    {
+        "id": "ec10675d9ce489dc",
+        "type": "link out",
+        "z": "98d41cddef00471d",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "73c4bf0b72565dc6"
+        ],
+        "x": 935,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "06fe21b91623c380",
+        "type": "feedparse",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "url": "http://localhost:1880/feeds",
+        "interval": "10",
+        "ignorefirst": true,
+        "x": 180,
+        "y": 40,
+        "wires": [
+            [
+                "4bf9d21f8d23e77d"
+            ]
+        ]
+    },
+    {
+        "id": "06fe21b91623c381",
+        "type": "feedparse",
+        "z": "98d41cddef00471d",
+        "name": "",
+        "url": "https://feeds.nos.nl/nosnieuwstech",
+        "interval": "10",
+        "ignorefirst": true,
+        "x": 180,
+        "y": 100,
+        "wires": [
+            [
+                "4bf9d21f8d23e77d"
+            ]
         ]
     }
 ]
