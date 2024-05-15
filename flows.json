@@ -32,18 +32,18 @@
         "env": []
     },
     {
-        "id": "89829a181a0a3d4b",
-        "type": "tab",
-        "label": "web",
-        "disabled": true,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "15e2bb6087670f34",
         "type": "tab",
         "label": "feeds",
         "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "89829a181a0a3d4b",
+        "type": "tab",
+        "label": "web",
+        "disabled": true,
         "info": "",
         "env": []
     },
@@ -1817,33 +1817,194 @@
         "wires": []
     },
     {
-        "id": "3d5731fdaf042ea2",
-        "type": "uibuilder",
-        "z": "89829a181a0a3d4b",
+        "id": "14e6f4b3f27804e4",
+        "type": "inject",
+        "z": "be070c1ddf78f5bd",
         "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
         "topic": "",
-        "url": "web",
-        "okToGo": true,
-        "fwdInMessages": false,
-        "allowScripts": false,
-        "allowStyles": false,
-        "copyIndex": true,
-        "templateFolder": "blank",
-        "extTemplate": "",
-        "showfolder": false,
-        "oldUrl": "/web",
-        "reload": false,
-        "sourceFolder": "src",
-        "deployedVersion": "6.8.2",
-        "showMsgUib": false,
-        "title": "",
-        "descr": "",
-        "x": 210,
-        "y": 100,
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 680,
         "wires": [
-            [],
-            []
+            [
+                "a93a1913dc43ad31"
+            ]
         ]
+    },
+    {
+        "id": "a93a1913dc43ad31",
+        "type": "http request",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:1880/flows",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 280,
+        "y": 680,
+        "wires": [
+            [
+                "2b505293f9f3aba1"
+            ]
+        ]
+    },
+    {
+        "id": "2b505293f9f3aba1",
+        "type": "json",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 440,
+        "y": 680,
+        "wires": [
+            [
+                "5b8490254fe4076e"
+            ]
+        ]
+    },
+    {
+        "id": "5b8490254fe4076e",
+        "type": "function",
+        "z": "be070c1ddf78f5bd",
+        "name": "function 3",
+        "func": "msg.payload = msg.payload.filter(i => i.z === '98d41cddef00471d');\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 680,
+        "wires": [
+            [
+                "d0dafa73f0b14ad7"
+            ]
+        ]
+    },
+    {
+        "id": "d0dafa73f0b14ad7",
+        "type": "debug",
+        "z": "be070c1ddf78f5bd",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "3032738a46dd2ee0",
+        "type": "inject",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"98d41cddef00471d\",\"label\":\"rss\",\"nodes\":[[{\"id\":\"b61d28486ad60365\",\"type\":\"queue\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"input\":\"payload\",\"inputType\":\"msg\",\"addFields\":\"[\\\"news\\\",\\\"tech\\\"]\",\"addFieldsType\":\"json\",\"pourType\":\"interval\",\"pourTypeType\":\"pourType\",\"pourTime\":\"1\",\"pourTimeType\":\"num\",\"pourAmount\":\"1\",\"pourAmountType\":\"num\",\"maxUseMemory\":\"\",\"x\":530,\"y\":40,\"wires\":[[\"245fad708cf8508a\"]]},{\"id\":\"06fe21b91623c385\",\"type\":\"feedparse\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"url\":\"https://www.nu.nl/rss/Tech\",\"interval\":\"10\",\"ignorefirst\":true,\"x\":130,\"y\":40,\"wires\":[[\"4bf9d21f8d23e77d\"]]},{\"id\":\"4bf9d21f8d23e77d\",\"type\":\"change\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"rules\":[{\"t\":\"set\",\"p\":\"payload\",\"pt\":\"msg\",\"to\":\"{\\t    \\\"title\\\": article.title,\\t    \\\"description\\\": article.description,\\t    \\\"summary\\\": article.summary,\\t    \\\"date\\\": article.date,\\t    \\\"pubdate\\\": article.pubdate,\\t    \\\"link\\\": article.link,\\t    \\\"guid\\\": article.guid,\\t    \\\"author\\\": article.author,\\t    \\\"image\\\": article.image,\\t    \\\"enclosures\\\": article.enclosures\\t}\",\"tot\":\"jsonata\"}],\"action\":\"\",\"property\":\"\",\"from\":\"\",\"to\":\"\",\"reg\":false,\"x\":360,\"y\":40,\"wires\":[[\"b61d28486ad60365\"]]},{\"id\":\"245fad708cf8508a\",\"type\":\"change\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"rules\":[{\"t\":\"set\",\"p\":\"routingKey\",\"pt\":\"msg\",\"to\":\"router\",\"tot\":\"str\"},{\"t\":\"set\",\"p\":\"payload\",\"pt\":\"msg\",\"to\":\"payload[0]\",\"tot\":\"msg\"}],\"action\":\"\",\"property\":\"\",\"from\":\"\",\"to\":\"\",\"reg\":false,\"x\":700,\"y\":40,\"wires\":[[\"ec10675d9ce489dc\"]]},{\"id\":\"c0e054ead90d8160\",\"type\":\"feedparse\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"url\":\"http://localhost:1880/feeds\",\"interval\":\"1\",\"ignorefirst\":false,\"x\":130,\"y\":100,\"wires\":[[\"4bf9d21f8d23e77d\"]]},{\"id\":\"ec10675d9ce489dc\",\"type\":\"link out\",\"z\":\"98d41cddef00471d\",\"name\":\"link out 1\",\"mode\":\"link\",\"links\":[\"73c4bf0b72565dc6\"],\"x\":835,\"y\":40,\"wires\":[]}]]}",
+        "payloadType": "json",
+        "x": 90,
+        "y": 740,
+        "wires": [
+            [
+                "671e107a604dcca7"
+            ]
+        ]
+    },
+    {
+        "id": "671e107a604dcca7",
+        "type": "http request",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "method": "PUT",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:1880/flow/98d41cddef00471d",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 290,
+        "y": 740,
+        "wires": [
+            [
+                "17dc0c5c60fac153"
+            ]
+        ]
+    },
+    {
+        "id": "17dc0c5c60fac153",
+        "type": "json",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 450,
+        "y": 740,
+        "wires": [
+            [
+                "91770309fa454021"
+            ]
+        ]
+    },
+    {
+        "id": "91770309fa454021",
+        "type": "debug",
+        "z": "be070c1ddf78f5bd",
+        "name": "debug 21",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 740,
+        "wires": []
     },
     {
         "id": "ca67469557bdb35b",
@@ -2241,5 +2402,34 @@
         "x": 720,
         "y": 280,
         "wires": []
+    },
+    {
+        "id": "3d5731fdaf042ea2",
+        "type": "uibuilder",
+        "z": "89829a181a0a3d4b",
+        "name": "",
+        "topic": "",
+        "url": "web",
+        "okToGo": true,
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "templateFolder": "blank",
+        "extTemplate": "",
+        "showfolder": false,
+        "oldUrl": "/web",
+        "reload": false,
+        "sourceFolder": "src",
+        "deployedVersion": "6.8.2",
+        "showMsgUib": false,
+        "title": "",
+        "descr": "",
+        "x": 210,
+        "y": 100,
+        "wires": [
+            [],
+            []
+        ]
     }
 ]
