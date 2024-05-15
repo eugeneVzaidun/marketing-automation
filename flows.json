@@ -40,6 +40,14 @@
         "env": []
     },
     {
+        "id": "15e2bb6087670f34",
+        "type": "tab",
+        "label": "feeds",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "2e9215f9fed73afd",
         "type": "notion integration",
         "name": "test",
@@ -96,7 +104,7 @@
         "pourAmountType": "num",
         "maxUseMemory": "",
         "x": 530,
-        "y": 220,
+        "y": 40,
         "wires": [
             [
                 "245fad708cf8508a"
@@ -109,12 +117,14 @@
         "z": "98d41cddef00471d",
         "name": "",
         "url": "https://www.nu.nl/rss/Tech",
-        "interval": "1",
+        "interval": "10",
         "ignorefirst": true,
         "x": 130,
-        "y": 160,
+        "y": 40,
         "wires": [
-            []
+            [
+                "4bf9d21f8d23e77d"
+            ]
         ]
     },
     {
@@ -137,7 +147,7 @@
         "to": "",
         "reg": false,
         "x": 360,
-        "y": 220,
+        "y": 40,
         "wires": [
             [
                 "b61d28486ad60365"
@@ -171,59 +181,12 @@
         "to": "",
         "reg": false,
         "x": 700,
-        "y": 220,
+        "y": 40,
         "wires": [
             [
                 "ec10675d9ce489dc"
             ]
         ]
-    },
-    {
-        "id": "ca67469557bdb35b",
-        "type": "http in",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "url": "/feeds",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 80,
-        "y": 100,
-        "wires": [
-            [
-                "b30ad77929c1d5fd"
-            ]
-        ]
-    },
-    {
-        "id": "b30ad77929c1d5fd",
-        "type": "template",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet href=\"/public/style.xsl\" type=\"text/xsl\"?>\n<rss xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" xmlns:dcterms=\"http://purl.org/dc/terms/\" version=\"2.0\">\n  <channel>\n    <title><![CDATA[NOS Tech]]></title>\n    <link><![CDATA[https://nos.nl]]></link>\n    <description><![CDATA[NOS Tech]]></description>\n    <language>nl</language>\n    <copyright>Copyright NOS</copyright>\n    <pubDate>Thu, 09 May 2024 19:10:18 +0200</pubDate>\n    <webMaster>podcast@nos.nl (NOS Podcast Beheer)</webMaster>\n    <item>\n      <title><![CDATA[TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod]]></title>\n      <link>https://nos.nl/l/2519665</link>\n      <description><![CDATA[<p>Video-app TikTok heeft een rechtszaak aangespannen tegen de Amerikaanse overheid. Doel is om een wet te voorkomen waarmee het Chinese moederbedrijf ByteDance wordt gedwongen TikTok te verkopen. Het is het begin van een waarschijnlijk lange procedure die vermoedelijk eindigt bij het Hooggerechtshof.</p>\n<p>\"Voor de eerste keer in de geschiedenis heeft het Congres een wet aangenomen die een platform onderwerpt aan een permanent landelijk verbod\", zegt TikTok. Het bedrijf noemt de wet \"ongrondwettelijk\" en stelt dat de wet ingaat tegen de vrijheid van meningsuiting, een zeer groot goed in de VS.</p>\n<h2>Verkopen of verboden</h2>\n<p>Aanleiding voor de aanklacht is een wet die twee weken geleden werd ondertekend door president Biden. Die stelt dat TikTok verkocht moet worden binnen negen maanden, een periode die nog eens kan worden verlengd met drie maanden. Lukt dat niet binnen die tijd, dan wordt de app in feite verboden in de VS.</p>\n<p>In de praktijk mogen de downloadwinkels van Apple en Google - die samen de mobiele markt domineren - de app dan niet meer aanbieden aan nieuwe klanten. Nog belangrijker is dat ook hostingpartijen, die zorgen dat dit soort apps functioneren, ook geen zaken meer mogen doen met TikTok.</p>\n<p>In de aanklacht zegt TikTok dat een verkoop \"simpelweg niet mogelijk is: niet commercieel, niet technologisch, niet juridisch\". En volgens het bedrijf kan dit helemaal niet binnen de gestelde negen maanden. \"Er is geen twijfel: de wet dwingt het sluiten van TikTok af per 15 januari 2025, waarmee 170 miljoen Amerikanen die het platform gebruiken het zwijgen wordt opgelegd.\"</p>\n<p>Ook stelt het bedrijf dat een losstaande Amerikaanse versie van TikTok niet \"commercieel realistisch is\". Dit omdat TikTok, net als concurrenten, wereldwijd opereren met content die overal beschikbaar is. Als de app in de VS wordt losgetrokken van de rest, zo betoogt het bedrijf, wordt de app een \"eiland\". Gebruikers zien dan dus niets vanuit andere delen van de wereld en daarmee wordt de app veel minder waard.</p>\n<h2>Chinese makelij</h2>\n<p>Amerikaanse politici zijn al tijden heel kritisch op TikTok. Dat heeft ermee te maken dat de app van Chinese makelij is en onderdeel is van het in China opgerichte ByteDance. De vrees is dat Peking via de app bij data van tientallen miljoenen Amerikanen kan komen en dat de overheid via het algoritme desinformatie kan verspreiden.</p>\n<p>Bewijs dat dit ook daadwerkelijk gebeurt is nog nooit gegeven. TikTok heeft de beschuldigingen over inmenging vanuit Peking altijd tegengesproken. Ook het feit dat veel kinderen in de VS vermoedelijk verslaafd zijn aan de app is een belangrijk punt.</p>\n<p>Het leidde al tot meerdere pogingen om de app te verbieden. Zo probeerde in 2020 toenmalig president Trump dat, maar zijn poging strandde in de rechtszaal. Vorig jaar maart leek een verbod opnieuw nabij, na een zeer pittige hoorzitting van de ceo van TikTok voor het Amerikaanse Congres. Wetsvoorstellen verdwenen daarna echter van het toneel.</p>\n<p>Daarna werd het maandenlang stil. Maar schijn bedriegt: achter de schermen werd gewerkt aan een wet die mogelijk wel een rechtszaak zou overleven. Die wet kwam in maart door het Huis van Afgevaardigden, maar leek vervolgens te stranden in de Senaat. Totdat deze werd toegevoegd aan steunpakketten voor Israël en Oekraïne. Daarbij werd de periode die ByteDance kreeg om de verkoop te regelen langer gemaakt.</p>\n<p>ByteDance lijkt ondertussen een verkoop niet te zien zitten. Persbureau Reuters meldde eind vorige maand op basis van bronnen dat het moederbedrijf liever TikTok ziet verdwijnen uit de VS dan dat het tot een overname komt. De enige optie die dan overblijft, is de juridische weg. Die is vandaag officieel ingeslagen.</p>\n]]></description>\n      <enclosure type=\"image/jpeg\" url=\"https://cdn.nos.nl/image/2024/05/07/1079944/1008x567.jpg\"/>\n      <pubDate>Tue, 07 May 2024 20:13:27 +0200</pubDate>\n      <guid isPermaLink=\"true\">https://nos.nl/l/2519665</guid>\n    </item>\n   \n  </channel>\n</rss>\n",
-        "output": "str",
-        "x": 240,
-        "y": 100,
-        "wires": [
-            [
-                "681988b4f2ceae79"
-            ]
-        ]
-    },
-    {
-        "id": "681988b4f2ceae79",
-        "type": "http response",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 390,
-        "y": 100,
-        "wires": []
     },
     {
         "id": "c0e054ead90d8160",
@@ -232,11 +195,13 @@
         "name": "",
         "url": "http://localhost:1880/feeds",
         "interval": "1",
-        "ignorefirst": true,
+        "ignorefirst": false,
         "x": 130,
-        "y": 220,
+        "y": 100,
         "wires": [
-            []
+            [
+                "4bf9d21f8d23e77d"
+            ]
         ]
     },
     {
@@ -249,371 +214,7 @@
             "73c4bf0b72565dc6"
         ],
         "x": 835,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "4a082d05e12484d8",
-        "type": "catch",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "scope": null,
-        "uncaught": false,
-        "x": 80,
         "y": 40,
-        "wires": [
-            [
-                "c9edbe02a7144975"
-            ]
-        ]
-    },
-    {
-        "id": "c9edbe02a7144975",
-        "type": "debug",
-        "z": "98d41cddef00471d",
-        "name": "debug 13",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "error",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 240,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "afd096a87e22e8bd",
-        "type": "http in",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "url": "/rss",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 90,
-        "y": 460,
-        "wires": [
-            [
-                "631fc859cb7c6a74"
-            ]
-        ]
-    },
-    {
-        "id": "2e28d97213516e63",
-        "type": "http response",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "statusCode": "",
-        "headers": {
-            "content-type": "application/xml"
-        },
-        "x": 870,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "501222a40bb4f594",
-        "type": "function",
-        "z": "98d41cddef00471d",
-        "name": "function 1",
-        "func": "const RSS = global.get('RSS')\nconst dbFeeds = msg.payload || [];\nvar feeds = new RSS({\n  title: \"title\",\n  description: \"description\",\n});\n\n// feeds.item({\n//   title: \"item title\",\n//   description: \"use this for the content. It can include html.\",\n// });\n\ndbFeeds.forEach(({ title, description}) => {\n  feeds.item({\n    title,\n    description,\n  })\n})\nconst xmlResponse = feeds.xml({ indent: false });\n\nmsg.payload = xmlResponse\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 700,
-        "y": 460,
-        "wires": [
-            [
-                "2e28d97213516e63"
-            ]
-        ]
-    },
-    {
-        "id": "7f5b781608648101",
-        "type": "feedparse",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "url": "http://localhost:1880/rss",
-        "interval": "10",
-        "ignorefirst": false,
-        "x": 130,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "631fc859cb7c6a74",
-        "type": "change",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "collection",
-                "pt": "msg",
-                "to": "upwork",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "operation",
-                "pt": "msg",
-                "to": "find",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "[{},{\"sort\":{\"date\":-1},\"projection\":{\"_id\":0,\"title\":1,\"description\":1,\"date\":1},\"limit\":20}]",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 300,
-        "y": 460,
-        "wires": [
-            [
-                "376af23897bef38c"
-            ]
-        ]
-    },
-    {
-        "id": "376af23897bef38c",
-        "type": "mongodb4",
-        "z": "98d41cddef00471d",
-        "clientNode": "0765a7445c5bec6e",
-        "mode": "collection",
-        "collection": "",
-        "operation": "",
-        "output": "toArray",
-        "maxTimeMS": "0",
-        "handleDocId": false,
-        "name": "",
-        "x": 510,
-        "y": 460,
-        "wires": [
-            [
-                "501222a40bb4f594"
-            ]
-        ]
-    },
-    {
-        "id": "271bfa66a73b7cca",
-        "type": "inject",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 110,
-        "y": 740,
-        "wires": [
-            [
-                "0244f35f10f93926"
-            ]
-        ]
-    },
-    {
-        "id": "0244f35f10f93926",
-        "type": "change",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "collection",
-                "pt": "msg",
-                "to": "upwork",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "operation",
-                "pt": "msg",
-                "to": "insertOne",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 320,
-        "y": 740,
-        "wires": [
-            [
-                "c71bd34f172b9cff"
-            ]
-        ]
-    },
-    {
-        "id": "b359af44360a2411",
-        "type": "mongodb4",
-        "z": "98d41cddef00471d",
-        "clientNode": "0765a7445c5bec6e",
-        "mode": "collection",
-        "collection": "",
-        "operation": "",
-        "output": "toArray",
-        "maxTimeMS": "0",
-        "handleDocId": false,
-        "name": "",
-        "x": 810,
-        "y": 740,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c71bd34f172b9cff",
-        "type": "function",
-        "z": "98d41cddef00471d",
-        "name": "function 2",
-        "func": "const title = 'AI MVP Development';\nconst description = `I am seeking a talented developer with expertise in MVP development, AI chatbot development, and API integrations to join a my startup in the AI-driven travel sector. We are considering the use of Bubble or similar no-code/low-code platforms to expedite development without compromising quality.\n\nWe are working with a limited budget initially, but this position offers substantial growth potential. The successful candidate will work closely with me to launch our first product. As we gain traction and secure further investment, there is a significant opportunity for you to advance to a leadership role, potentially becoming the Lead Developer or CTO.\n\nThis is more than a job—it's a chance to shape the future of travel with cutting-edge technology. If you're ready to take on this challenge and innovate in the dynamic intersection of tech and travel, let's discuss how we can make a global impact together.\n\nEffective communication is essential for this project. Therefore, we prefer candidates within three hours of Central European Time (CET) to ensure smooth collaboration. If you meet this criterion, we'd love to hear from you.`\n\nconst payload = {\n    title,\n    description,\n    date: new Date(),\n}\nmsg.payload = payload;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 540,
-        "y": 740,
-        "wires": [
-            [
-                "b359af44360a2411"
-            ]
-        ]
-    },
-    {
-        "id": "9eb3aaf1ef0d009a",
-        "type": "change",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "collection",
-                "pt": "msg",
-                "to": "upwork",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "operation",
-                "pt": "msg",
-                "to": "find",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "[{},{\"sort\":{\"date\":-1},\"projection\":{\"_id\":0,\"title\":1,\"description\":1,\"date\":1},\"limit\":20}]",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 290,
-        "y": 800,
-        "wires": [
-            [
-                "9241633b808bf6b4"
-            ]
-        ]
-    },
-    {
-        "id": "9241633b808bf6b4",
-        "type": "mongodb4",
-        "z": "98d41cddef00471d",
-        "clientNode": "0765a7445c5bec6e",
-        "mode": "collection",
-        "collection": "",
-        "operation": "",
-        "output": "toArray",
-        "maxTimeMS": "0",
-        "handleDocId": false,
-        "name": "",
-        "x": 500,
-        "y": 800,
-        "wires": [
-            [
-                "f8dd69ef85182bdb"
-            ]
-        ]
-    },
-    {
-        "id": "243b8431645d480b",
-        "type": "inject",
-        "z": "98d41cddef00471d",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 110,
-        "y": 800,
-        "wires": [
-            [
-                "9eb3aaf1ef0d009a"
-            ]
-        ]
-    },
-    {
-        "id": "f8dd69ef85182bdb",
-        "type": "debug",
-        "z": "98d41cddef00471d",
-        "name": "debug 18",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 720,
-        "y": 800,
         "wires": []
     },
     {
@@ -1435,7 +1036,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "error",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 240,
@@ -1592,7 +1194,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "error",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 240,
@@ -1605,7 +1208,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 280,
-        "y": 40,
+        "y": 80,
         "wires": [
             [
                 "12d01e0d30838de8"
@@ -1629,6 +1232,11 @@
             },
             {
                 "p": "payload"
+            },
+            {
+                "p": "schema",
+                "v": "{\"URL\":\"url\",\"Type\":\"select\",\"Active\":\"checkbox\",\"Language\":\"multi_select\",\"Person\":\"people\",\"Location\":\"multi_select\"}",
+                "vt": "json"
             }
         ],
         "repeat": "",
@@ -1636,10 +1244,10 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"filter\":{\"property\":\"Active\",\"checkbox\":{\"equals\":true}}}",
+        "payload": "{\"database_id\":\"528f47c1cc014ce1b601b8afacda9c23\",\"filter\":{\"or\":[{\"property\":\"Active\",\"checkbox\":{\"equals\":true}}]}}",
         "payloadType": "json",
         "x": 90,
-        "y": 40,
+        "y": 80,
         "wires": [
             [
                 "fff9da97b05a4227"
@@ -1659,7 +1267,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 40,
+        "y": 80,
         "wires": []
     },
     {
@@ -1668,7 +1276,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 260,
-        "y": 360,
+        "y": 400,
         "wires": [
             [
                 "b8e7ba38e9493f1c"
@@ -1683,7 +1291,7 @@
         "props": [
             {
                 "p": "pageId",
-                "v": "5394310b-4d94-46e1-8bd2-3ed17b44aeab",
+                "v": "7a559a0e8dbc4382a7ec758ec62c3206",
                 "vt": "str"
             },
             {
@@ -1702,7 +1310,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 360,
+        "y": 400,
         "wires": [
             [
                 "76530509eae4d170"
@@ -1722,7 +1330,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 360,
+        "y": 400,
         "wires": []
     },
     {
@@ -1731,7 +1339,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 270,
-        "y": 420,
+        "y": 460,
         "wires": [
             [
                 "e79573c740e73354"
@@ -1765,7 +1373,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 420,
+        "y": 460,
         "wires": [
             [
                 "ee4850bd45e11287"
@@ -1785,7 +1393,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 420,
+        "y": 460,
         "wires": []
     },
     {
@@ -1794,7 +1402,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 290,
-        "y": 480,
+        "y": 520,
         "wires": [
             [
                 "4e69eaea9bdb65ac"
@@ -1828,7 +1436,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 480,
+        "y": 520,
         "wires": [
             [
                 "0c00abc48d7dc668"
@@ -1848,7 +1456,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 480,
+        "y": 520,
         "wires": []
     },
     {
@@ -1857,7 +1465,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 270,
-        "y": 100,
+        "y": 140,
         "wires": [
             [
                 "50c7790dd2fc5c98"
@@ -1891,7 +1499,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 100,
+        "y": 140,
         "wires": [
             [
                 "edea20d0b7b2b37f"
@@ -1911,7 +1519,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 100,
+        "y": 140,
         "wires": []
     },
     {
@@ -1920,7 +1528,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 270,
-        "y": 180,
+        "y": 220,
         "wires": [
             [
                 "f3cfd246699e3f43"
@@ -1949,7 +1557,7 @@
         "payload": "{\"parent\":{\"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"},\"properties\":{\"Name\":{\"title\":[{\"text\":{\"content\":\"Hello, world!\"}}]},\"Date\":{\"date\":{\"start\":\"2024-05-07\"}}}}",
         "payloadType": "json",
         "x": 90,
-        "y": 180,
+        "y": 220,
         "wires": [
             [
                 "0c9bd70ef30aaee1"
@@ -1970,7 +1578,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 680,
-        "y": 180,
+        "y": 220,
         "wires": []
     },
     {
@@ -1979,7 +1587,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 300,
-        "y": 260,
+        "y": 300,
         "wires": [
             [
                 "bc2b6b34cd235c2e"
@@ -2013,7 +1621,7 @@
         "payload": "{\"children\":[{\"heading_2\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale\"}}]}},{\"paragraph\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.\",\"link\":{\"url\":\"https://en.wikipedia.org/wiki/Lacinato_kale\"}}}]}}]}",
         "payloadType": "json",
         "x": 90,
-        "y": 260,
+        "y": 300,
         "wires": [
             [
                 "195e44edbb584018"
@@ -2033,7 +1641,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 520,
-        "y": 260,
+        "y": 300,
         "wires": []
     },
     {
@@ -2063,7 +1671,7 @@
         "to": "",
         "reg": false,
         "x": 460,
-        "y": 180,
+        "y": 220,
         "wires": [
             [
                 "7a89a58b2e647ec1",
@@ -2093,7 +1701,7 @@
         "payload": "{\t   \"parent\":{\t       \"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"\t   },\t   \"properties\":{\t       \"Name\":{\t           \"title\":[{\"text\":{\"content\":\"Hello, world!\"}}]\t       },\t       \"Date\":{\"date\":{\"start\": $moment($moment()).format(\"YYYY-MM-DD\")}}\t   }\t}",
         "payloadType": "jsonata",
         "x": 90,
-        "y": 220,
+        "y": 260,
         "wires": [
             [
                 "0c9bd70ef30aaee1"
@@ -2132,7 +1740,7 @@
         "payload": "{\"title\":\"TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod\",\"date\":\"2024-05-07T18:13:27.000Z\"}",
         "payloadType": "json",
         "x": 90,
-        "y": 540,
+        "y": 580,
         "wires": [
             [
                 "9c9473c896a4491c"
@@ -2152,7 +1760,7 @@
         "handleDocId": false,
         "name": "",
         "x": 320,
-        "y": 540,
+        "y": 580,
         "wires": [
             [
                 "e38e62e1758f41b2"
@@ -2173,7 +1781,39 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 560,
-        "y": 540,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "1dbb2dae62aef0c9",
+        "type": "catch",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "8bdfb27fcc04a223"
+            ]
+        ]
+    },
+    {
+        "id": "8bdfb27fcc04a223",
+        "type": "debug",
+        "z": "be070c1ddf78f5bd",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "error",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 240,
+        "y": 40,
         "wires": []
     },
     {
@@ -2204,5 +1844,402 @@
             [],
             []
         ]
+    },
+    {
+        "id": "ca67469557bdb35b",
+        "type": "http in",
+        "z": "15e2bb6087670f34",
+        "name": "",
+        "url": "/feeds",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 100,
+        "wires": [
+            [
+                "b30ad77929c1d5fd"
+            ]
+        ]
+    },
+    {
+        "id": "b30ad77929c1d5fd",
+        "type": "template",
+        "z": "15e2bb6087670f34",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet href=\"/public/style.xsl\" type=\"text/xsl\"?>\n<rss xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" xmlns:dcterms=\"http://purl.org/dc/terms/\" version=\"2.0\">\n  <channel>\n    <title><![CDATA[NOS Tech]]></title>\n    <link><![CDATA[https://nos.nl]]></link>\n    <description><![CDATA[NOS Tech]]></description>\n    <language>nl</language>\n    <copyright>Copyright NOS</copyright>\n    <pubDate>Thu, 09 May 2024 19:10:18 +0200</pubDate>\n    <webMaster>podcast@nos.nl (NOS Podcast Beheer)</webMaster>\n    <item>\n      <title><![CDATA[TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod]]></title>\n      <link>https://nos.nl/l/2519665</link>\n      <description><![CDATA[<p>Video-app TikTok heeft een rechtszaak aangespannen tegen de Amerikaanse overheid. Doel is om een wet te voorkomen waarmee het Chinese moederbedrijf ByteDance wordt gedwongen TikTok te verkopen. Het is het begin van een waarschijnlijk lange procedure die vermoedelijk eindigt bij het Hooggerechtshof.</p>\n<p>\"Voor de eerste keer in de geschiedenis heeft het Congres een wet aangenomen die een platform onderwerpt aan een permanent landelijk verbod\", zegt TikTok. Het bedrijf noemt de wet \"ongrondwettelijk\" en stelt dat de wet ingaat tegen de vrijheid van meningsuiting, een zeer groot goed in de VS.</p>\n<h2>Verkopen of verboden</h2>\n<p>Aanleiding voor de aanklacht is een wet die twee weken geleden werd ondertekend door president Biden. Die stelt dat TikTok verkocht moet worden binnen negen maanden, een periode die nog eens kan worden verlengd met drie maanden. Lukt dat niet binnen die tijd, dan wordt de app in feite verboden in de VS.</p>\n<p>In de praktijk mogen de downloadwinkels van Apple en Google - die samen de mobiele markt domineren - de app dan niet meer aanbieden aan nieuwe klanten. Nog belangrijker is dat ook hostingpartijen, die zorgen dat dit soort apps functioneren, ook geen zaken meer mogen doen met TikTok.</p>\n<p>In de aanklacht zegt TikTok dat een verkoop \"simpelweg niet mogelijk is: niet commercieel, niet technologisch, niet juridisch\". En volgens het bedrijf kan dit helemaal niet binnen de gestelde negen maanden. \"Er is geen twijfel: de wet dwingt het sluiten van TikTok af per 15 januari 2025, waarmee 170 miljoen Amerikanen die het platform gebruiken het zwijgen wordt opgelegd.\"</p>\n<p>Ook stelt het bedrijf dat een losstaande Amerikaanse versie van TikTok niet \"commercieel realistisch is\". Dit omdat TikTok, net als concurrenten, wereldwijd opereren met content die overal beschikbaar is. Als de app in de VS wordt losgetrokken van de rest, zo betoogt het bedrijf, wordt de app een \"eiland\". Gebruikers zien dan dus niets vanuit andere delen van de wereld en daarmee wordt de app veel minder waard.</p>\n<h2>Chinese makelij</h2>\n<p>Amerikaanse politici zijn al tijden heel kritisch op TikTok. Dat heeft ermee te maken dat de app van Chinese makelij is en onderdeel is van het in China opgerichte ByteDance. De vrees is dat Peking via de app bij data van tientallen miljoenen Amerikanen kan komen en dat de overheid via het algoritme desinformatie kan verspreiden.</p>\n<p>Bewijs dat dit ook daadwerkelijk gebeurt is nog nooit gegeven. TikTok heeft de beschuldigingen over inmenging vanuit Peking altijd tegengesproken. Ook het feit dat veel kinderen in de VS vermoedelijk verslaafd zijn aan de app is een belangrijk punt.</p>\n<p>Het leidde al tot meerdere pogingen om de app te verbieden. Zo probeerde in 2020 toenmalig president Trump dat, maar zijn poging strandde in de rechtszaal. Vorig jaar maart leek een verbod opnieuw nabij, na een zeer pittige hoorzitting van de ceo van TikTok voor het Amerikaanse Congres. Wetsvoorstellen verdwenen daarna echter van het toneel.</p>\n<p>Daarna werd het maandenlang stil. Maar schijn bedriegt: achter de schermen werd gewerkt aan een wet die mogelijk wel een rechtszaak zou overleven. Die wet kwam in maart door het Huis van Afgevaardigden, maar leek vervolgens te stranden in de Senaat. Totdat deze werd toegevoegd aan steunpakketten voor Israël en Oekraïne. Daarbij werd de periode die ByteDance kreeg om de verkoop te regelen langer gemaakt.</p>\n<p>ByteDance lijkt ondertussen een verkoop niet te zien zitten. Persbureau Reuters meldde eind vorige maand op basis van bronnen dat het moederbedrijf liever TikTok ziet verdwijnen uit de VS dan dat het tot een overname komt. De enige optie die dan overblijft, is de juridische weg. Die is vandaag officieel ingeslagen.</p>\n]]></description>\n      <enclosure type=\"image/jpeg\" url=\"https://cdn.nos.nl/image/2024/05/07/1079944/1008x567.jpg\"/>\n      <pubDate>Tue, 07 May 2024 20:13:27 +0200</pubDate>\n      <guid isPermaLink=\"true\">https://nos.nl/l/2519665</guid>\n    </item>\n   \n  </channel>\n</rss>\n",
+        "output": "str",
+        "x": 240,
+        "y": 100,
+        "wires": [
+            [
+                "681988b4f2ceae79"
+            ]
+        ]
+    },
+    {
+        "id": "681988b4f2ceae79",
+        "type": "http response",
+        "z": "15e2bb6087670f34",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 390,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "4a082d05e12484d8",
+        "type": "catch",
+        "z": "15e2bb6087670f34",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "c9edbe02a7144975"
+            ]
+        ]
+    },
+    {
+        "id": "c9edbe02a7144975",
+        "type": "debug",
+        "z": "15e2bb6087670f34",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "error",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 240,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "afd096a87e22e8bd",
+        "type": "http in",
+        "z": "15e2bb6087670f34",
+        "name": "",
+        "url": "/rss",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 160,
+        "wires": [
+            [
+                "631fc859cb7c6a74"
+            ]
+        ]
+    },
+    {
+        "id": "2e28d97213516e63",
+        "type": "http response",
+        "z": "15e2bb6087670f34",
+        "name": "",
+        "statusCode": "",
+        "headers": {
+            "content-type": "application/xml"
+        },
+        "x": 860,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "501222a40bb4f594",
+        "type": "function",
+        "z": "15e2bb6087670f34",
+        "name": "function 1",
+        "func": "const RSS = global.get('RSS')\nconst dbFeeds = msg.payload || [];\nvar feeds = new RSS({\n  title: \"title\",\n  description: \"description\",\n});\n\n// feeds.item({\n//   title: \"item title\",\n//   description: \"use this for the content. It can include html.\",\n// });\n\ndbFeeds.forEach(({ title, description}) => {\n  feeds.item({\n    title,\n    description,\n  })\n})\nconst xmlResponse = feeds.xml({ indent: false });\n\nmsg.payload = xmlResponse\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 160,
+        "wires": [
+            [
+                "2e28d97213516e63"
+            ]
+        ]
+    },
+    {
+        "id": "631fc859cb7c6a74",
+        "type": "change",
+        "z": "15e2bb6087670f34",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "collection",
+                "pt": "msg",
+                "to": "upwork",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "operation",
+                "pt": "msg",
+                "to": "find",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[{},{\"sort\":{\"date\":-1},\"projection\":{\"_id\":0,\"title\":1,\"description\":1,\"date\":1},\"limit\":20}]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 160,
+        "wires": [
+            [
+                "376af23897bef38c"
+            ]
+        ]
+    },
+    {
+        "id": "376af23897bef38c",
+        "type": "mongodb4",
+        "z": "15e2bb6087670f34",
+        "clientNode": "0765a7445c5bec6e",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 500,
+        "y": 160,
+        "wires": [
+            [
+                "501222a40bb4f594"
+            ]
+        ]
+    },
+    {
+        "id": "271bfa66a73b7cca",
+        "type": "inject",
+        "z": "15e2bb6087670f34",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "0244f35f10f93926"
+            ]
+        ]
+    },
+    {
+        "id": "0244f35f10f93926",
+        "type": "change",
+        "z": "15e2bb6087670f34",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "collection",
+                "pt": "msg",
+                "to": "upwork",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "operation",
+                "pt": "msg",
+                "to": "insertOne",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 220,
+        "wires": [
+            [
+                "c71bd34f172b9cff"
+            ]
+        ]
+    },
+    {
+        "id": "b359af44360a2411",
+        "type": "mongodb4",
+        "z": "15e2bb6087670f34",
+        "clientNode": "0765a7445c5bec6e",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 810,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c71bd34f172b9cff",
+        "type": "function",
+        "z": "15e2bb6087670f34",
+        "name": "function 2",
+        "func": "const title = 'AI MVP Development';\nconst description = `I am seeking a talented developer with expertise in MVP development, AI chatbot development, and API integrations to join a my startup in the AI-driven travel sector. We are considering the use of Bubble or similar no-code/low-code platforms to expedite development without compromising quality.\n\nWe are working with a limited budget initially, but this position offers substantial growth potential. The successful candidate will work closely with me to launch our first product. As we gain traction and secure further investment, there is a significant opportunity for you to advance to a leadership role, potentially becoming the Lead Developer or CTO.\n\nThis is more than a job—it's a chance to shape the future of travel with cutting-edge technology. If you're ready to take on this challenge and innovate in the dynamic intersection of tech and travel, let's discuss how we can make a global impact together.\n\nEffective communication is essential for this project. Therefore, we prefer candidates within three hours of Central European Time (CET) to ensure smooth collaboration. If you meet this criterion, we'd love to hear from you.`\n\nconst payload = {\n    title,\n    description,\n    date: new Date(),\n}\nmsg.payload = payload;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 220,
+        "wires": [
+            [
+                "b359af44360a2411"
+            ]
+        ]
+    },
+    {
+        "id": "9eb3aaf1ef0d009a",
+        "type": "change",
+        "z": "15e2bb6087670f34",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "collection",
+                "pt": "msg",
+                "to": "upwork",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "operation",
+                "pt": "msg",
+                "to": "find",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[{},{\"sort\":{\"date\":-1},\"projection\":{\"_id\":0,\"title\":1,\"description\":1,\"date\":1},\"limit\":20}]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 280,
+        "wires": [
+            [
+                "9241633b808bf6b4"
+            ]
+        ]
+    },
+    {
+        "id": "9241633b808bf6b4",
+        "type": "mongodb4",
+        "z": "15e2bb6087670f34",
+        "clientNode": "0765a7445c5bec6e",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "",
+        "x": 500,
+        "y": 280,
+        "wires": [
+            [
+                "f8dd69ef85182bdb"
+            ]
+        ]
+    },
+    {
+        "id": "243b8431645d480b",
+        "type": "inject",
+        "z": "15e2bb6087670f34",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "9eb3aaf1ef0d009a"
+            ]
+        ]
+    },
+    {
+        "id": "f8dd69ef85182bdb",
+        "type": "debug",
+        "z": "15e2bb6087670f34",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 280,
+        "wires": []
     }
 ]
