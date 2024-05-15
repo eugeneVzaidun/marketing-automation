@@ -1435,7 +1435,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "error",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 240,
@@ -1592,7 +1593,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "error",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 240,
@@ -1605,7 +1607,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 280,
-        "y": 40,
+        "y": 80,
         "wires": [
             [
                 "12d01e0d30838de8"
@@ -1620,7 +1622,7 @@
         "props": [
             {
                 "p": "pageId",
-                "v": "86fac854e975475a8435b6fe3fe922b8",
+                "v": "528f47c1cc014ce1b601b8afacda9c23",
                 "vt": "str"
             },
             {
@@ -1629,6 +1631,11 @@
             },
             {
                 "p": "payload"
+            },
+            {
+                "p": "schema",
+                "v": "{\"URL\":\"url\",\"Type\":\"select\",\"Active\":\"checkbox\",\"Language\":\"multi_select\",\"Person\":\"people\",\"Location\":\"multi_select\"}",
+                "vt": "json"
             }
         ],
         "repeat": "",
@@ -1636,10 +1643,10 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{}",
+        "payload": "{\"database_id\":\"528f47c1cc014ce1b601b8afacda9c23\",\"filter\":{\"or\":[{\"property\":\"Active\",\"checkbox\":{\"equals\":true}}]}}",
         "payloadType": "json",
         "x": 90,
-        "y": 40,
+        "y": 80,
         "wires": [
             [
                 "fff9da97b05a4227"
@@ -1659,7 +1666,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 40,
+        "y": 80,
         "wires": []
     },
     {
@@ -1668,7 +1675,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 260,
-        "y": 360,
+        "y": 400,
         "wires": [
             [
                 "b8e7ba38e9493f1c"
@@ -1683,7 +1690,7 @@
         "props": [
             {
                 "p": "pageId",
-                "v": "5394310b-4d94-46e1-8bd2-3ed17b44aeab",
+                "v": "7a559a0e8dbc4382a7ec758ec62c3206",
                 "vt": "str"
             },
             {
@@ -1702,7 +1709,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 360,
+        "y": 400,
         "wires": [
             [
                 "76530509eae4d170"
@@ -1722,7 +1729,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 360,
+        "y": 400,
         "wires": []
     },
     {
@@ -1731,7 +1738,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 270,
-        "y": 420,
+        "y": 460,
         "wires": [
             [
                 "e79573c740e73354"
@@ -1765,7 +1772,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 420,
+        "y": 460,
         "wires": [
             [
                 "ee4850bd45e11287"
@@ -1785,7 +1792,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 420,
+        "y": 460,
         "wires": []
     },
     {
@@ -1794,7 +1801,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 290,
-        "y": 480,
+        "y": 520,
         "wires": [
             [
                 "4e69eaea9bdb65ac"
@@ -1828,7 +1835,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 480,
+        "y": 520,
         "wires": [
             [
                 "0c00abc48d7dc668"
@@ -1848,7 +1855,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 480,
+        "y": 520,
         "wires": []
     },
     {
@@ -1857,7 +1864,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 270,
-        "y": 100,
+        "y": 140,
         "wires": [
             [
                 "50c7790dd2fc5c98"
@@ -1891,7 +1898,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 100,
+        "y": 140,
         "wires": [
             [
                 "edea20d0b7b2b37f"
@@ -1911,7 +1918,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 100,
+        "y": 140,
         "wires": []
     },
     {
@@ -1920,7 +1927,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 270,
-        "y": 180,
+        "y": 220,
         "wires": [
             [
                 "f3cfd246699e3f43"
@@ -1949,7 +1956,7 @@
         "payload": "{\"parent\":{\"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"},\"properties\":{\"Name\":{\"title\":[{\"text\":{\"content\":\"Hello, world!\"}}]},\"Date\":{\"date\":{\"start\":\"2024-05-07\"}}}}",
         "payloadType": "json",
         "x": 90,
-        "y": 180,
+        "y": 220,
         "wires": [
             [
                 "0c9bd70ef30aaee1"
@@ -1970,7 +1977,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 680,
-        "y": 180,
+        "y": 220,
         "wires": []
     },
     {
@@ -1979,7 +1986,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 300,
-        "y": 260,
+        "y": 300,
         "wires": [
             [
                 "bc2b6b34cd235c2e"
@@ -2013,7 +2020,7 @@
         "payload": "{\"children\":[{\"heading_2\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale\"}}]}},{\"paragraph\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.\",\"link\":{\"url\":\"https://en.wikipedia.org/wiki/Lacinato_kale\"}}}]}}]}",
         "payloadType": "json",
         "x": 90,
-        "y": 260,
+        "y": 300,
         "wires": [
             [
                 "195e44edbb584018"
@@ -2033,7 +2040,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 520,
-        "y": 260,
+        "y": 300,
         "wires": []
     },
     {
@@ -2063,7 +2070,7 @@
         "to": "",
         "reg": false,
         "x": 460,
-        "y": 180,
+        "y": 220,
         "wires": [
             [
                 "7a89a58b2e647ec1",
@@ -2093,7 +2100,7 @@
         "payload": "{\t   \"parent\":{\t       \"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"\t   },\t   \"properties\":{\t       \"Name\":{\t           \"title\":[{\"text\":{\"content\":\"Hello, world!\"}}]\t       },\t       \"Date\":{\"date\":{\"start\": $moment($moment()).format(\"YYYY-MM-DD\")}}\t   }\t}",
         "payloadType": "jsonata",
         "x": 90,
-        "y": 220,
+        "y": 260,
         "wires": [
             [
                 "0c9bd70ef30aaee1"
@@ -2132,7 +2139,7 @@
         "payload": "{\"title\":\"TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod\",\"date\":\"2024-05-07T18:13:27.000Z\"}",
         "payloadType": "json",
         "x": 90,
-        "y": 540,
+        "y": 580,
         "wires": [
             [
                 "9c9473c896a4491c"
@@ -2152,7 +2159,7 @@
         "handleDocId": false,
         "name": "",
         "x": 320,
-        "y": 540,
+        "y": 580,
         "wires": [
             [
                 "e38e62e1758f41b2"
@@ -2173,7 +2180,39 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 560,
-        "y": 540,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "1dbb2dae62aef0c9",
+        "type": "catch",
+        "z": "be070c1ddf78f5bd",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "8bdfb27fcc04a223"
+            ]
+        ]
+    },
+    {
+        "id": "8bdfb27fcc04a223",
+        "type": "debug",
+        "z": "be070c1ddf78f5bd",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "error",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 240,
+        "y": 40,
         "wires": []
     },
     {
