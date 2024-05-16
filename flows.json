@@ -194,7 +194,7 @@
         "type": "function",
         "z": "adb9cf7a321a3e04",
         "name": "language detected",
-        "func": "try {\n    const detectLanguage = global.get('detectLanguage');\n\n    msg.payload.language = detectLanguage(msg.payload.descriptionText);\n    msg.payload.languageDeteced = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;",
+        "func": "try {\n    const detectLanguage = global.get('detectLanguage');\n\n    msg.payload.descriptionOriginLanguage = detectLanguage(msg.payload.descriptionOrigin);\n    msg.payload.languageDeteced = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -239,7 +239,7 @@
         "type": "function",
         "z": "adb9cf7a321a3e04",
         "name": "route key detector",
-        "func": "if (msg.payload.error) {\n    return [null, null, msg];\n}\n\nif (msg.payload.documentCount > 0) {\n    return null\n}\nif (msg.payload.languageDeteced && \n    msg.payload.keywordsExtracted && \n    msg.payload.formated && \n    msg.payload.linkedInPostCreated &&\n    msg.payload.documentCount === 0) \n{\n    return [null,msg];\n}\n\nif (msg.payload.documentCount === undefined) {\n    msg.routingKey = 'deduplication_check';\n    return [msg, null];\n}\nif (!msg.payload.formated) {\n    msg.routingKey = 'format';\n    return [msg, null];\n}\n\nif (!msg.payload.languageDeteced) {\n    msg.routingKey = 'language_detection';\n    return [msg, null];\n}\n\nif (!msg.payload.keywordsExtracted) {\n    msg.routingKey = 'extract_keywords';\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostCreated) {\n    msg.routingKey = 'linkedin_post'\n    return [msg, null];\n}",
+        "func": "if (msg.payload.error) {\n    return [null, null, msg];\n}\n\nif (msg.payload.documentCount > 0) {\n    return null\n}\nif (msg.payload.languageDeteced &&\n    msg.payload.translated &&\n    msg.payload.keywordsExtracted && \n    msg.payload.formated && \n    msg.payload.linkedInPostCreated &&\n    msg.payload.documentCount === 0) \n{\n    return [null,msg];\n}\n\nif (msg.payload.documentCount === undefined) {\n    msg.routingKey = 'deduplication_check';\n    return [msg, null];\n}\n\nif (!msg.payload.formated) {\n    msg.routingKey = 'format';\n    return [msg, null];\n}\n\nif (!msg.payload.languageDeteced) {\n    msg.routingKey = 'language_detection';\n    return [msg, null];\n}\n\nif (!msg.payload.translated) {\n    msg.routingKey = 'translation';\n    return [msg, null];\n}\n\nif (!msg.payload.keywordsExtracted) {\n    msg.routingKey = 'extract_keywords';\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostCreated) {\n    msg.routingKey = 'linkedin_post'\n    return [msg, null];\n}",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -317,7 +317,7 @@
         "type": "function",
         "z": "adb9cf7a321a3e04",
         "name": "keywords extracted",
-        "func": "const generateTags = global.get('generateTags')\ntry {\n    msg.payload.keywords = generateTags(msg.payload.descriptionText);\n    msg.payload.keywordsExtracted = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;\n",
+        "func": "const generateTags = global.get('generateTags')\ntry {\n    msg.payload.keywords = generateTags(msg.payload.descriptionOrigin);\n    msg.payload.keywordsExtracted = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -389,7 +389,7 @@
         "type": "function",
         "z": "adb9cf7a321a3e04",
         "name": "formated",
-        "func": "function htmlToText(html) {\n  return html.replace(/<[^>]*>/g, '');\n}\n\ntry {\n  msg.payload.descriptionText = htmlToText(msg.payload.description);\n  msg.payload.formated = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;\n\n",
+        "func": "function htmlToText(html) {\n  return html.replace(/<[^>]*>/g, '');\n}\n\ntry {\n  msg.payload.descriptionOrigin = htmlToText(msg.payload.descriptionOrigin);\n  msg.payload.titleOrigin = htmlToText(msg.payload.titleOrigin);\n  msg.payload.formated = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;\n\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -517,7 +517,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t    \"content\": tempPayload.descriptionText\t}",
+                "to": "{\t    \"content\": tempPayload.descriptionOrigin\t}",
                 "tot": "jsonata"
             }
         ],
@@ -640,7 +640,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t    \"title\": tempPayload.title,\t    \"date\": tempPayload.date\t}",
+                "to": "{\t    \"titleOrigin\": tempPayload.titleOrigin,\t    \"date\": tempPayload.date\t}",
                 "tot": "jsonata"
             }
         ],
@@ -742,10 +742,11 @@
             "512d7177718c5ac8",
             "6895c07f025872d5",
             "e0baddf4372fde3f",
-            "ec10675d9ce489dc"
+            "ec10675d9ce489dc",
+            "a33b2495b8913650"
         ],
         "x": 45,
-        "y": 560,
+        "y": 680,
         "wires": [
             [
                 "a46bd2365b22f364"
@@ -767,7 +768,7 @@
         "rpcTimeoutMilliseconds": 3000,
         "outputs": 0,
         "x": 180,
-        "y": 560,
+        "y": 680,
         "wires": []
     },
     {
@@ -907,8 +908,110 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 240,
+        "x": 260,
         "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b380bcc338c817b6",
+        "type": "amqp-in",
+        "z": "adb9cf7a321a3e04",
+        "name": "translation",
+        "broker": "204746069e0ec785",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "feeds",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "translation",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": true,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "{}",
+        "x": 80,
+        "y": 540,
+        "wires": [
+            [
+                "7f416a1bd177c666",
+                "81ae3b68f78a7601"
+            ]
+        ]
+    },
+    {
+        "id": "db29f7c0edbc9205",
+        "type": "change",
+        "z": "adb9cf7a321a3e04",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "routingKey",
+                "pt": "msg",
+                "to": "router",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 540,
+        "wires": [
+            [
+                "a33b2495b8913650"
+            ]
+        ]
+    },
+    {
+        "id": "7f416a1bd177c666",
+        "type": "function",
+        "z": "adb9cf7a321a3e04",
+        "name": "translator",
+        "func": "const Translate = global.get('Translate')\n\nconst translate = new Translate();\ntry {\n  if (msg.payload.languageDeteced && \n    msg.payload.descriptionOriginLanguage !== msg.payload.sourceMetadata.lang[0].toLocaleLowerCase()) {\n    let descriptionTranslationResult = await translate.translate(msg.payload.descriptionOrigin, msg.payload.sourceMetadata.lang[0].toLocaleLowerCase());\n    let titleTranslationResult = await translate.translate(msg.payload.titleOrigin, msg.payload.sourceMetadata.lang[0].toLocaleLowerCase());\n    msg.payload.translations = { \n      [`${msg.payload.sourceMetadata.lang[0].toLocaleLowerCase()}`]: {\n        title: titleTranslationResult[0],\n        description: descriptionTranslationResult[0],\n      }\n    }\n  }\n  msg.payload.translated = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 540,
+        "wires": [
+            [
+                "db29f7c0edbc9205"
+            ]
+        ]
+    },
+    {
+        "id": "a33b2495b8913650",
+        "type": "link out",
+        "z": "adb9cf7a321a3e04",
+        "name": "link out 9",
+        "mode": "link",
+        "links": [
+            "73c4bf0b72565dc6"
+        ],
+        "x": 675,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "81ae3b68f78a7601",
+        "type": "debug",
+        "z": "adb9cf7a321a3e04",
+        "name": "debug 28",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 270,
+        "y": 600,
         "wires": []
     },
     {
@@ -932,7 +1035,7 @@
         "type": "create page",
         "z": "76076b827daf890b",
         "integration": "2e9215f9fed73afd",
-        "x": 370,
+        "x": 610,
         "y": 100,
         "wires": [
             [
@@ -945,7 +1048,7 @@
         "type": "append block children",
         "z": "76076b827daf890b",
         "integration": "2e9215f9fed73afd",
-        "x": 780,
+        "x": 1020,
         "y": 100,
         "wires": [
             [
@@ -979,7 +1082,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 560,
+        "x": 800,
         "y": 100,
         "wires": [
             [
@@ -999,13 +1102,6 @@
                 "pt": "msg",
                 "to": "payload",
                 "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\t   \"parent\":{\t       \"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"\t   },\t   \"properties\":{\t       \"Name\":{\t           \"title\":[{\"text\":{\"content\":tempPayload.title}}]\t       },\t       \"Date\":{\"date\":{\"start\": $moment($moment()).format(\"YYYY-MM-DD\")}}\t   }\t}",
-                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -1013,11 +1109,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 160,
+        "x": 180,
         "y": 100,
         "wires": [
             [
-                "c90be7dfa8ba550d"
+                "b6a9b2790d9b11b8"
             ]
         ]
     },
@@ -1033,7 +1129,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 980,
+        "x": 1220,
         "y": 100,
         "wires": []
     },
@@ -1068,6 +1164,26 @@
         "x": 250,
         "y": 40,
         "wires": []
+    },
+    {
+        "id": "b6a9b2790d9b11b8",
+        "type": "function",
+        "z": "76076b827daf890b",
+        "name": "function 4",
+        "func": "const translations = msg.tempPayload.translations;\nconst lang = msg.tempPayload.sourceMetadata.lang[0].toLowerCase();\nlet titleContent = msg.tempPayload.titleOrigin;\nlet descriptionContent = msg.tempPayload.descriptionOrigin;\n\nif (translations && translations[lang]) {\n    titleContent = translations[lang].title || titleContent;\n    descriptionContent = translations[lang].description || descriptionContent;\n}\n\nconst payload = {\n    \"parent\": {\n        \"database_id\": \"86fac854e975475a8435b6fe3fe922b8\"\n    },\n    \"properties\": {\n        \"Name\": {\n            \"title\": [\n                {\n                    \"text\": {\n                        \"content\": titleContent\n                    }\n                }\n            ]\n        },\n        \"Date\": {\n            \"date\": {\n                \"start\": new Date().toISOString().split('T')[0]\n            }\n        }\n    }\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 100,
+        "wires": [
+            [
+                "c90be7dfa8ba550d"
+            ]
+        ]
     },
     {
         "id": "76530509eae4d170",
@@ -1984,7 +2100,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet href=\"/public/style.xsl\" type=\"text/xsl\"?>\n<rss xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" xmlns:dcterms=\"http://purl.org/dc/terms/\" version=\"2.0\">\n  <channel>\n    <title><![CDATA[NOS Tech]]></title>\n    <link><![CDATA[https://nos.nl]]></link>\n    <description><![CDATA[NOS Tech]]></description>\n    <language>nl</language>\n    <copyright>Copyright NOS</copyright>\n    <pubDate>Thu, 09 May 2024 19:10:18 +0200</pubDate>\n    <webMaster>podcast@nos.nl (NOS Podcast Beheer)</webMaster>\n    <item>\n      <title><![CDATA[TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod]]></title>\n      <link>https://nos.nl/l/2519665</link>\n      <description><![CDATA[<p>Video-app TikTok heeft een rechtszaak aangespannen tegen de Amerikaanse overheid. Doel is om een wet te voorkomen waarmee het Chinese moederbedrijf ByteDance wordt gedwongen TikTok te verkopen. Het is het begin van een waarschijnlijk lange procedure die vermoedelijk eindigt bij het Hooggerechtshof.</p>\n<p>\"Voor de eerste keer in de geschiedenis heeft het Congres een wet aangenomen die een platform onderwerpt aan een permanent landelijk verbod\", zegt TikTok. Het bedrijf noemt de wet \"ongrondwettelijk\" en stelt dat de wet ingaat tegen de vrijheid van meningsuiting, een zeer groot goed in de VS.</p>\n<h2>Verkopen of verboden</h2>\n<p>Aanleiding voor de aanklacht is een wet die twee weken geleden werd ondertekend door president Biden. Die stelt dat TikTok verkocht moet worden binnen negen maanden, een periode die nog eens kan worden verlengd met drie maanden. Lukt dat niet binnen die tijd, dan wordt de app in feite verboden in de VS.</p>\n<p>In de praktijk mogen de downloadwinkels van Apple en Google - die samen de mobiele markt domineren - de app dan niet meer aanbieden aan nieuwe klanten. Nog belangrijker is dat ook hostingpartijen, die zorgen dat dit soort apps functioneren, ook geen zaken meer mogen doen met TikTok.</p>\n<p>In de aanklacht zegt TikTok dat een verkoop \"simpelweg niet mogelijk is: niet commercieel, niet technologisch, niet juridisch\". En volgens het bedrijf kan dit helemaal niet binnen de gestelde negen maanden. \"Er is geen twijfel: de wet dwingt het sluiten van TikTok af per 15 januari 2025, waarmee 170 miljoen Amerikanen die het platform gebruiken het zwijgen wordt opgelegd.\"</p>\n<p>Ook stelt het bedrijf dat een losstaande Amerikaanse versie van TikTok niet \"commercieel realistisch is\". Dit omdat TikTok, net als concurrenten, wereldwijd opereren met content die overal beschikbaar is. Als de app in de VS wordt losgetrokken van de rest, zo betoogt het bedrijf, wordt de app een \"eiland\". Gebruikers zien dan dus niets vanuit andere delen van de wereld en daarmee wordt de app veel minder waard.</p>\n<h2>Chinese makelij</h2>\n<p>Amerikaanse politici zijn al tijden heel kritisch op TikTok. Dat heeft ermee te maken dat de app van Chinese makelij is en onderdeel is van het in China opgerichte ByteDance. De vrees is dat Peking via de app bij data van tientallen miljoenen Amerikanen kan komen en dat de overheid via het algoritme desinformatie kan verspreiden.</p>\n<p>Bewijs dat dit ook daadwerkelijk gebeurt is nog nooit gegeven. TikTok heeft de beschuldigingen over inmenging vanuit Peking altijd tegengesproken. Ook het feit dat veel kinderen in de VS vermoedelijk verslaafd zijn aan de app is een belangrijk punt.</p>\n<p>Het leidde al tot meerdere pogingen om de app te verbieden. Zo probeerde in 2020 toenmalig president Trump dat, maar zijn poging strandde in de rechtszaal. Vorig jaar maart leek een verbod opnieuw nabij, na een zeer pittige hoorzitting van de ceo van TikTok voor het Amerikaanse Congres. Wetsvoorstellen verdwenen daarna echter van het toneel.</p>\n<p>Daarna werd het maandenlang stil. Maar schijn bedriegt: achter de schermen werd gewerkt aan een wet die mogelijk wel een rechtszaak zou overleven. Die wet kwam in maart door het Huis van Afgevaardigden, maar leek vervolgens te stranden in de Senaat. Totdat deze werd toegevoegd aan steunpakketten voor Israël en Oekraïne. Daarbij werd de periode die ByteDance kreeg om de verkoop te regelen langer gemaakt.</p>\n<p>ByteDance lijkt ondertussen een verkoop niet te zien zitten. Persbureau Reuters meldde eind vorige maand op basis van bronnen dat het moederbedrijf liever TikTok ziet verdwijnen uit de VS dan dat het tot een overname komt. De enige optie die dan overblijft, is de juridische weg. Die is vandaag officieel ingeslagen.</p>\n]]></description>\n      <enclosure type=\"image/jpeg\" url=\"https://cdn.nos.nl/image/2024/05/07/1079944/1008x567.jpg\"/>\n      <pubDate>Tue, 07 May 2024 20:13:27 +0200</pubDate>\n      <guid isPermaLink=\"true\">https://nos.nl/l/2519665</guid>\n    </item>\n   \n  </channel>\n</rss>\n",
+        "template": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet href=\"/public/style.xsl\" type=\"text/xsl\"?>\n<rss xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" xmlns:dcterms=\"http://purl.org/dc/terms/\" version=\"2.0\">\n  <channel>\n    <title><![CDATA[NOS Tech]]></title>\n    <link><![CDATA[https://nos.nl]]></link>\n    <description><![CDATA[NOS Tech]]></description>\n    <language>nl</language>\n    <copyright>Copyright NOS</copyright>\n    <pubDate>Thu, 09 May 2024 19:10:18 +0200</pubDate>\n    <webMaster>podcast@nos.nl (NOS Podcast Beheer)</webMaster>\n    <item>\n      <title><![CDATA[TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod]]></title>\n      <link>https://nos.nl/l/2519665</link>\n      <description><![CDATA[<p>Video-app TikTok heeft een rechtszaak aangespannen tegen de Amerikaanse overheid. Doel is om een wet te voorkomen waarmee het Chinese moederbedrijf ByteDance wordt gedwongen TikTok te verkopen. Het is het begin van een waarschijnlijk lange procedure die vermoedelijk eindigt bij het Hooggerechtshof.</p>\n<p>\"Voor de eerste keer in de geschiedenis heeft het Congres een wet aangenomen die een platform onderwerpt aan een permanent landelijk verbod\", zegt TikTok. Het bedrijf noemt de wet \"ongrondwettelijk\" en stelt dat de wet ingaat tegen de vrijheid van meningsuiting, een zeer groot goed in de VS.</p>\n<h2>Verkopen of verboden</h2>\n<p>Aanleiding voor de aanklacht is een wet die twee weken geleden werd ondertekend door president Biden. Die stelt dat TikTok verkocht moet worden binnen negen maanden, een periode die nog eens kan worden verlengd met drie maanden. Lukt dat niet binnen die tijd, dan wordt de app in feite verboden in de VS.</p>\n]]></description>\n      <enclosure type=\"image/jpeg\" url=\"https://cdn.nos.nl/image/2024/05/07/1079944/1008x567.jpg\"/>\n      <pubDate>Tue, 07 May 2024 20:13:27 +0200</pubDate>\n      <guid isPermaLink=\"true\">https://nos.nl/l/2519665</guid>\n    </item>\n   \n  </channel>\n</rss>\n",
         "output": "str",
         "x": 240,
         "y": 100,
@@ -2412,7 +2528,7 @@
         "type": "function",
         "z": "797b17216639c356",
         "name": "flow generator",
-        "func": "const sources = msg.payload.map(item => ({\n    url: item.URL,\n    person: item.Person,\n    lang: item.Language,\n    interval: item.Interval\n}));\n\nfunction addRSSFeedParser(sources) {\n    // Base Y coordinate for the first feedparse node\n    let baseY = 40;\n\n    // Base structure for all nodes\n    const nodes = [\n        {\n            id: \"b61d28486ad60365\",\n            type: \"queue\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            input: \"payload\",\n            inputType: \"msg\",\n            addFields: '[\"news\",\"tech\"]',\n            addFieldsType: \"json\",\n            pourType: \"interval\",\n            pourTypeType: \"pourType\",\n            pourTime: \"1\",\n            pourTimeType: \"num\",\n            pourAmount: \"1\",\n            pourAmountType: \"num\",\n            maxUseMemory: \"\",\n            x: 630,\n            y: 40,\n            wires: [[\"245fad708cf8508a\"]]\n        },\n        {\n            id: \"4bf9d21f8d23e77d\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [{\n                t: \"set\",\n                p: \"payload\",\n                pt: \"msg\",\n                to: `{\n                    \"title\": article.title,\n                    \"description\": article.description,\n                    \"summary\": article.summary,\n                    \"date\": article.date,\n                    \"pubdate\": article.pubdate,\n                    \"link\": article.link,\n                    \"guid\": article.guid,\n                    \"author\": article.author,\n                    \"image\": article.image,\n                    \"enclosures\": article.enclosures,\n                    \"sourceMetadata\": sourceMetadata \n                }`,\n                tot: \"jsonata\"\n            }],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 460,\n            y: 40,\n            wires: [[\"b61d28486ad60365\"]]\n        },\n        {\n            id: \"245fad708cf8508a\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [\n                {t: \"set\", p: \"routingKey\", pt: \"msg\", to: \"router\", tot: \"str\"},\n                {t: \"set\", p: \"payload\", pt: \"msg\", to: \"payload[0]\", tot: \"msg\"}\n            ],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 800,\n            y: 40,\n            wires: [[\"ec10675d9ce489dc\"]]\n        },\n        {\n            id: \"ec10675d9ce489dc\",\n            type: \"link out\",\n            z: \"98d41cddef00471d\",\n            name: \"link out 1\",\n            mode: \"link\",\n            links: [\"73c4bf0b72565dc6\"],\n            x: 935,\n            y: 40\n        }\n    ];\n\n    // Add feedparse nodes for each URL\n    sources.forEach((source, index) => {\n\n        nodes.push({\n                \"id\": \"c4c3213606800a7\" + index,\n                \"type\": \"change\",\n                \"z\": \"98d41cddef00471d\",\n                \"name\": \"metadata\",\n                \"rules\": [{\n                    t: \"set\",\n                    p: \"sourceMetadata\",\n                    pt: \"msg\",\n                    to: JSON.stringify(source),\n                    tot: \"json\"\n                }],\n                \"action\": \"\",\n                \"property\": \"\",\n                \"from\": \"\",\n                \"to\": \"\",\n                \"reg\": false,\n                \"x\": 280,\n                \"y\": baseY + 60 * index,\n                \"wires\": [\n                    [\n                        \"4bf9d21f8d23e77d\"\n                    ]\n                ]\n            },\n            {\n            id: \"06fe21b91623c38\" + index, // simple way to generate unique IDs\n            type: \"feedparse\",\n            z: \"98d41cddef00471d\",\n            name: \"rss client-\" + index,\n            url: source.url,\n            interval: source.interval,\n            ignorefirst: true,\n            x: 100,\n            y: baseY + 60 * index,\n            wires: [[\"c4c3213606800a7\" + index]]\n        });\n    });\n\n    return nodes;\n}\n\n// Example usage\nmsg.payload = {\n    id: \"98d41cddef00471d\",\n    label: \"rss\",\n    nodes: addRSSFeedParser(sources)\n}\n\nreturn msg;",
+        "func": "try {\n    const sources = msg.payload.map(item => ({\n        url: item.URL,\n        person: item.Person,\n        lang: item.Language,\n        interval: item.Interval\n    }));\n\n    function addRSSFeedParser(sources) {\n        // Base Y coordinate for the first feedparse node\n        let baseY = 40;\n\n        // Base structure for all nodes\n        const nodes = [\n            {\n                id: \"b61d28486ad60365\",\n                type: \"queue\",\n                z: \"98d41cddef00471d\",\n                name: \"\",\n                input: \"payload\",\n                inputType: \"msg\",\n                addFields: '[\"news\",\"tech\"]',\n                addFieldsType: \"json\",\n                pourType: \"interval\",\n                pourTypeType: \"pourType\",\n                pourTime: \"1\",\n                pourTimeType: \"num\",\n                pourAmount: \"1\",\n                pourAmountType: \"num\",\n                maxUseMemory: \"\",\n                x: 630,\n                y: 40,\n                wires: [[\"245fad708cf8508a\"]]\n            },\n            {\n                id: \"4bf9d21f8d23e77d\",\n                type: \"change\",\n                z: \"98d41cddef00471d\",\n                name: \"\",\n                rules: [{\n                    t: \"set\",\n                    p: \"payload\",\n                    pt: \"msg\",\n                    to: `{\n                        \"title\": article.title,\n                        \"description\": article.description,\n                        \"summary\": article.summary,\n                        \"date\": article.date,\n                        \"pubdate\": article.pubdate,\n                        \"link\": article.link,\n                        \"guid\": article.guid,\n                        \"author\": article.author,\n                        \"image\": article.image,\n                        \"enclosures\": article.enclosures,\n                        \"sourceMetadata\": sourceMetadata \n                    }`,\n                    tot: \"jsonata\"\n                }],\n                action: \"\",\n                property: \"\",\n                from: \"\",\n                to: \"\",\n                reg: false,\n                x: 460,\n                y: 40,\n                wires: [[\"b61d28486ad60365\"]]\n            },\n            {\n                id: \"245fad708cf8508a\",\n                type: \"change\",\n                z: \"98d41cddef00471d\",\n                name: \"\",\n                rules: [\n                    {t: \"set\", p: \"routingKey\", pt: \"msg\", to: \"router\", tot: \"str\"},\n                    {t: \"set\", p: \"payload\", pt: \"msg\", to: \"payload[0]\", tot: \"msg\"}\n                ],\n                action: \"\",\n                property: \"\",\n                from: \"\",\n                to: \"\",\n                reg: false,\n                x: 800,\n                y: 40,\n                wires: [[\"ec10675d9ce489dc\"]]\n            },\n            {\n                id: \"ec10675d9ce489dc\",\n                type: \"link out\",\n                z: \"98d41cddef00471d\",\n                name: \"link out 1\",\n                mode: \"link\",\n                links: [\"73c4bf0b72565dc6\"],\n                x: 935,\n                y: 40\n            }\n        ];\n\n        // Add feedparse nodes for each URL\n        sources.forEach((source, index) => {\n\n            nodes.push({\n                    \"id\": \"c4c3213606800a7\" + index,\n                    \"type\": \"change\",\n                    \"z\": \"98d41cddef00471d\",\n                    \"name\": \"metadata\",\n                    \"rules\": [{\n                        t: \"set\",\n                        p: \"sourceMetadata\",\n                        pt: \"msg\",\n                        to: JSON.stringify(source),\n                        tot: \"json\"\n                    }],\n                    \"action\": \"\",\n                    \"property\": \"\",\n                    \"from\": \"\",\n                    \"to\": \"\",\n                    \"reg\": false,\n                    \"x\": 280,\n                    \"y\": baseY + 60 * index,\n                    \"wires\": [\n                        [\n                            \"4bf9d21f8d23e77d\"\n                        ]\n                    ]\n                },\n                {\n                id: \"06fe21b91623c38\" + index, // simple way to generate unique IDs\n                type: \"feedparse\",\n                z: \"98d41cddef00471d\",\n                name: \"rss client-\" + index,\n                url: source.url,\n                interval: source.interval,\n                ignorefirst: true,\n                x: 100,\n                y: baseY + 60 * index,\n                wires: [[\"c4c3213606800a7\" + index]]\n            });\n        });\n\n        return nodes;\n    }\n\n    // Example usage\n    msg.payload = {\n        id: \"98d41cddef00471d\",\n        label: \"rss\",\n        nodes: addRSSFeedParser(sources)\n    }\n\n    return msg;\n} catch (error) {\n    msg.error = `Error occurred: ${error.message}`;\n    node.error(msg)\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2533,7 +2649,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\n                    \"title\": article.title,\n                    \"description\": article.description,\n                    \"summary\": article.summary,\n                    \"date\": article.date,\n                    \"pubdate\": article.pubdate,\n                    \"link\": article.link,\n                    \"guid\": article.guid,\n                    \"author\": article.author,\n                    \"image\": article.image,\n                    \"enclosures\": article.enclosures,\n                    \"sourceMetadata\": sourceMetadata \n                }",
+                "to": "{\t   \"titleOrigin\": article.title,\t   \"descriptionOrigin\": article.description,\t   \"summaryOrigin\": article.summary,\t   \"date\": article.date,\t   \"pubdate\": article.pubdate,\t   \"link\": article.link,\t   \"guid\": article.guid,\t   \"author\": article.author,\t   \"image\": article.image,\t   \"enclosures\": article.enclosures,\t   \"sourceMetadata\": sourceMetadata                     \t}",
                 "tot": "jsonata"
             }
         ],
@@ -2607,7 +2723,7 @@
                 "t": "set",
                 "p": "sourceMetadata",
                 "pt": "msg",
-                "to": "{\"url\":\"https://feeds.nos.nl/nosnieuwstech\",\"person\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\"}],\"lang\":[\"EN\"],\"interval\":60}",
+                "to": "{\"url\":\"http://localhost:1880/feeds\",\"person\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\"}],\"lang\":[\"EN\"],\"interval\":60}",
                 "tot": "json"
             }
         ],
@@ -2629,10 +2745,10 @@
         "type": "feedparse",
         "z": "98d41cddef00471d",
         "name": "rss client-0",
-        "url": "https://feeds.nos.nl/nosnieuwstech",
-        "interval": 60,
-        "ignorefirst": true,
-        "x": 100,
+        "url": "http://localhost:1880/feeds",
+        "interval": "1",
+        "ignorefirst": false,
+        "x": 80,
         "y": 40,
         "wires": [
             [
