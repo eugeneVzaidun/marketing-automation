@@ -32,10 +32,10 @@
         "env": []
     },
     {
-        "id": "89829a181a0a3d4b",
+        "id": "797b17216639c356",
         "type": "tab",
-        "label": "web",
-        "disabled": true,
+        "label": "source",
+        "disabled": false,
         "info": "",
         "env": []
     },
@@ -1070,81 +1070,12 @@
         "wires": []
     },
     {
-        "id": "fff9da97b05a4227",
-        "type": "query database",
-        "z": "be070c1ddf78f5bd",
-        "integration": "2e9215f9fed73afd",
-        "x": 280,
-        "y": 80,
-        "wires": [
-            [
-                "12d01e0d30838de8",
-                "b68a394f45a3833b"
-            ]
-        ]
-    },
-    {
-        "id": "4507c4c4d9e4554f",
-        "type": "inject",
-        "z": "be070c1ddf78f5bd",
-        "name": "",
-        "props": [
-            {
-                "p": "pageId",
-                "v": "528f47c1cc014ce1b601b8afacda9c23",
-                "vt": "str"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            },
-            {
-                "p": "payload"
-            },
-            {
-                "p": "schema",
-                "v": "{\"URL\":\"url\",\"Type\":\"select\",\"Active\":\"checkbox\",\"Language\":\"multi_select\",\"Person\":\"people\",\"Location\":\"multi_select\",\"Interval\":\"number\"}",
-                "vt": "json"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"database_id\":\"528f47c1cc014ce1b601b8afacda9c23\",\"filter\":{\"or\":[{\"property\":\"Active\",\"checkbox\":{\"equals\":true}}]}}",
-        "payloadType": "json",
-        "x": 90,
-        "y": 80,
-        "wires": [
-            [
-                "fff9da97b05a4227"
-            ]
-        ]
-    },
-    {
-        "id": "12d01e0d30838de8",
-        "type": "debug",
-        "z": "be070c1ddf78f5bd",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 660,
-        "y": 80,
-        "wires": []
-    },
-    {
         "id": "76530509eae4d170",
         "type": "get page",
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 260,
-        "y": 400,
+        "y": 480,
         "wires": [
             [
                 "b8e7ba38e9493f1c"
@@ -1178,7 +1109,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 400,
+        "y": 480,
         "wires": [
             [
                 "76530509eae4d170"
@@ -1198,7 +1129,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 400,
+        "y": 480,
         "wires": []
     },
     {
@@ -1207,7 +1138,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 270,
-        "y": 460,
+        "y": 540,
         "wires": [
             [
                 "e79573c740e73354"
@@ -1241,7 +1172,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 460,
+        "y": 540,
         "wires": [
             [
                 "ee4850bd45e11287"
@@ -1261,7 +1192,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 460,
+        "y": 540,
         "wires": []
     },
     {
@@ -1270,7 +1201,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 290,
-        "y": 520,
+        "y": 600,
         "wires": [
             [
                 "4e69eaea9bdb65ac"
@@ -1304,7 +1235,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 520,
+        "y": 600,
         "wires": [
             [
                 "0c00abc48d7dc668"
@@ -1324,7 +1255,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 520,
+        "y": 600,
         "wires": []
     },
     {
@@ -1333,7 +1264,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 270,
-        "y": 140,
+        "y": 220,
         "wires": [
             [
                 "50c7790dd2fc5c98"
@@ -1367,7 +1298,7 @@
         "payload": "{}",
         "payloadType": "json",
         "x": 90,
-        "y": 140,
+        "y": 220,
         "wires": [
             [
                 "edea20d0b7b2b37f"
@@ -1387,7 +1318,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 140,
+        "y": 220,
         "wires": []
     },
     {
@@ -1396,7 +1327,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 270,
-        "y": 220,
+        "y": 300,
         "wires": [
             [
                 "f3cfd246699e3f43"
@@ -1425,7 +1356,7 @@
         "payload": "{\"parent\":{\"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"},\"properties\":{\"Name\":{\"title\":[{\"text\":{\"content\":\"Hello, world!\"}}]},\"Date\":{\"date\":{\"start\":\"2024-05-07\"}}}}",
         "payloadType": "json",
         "x": 90,
-        "y": 220,
+        "y": 300,
         "wires": [
             [
                 "0c9bd70ef30aaee1"
@@ -1446,7 +1377,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 680,
-        "y": 220,
+        "y": 300,
         "wires": []
     },
     {
@@ -1455,7 +1386,7 @@
         "z": "be070c1ddf78f5bd",
         "integration": "2e9215f9fed73afd",
         "x": 300,
-        "y": 300,
+        "y": 380,
         "wires": [
             [
                 "bc2b6b34cd235c2e"
@@ -1489,7 +1420,7 @@
         "payload": "{\"children\":[{\"heading_2\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale\"}}]}},{\"paragraph\":{\"rich_text\":[{\"text\":{\"content\":\"Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.\",\"link\":{\"url\":\"https://en.wikipedia.org/wiki/Lacinato_kale\"}}}]}}]}",
         "payloadType": "json",
         "x": 90,
-        "y": 300,
+        "y": 380,
         "wires": [
             [
                 "195e44edbb584018"
@@ -1509,7 +1440,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 520,
-        "y": 300,
+        "y": 380,
         "wires": []
     },
     {
@@ -1539,7 +1470,7 @@
         "to": "",
         "reg": false,
         "x": 460,
-        "y": 220,
+        "y": 300,
         "wires": [
             [
                 "7a89a58b2e647ec1",
@@ -1569,7 +1500,7 @@
         "payload": "{\t   \"parent\":{\t       \"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"\t   },\t   \"properties\":{\t       \"Name\":{\t           \"title\":[{\"text\":{\"content\":\"Hello, world!\"}}]\t       },\t       \"Date\":{\"date\":{\"start\": $moment($moment()).format(\"YYYY-MM-DD\")}}\t   }\t}",
         "payloadType": "jsonata",
         "x": 90,
-        "y": 260,
+        "y": 340,
         "wires": [
             [
                 "0c9bd70ef30aaee1"
@@ -1608,7 +1539,7 @@
         "payload": "{\"title\":\"TikTok zet aanval in tegen wet VS die app dwingt tot verkoop of verbod\",\"date\":\"2024-05-07T18:13:27.000Z\"}",
         "payloadType": "json",
         "x": 90,
-        "y": 580,
+        "y": 660,
         "wires": [
             [
                 "9c9473c896a4491c"
@@ -1628,7 +1559,7 @@
         "handleDocId": false,
         "name": "",
         "x": 320,
-        "y": 580,
+        "y": 660,
         "wires": [
             [
                 "e38e62e1758f41b2"
@@ -1649,7 +1580,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 560,
-        "y": 580,
+        "y": 660,
         "wires": []
     },
     {
@@ -1706,7 +1637,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 90,
-        "y": 680,
+        "y": 760,
         "wires": [
             [
                 "a93a1913dc43ad31"
@@ -1730,7 +1661,7 @@
         "senderr": false,
         "headers": [],
         "x": 280,
-        "y": 680,
+        "y": 760,
         "wires": [
             [
                 "2b505293f9f3aba1"
@@ -1746,7 +1677,7 @@
         "action": "",
         "pretty": false,
         "x": 440,
-        "y": 680,
+        "y": 760,
         "wires": [
             [
                 "5b8490254fe4076e"
@@ -1766,7 +1697,7 @@
         "finalize": "",
         "libs": [],
         "x": 570,
-        "y": 680,
+        "y": 760,
         "wires": [
             [
                 "d0dafa73f0b14ad7"
@@ -1786,7 +1717,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 730,
-        "y": 680,
+        "y": 760,
         "wires": []
     },
     {
@@ -1811,7 +1742,7 @@
         "payload": "{\"id\":\"98d41cddef00471d\",\"label\":\"rss\",\"nodes\":[{\"id\":\"b61d28486ad60365\",\"type\":\"queue\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"input\":\"payload\",\"inputType\":\"msg\",\"addFields\":\"[\\\"news\\\",\\\"tech\\\"]\",\"addFieldsType\":\"json\",\"pourType\":\"interval\",\"pourTypeType\":\"pourType\",\"pourTime\":\"1\",\"pourTimeType\":\"num\",\"pourAmount\":\"1\",\"pourAmountType\":\"num\",\"maxUseMemory\":\"\",\"x\":630,\"y\":40,\"wires\":[[\"245fad708cf8508a\"]]},{\"id\":\"4bf9d21f8d23e77d\",\"type\":\"change\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"rules\":[{\"t\":\"set\",\"p\":\"payload\",\"pt\":\"msg\",\"to\":\"{\\n                    \\\"title\\\": article.title,\\n                    \\\"description\\\": article.description,\\n                    \\\"summary\\\": article.summary,\\n                    \\\"date\\\": article.date,\\n                    \\\"pubdate\\\": article.pubdate,\\n                    \\\"link\\\": article.link,\\n                    \\\"guid\\\": article.guid,\\n                    \\\"author\\\": article.author,\\n                    \\\"image\\\": article.image,\\n                    \\\"enclosures\\\": article.enclosures\\n                }\",\"tot\":\"jsonata\"}],\"action\":\"\",\"property\":\"\",\"from\":\"\",\"to\":\"\",\"reg\":false,\"x\":460,\"y\":40,\"wires\":[[\"b61d28486ad60365\"]]},{\"id\":\"245fad708cf8508a\",\"type\":\"change\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"rules\":[{\"t\":\"set\",\"p\":\"routingKey\",\"pt\":\"msg\",\"to\":\"router\",\"tot\":\"str\"},{\"t\":\"set\",\"p\":\"payload\",\"pt\":\"msg\",\"to\":\"payload[0]\",\"tot\":\"msg\"}],\"action\":\"\",\"property\":\"\",\"from\":\"\",\"to\":\"\",\"reg\":false,\"x\":800,\"y\":40,\"wires\":[[\"ec10675d9ce489dc\"]]},{\"id\":\"ec10675d9ce489dc\",\"type\":\"link out\",\"z\":\"98d41cddef00471d\",\"name\":\"link out 1\",\"mode\":\"link\",\"links\":[\"73c4bf0b72565dc6\"],\"x\":935,\"y\":40},{\"id\":\"06fe21b91623c380\",\"type\":\"feedparse\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"url\":\"https://www.nu.nl/rss/Tech\",\"interval\":\"10\",\"ignorefirst\":true,\"x\":130,\"y\":40,\"wires\":[[\"4bf9d21f8d23e77d\"]]},{\"id\":\"06fe21b91623c381\",\"type\":\"feedparse\",\"z\":\"98d41cddef00471d\",\"name\":\"\",\"url\":\"https://www.nu.nl/rss/Science\",\"interval\":\"10\",\"ignorefirst\":true,\"x\":130,\"y\":100,\"wires\":[[\"4bf9d21f8d23e77d\"]]}]}",
         "payloadType": "json",
         "x": 90,
-        "y": 740,
+        "y": 820,
         "wires": [
             [
                 "671e107a604dcca7"
@@ -1835,7 +1766,7 @@
         "senderr": false,
         "headers": [],
         "x": 290,
-        "y": 740,
+        "y": 820,
         "wires": [
             [
                 "17dc0c5c60fac153"
@@ -1851,7 +1782,7 @@
         "action": "",
         "pretty": false,
         "x": 450,
-        "y": 740,
+        "y": 820,
         "wires": [
             [
                 "91770309fa454021"
@@ -1871,7 +1802,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 740,
-        "y": 740,
+        "y": 820,
         "wires": []
     },
     {
@@ -1896,7 +1827,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 100,
-        "y": 800,
+        "y": 880,
         "wires": [
             [
                 "ddfae9fa1b244a0c"
@@ -1920,7 +1851,7 @@
         "senderr": false,
         "headers": [],
         "x": 290,
-        "y": 800,
+        "y": 880,
         "wires": [
             [
                 "f488d720f839f9e5"
@@ -1936,7 +1867,7 @@
         "action": "",
         "pretty": false,
         "x": 450,
-        "y": 800,
+        "y": 880,
         "wires": [
             [
                 "44c40b30965b508e"
@@ -1956,121 +1887,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 740,
-        "y": 800,
-        "wires": []
-    },
-    {
-        "id": "e0063e379d6a4958",
-        "type": "inject",
-        "z": "be070c1ddf78f5bd",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            },
-            {
-                "p": "urls",
-                "v": "[\"https://www.nu.nl/rss/Tech\", \"https://www.nu.nl/rss/Science\"]",
-                "vt": "json"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 220,
-        "y": 940,
-        "wires": [
-            [
-                "27cb914c8ad4cb84"
-            ]
-        ]
-    },
-    {
-        "id": "27cb914c8ad4cb84",
-        "type": "function",
-        "z": "be070c1ddf78f5bd",
-        "name": "function 4",
-        "func": "const sources = msg.sources;\n\nfunction addRSSFeedParser(sources) {\n    // Base Y coordinate for the first feedparse node\n    let baseY = 40;\n\n    // Base structure for all nodes\n    const nodes = [\n        {\n            id: \"b61d28486ad60365\",\n            type: \"queue\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            input: \"payload\",\n            inputType: \"msg\",\n            addFields: '[\"news\",\"tech\"]',\n            addFieldsType: \"json\",\n            pourType: \"interval\",\n            pourTypeType: \"pourType\",\n            pourTime: \"1\",\n            pourTimeType: \"num\",\n            pourAmount: \"1\",\n            pourAmountType: \"num\",\n            maxUseMemory: \"\",\n            x: 630,\n            y: 40,\n            wires: [[\"245fad708cf8508a\"]]\n        },\n        {\n            id: \"4bf9d21f8d23e77d\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [{\n                t: \"set\",\n                p: \"payload\",\n                pt: \"msg\",\n                to: `{\n                    \"title\": article.title,\n                    \"description\": article.description,\n                    \"summary\": article.summary,\n                    \"date\": article.date,\n                    \"pubdate\": article.pubdate,\n                    \"link\": article.link,\n                    \"guid\": article.guid,\n                    \"author\": article.author,\n                    \"image\": article.image,\n                    \"enclosures\": article.enclosures\n                }`,\n                tot: \"jsonata\"\n            }],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 460,\n            y: 40,\n            wires: [[\"b61d28486ad60365\"]]\n        },\n        {\n            id: \"245fad708cf8508a\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [\n                {t: \"set\", p: \"routingKey\", pt: \"msg\", to: \"router\", tot: \"str\"},\n                {t: \"set\", p: \"payload\", pt: \"msg\", to: \"payload[0]\", tot: \"msg\"}\n            ],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 800,\n            y: 40,\n            wires: [[\"ec10675d9ce489dc\"]]\n        },\n        {\n            id: \"ec10675d9ce489dc\",\n            type: \"link out\",\n            z: \"98d41cddef00471d\",\n            name: \"link out 1\",\n            mode: \"link\",\n            links: [\"73c4bf0b72565dc6\"],\n            x: 935,\n            y: 40\n        }\n    ];\n\n    // Add feedparse nodes for each URL\n    sources.forEach((source, index) => {\n        nodes.push({\n                \"id\": \"c4c3213606800a7\" + index,\n                \"type\": \"change\",\n                \"z\": \"98d41cddef00471d\",\n                \"name\": \"\",\n                \"rules\": [\n                    {\n                        \"t\": \"set\",\n                        \"p\": \"payload\",\n                        \"pt\": \"msg\",\n                        \"to\": \"\",\n                        \"tot\": \"str\"\n                    }\n                ],\n                \"action\": \"\",\n                \"property\": \"\",\n                \"from\": \"\",\n                \"to\": \"\",\n                \"reg\": false,\n                \"x\": 280,\n                \"y\": baseY + 60 * index,\n                \"wires\": [\n                    [\n                        \"4bf9d21f8d23e77d\"\n                    ]\n                ]\n            },\n            {\n            id: \"06fe21b91623c38\" + index, // simple way to generate unique IDs\n            type: \"feedparse\",\n            z: \"98d41cddef00471d\",\n            name: \"rss client-\" + index,\n            url: source.url,\n            interval: source.interval,\n            ignorefirst: true,\n            x: 100,\n            y: baseY + 60 * index,\n            wires: [[\"c4c3213606800a7\" + index]]\n        });\n    });\n\n    return nodes;\n}\n\n// Example usage\nmsg.payload = {\n    id: \"98d41cddef00471d\",\n    label: \"rss\",\n    nodes: addRSSFeedParser(sources)\n}\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 440,
-        "y": 940,
-        "wires": [
-            [
-                "fd7d7b9982fc70db"
-            ]
-        ]
-    },
-    {
-        "id": "fd7d7b9982fc70db",
-        "type": "http request",
-        "z": "be070c1ddf78f5bd",
-        "name": "",
-        "method": "PUT",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "http://localhost:1880/flow/98d41cddef00471d",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 630,
-        "y": 940,
-        "wires": [
-            [
-                "94394a6ea904266c"
-            ]
-        ]
-    },
-    {
-        "id": "b68a394f45a3833b",
-        "type": "function",
-        "z": "be070c1ddf78f5bd",
-        "name": "function 5",
-        "func": "msg.sources = msg.payload.map(item => ({\n    url: item.URL,\n    person: item.Person,\n    lang: item.Language,\n    interval: item.Interval\n}));\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 230,
         "y": 880,
-        "wires": [
-            [
-                "27cb914c8ad4cb84"
-            ]
-        ]
-    },
-    {
-        "id": "94394a6ea904266c",
-        "type": "debug",
-        "z": "be070c1ddf78f5bd",
-        "name": "debug 25",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 820,
-        "y": 940,
         "wires": []
     },
     {
@@ -2539,33 +2356,148 @@
         "wires": []
     },
     {
-        "id": "3d5731fdaf042ea2",
-        "type": "uibuilder",
-        "z": "89829a181a0a3d4b",
-        "name": "",
-        "topic": "",
-        "url": "web",
-        "okToGo": true,
-        "fwdInMessages": false,
-        "allowScripts": false,
-        "allowStyles": false,
-        "copyIndex": true,
-        "templateFolder": "blank",
-        "extTemplate": "",
-        "showfolder": false,
-        "oldUrl": "/web",
-        "reload": false,
-        "sourceFolder": "src",
-        "deployedVersion": "6.8.2",
-        "showMsgUib": false,
-        "title": "",
-        "descr": "",
-        "x": 210,
-        "y": 100,
+        "id": "fff9da97b05a4227",
+        "type": "query database",
+        "z": "797b17216639c356",
+        "integration": "2e9215f9fed73afd",
+        "x": 260,
+        "y": 120,
         "wires": [
-            [],
-            []
+            [
+                "27cb914c8ad4cb84"
+            ]
         ]
+    },
+    {
+        "id": "4507c4c4d9e4554f",
+        "type": "inject",
+        "z": "797b17216639c356",
+        "name": "",
+        "props": [
+            {
+                "p": "pageId",
+                "v": "528f47c1cc014ce1b601b8afacda9c23",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            },
+            {
+                "p": "schema",
+                "v": "{\"URL\":\"url\",\"Type\":\"select\",\"Active\":\"checkbox\",\"Language\":\"multi_select\",\"Person\":\"people\",\"Location\":\"multi_select\",\"Interval\":\"number\"}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"database_id\":\"528f47c1cc014ce1b601b8afacda9c23\",\"filter\":{\"or\":[{\"property\":\"Active\",\"checkbox\":{\"equals\":true}}]}}",
+        "payloadType": "json",
+        "x": 90,
+        "y": 120,
+        "wires": [
+            [
+                "fff9da97b05a4227"
+            ]
+        ]
+    },
+    {
+        "id": "27cb914c8ad4cb84",
+        "type": "function",
+        "z": "797b17216639c356",
+        "name": "flow generator",
+        "func": "const sources = msg.payload.map(item => ({\n    url: item.URL,\n    person: item.Person,\n    lang: item.Language,\n    interval: item.Interval\n}));\n\nfunction addRSSFeedParser(sources) {\n    // Base Y coordinate for the first feedparse node\n    let baseY = 40;\n\n    // Base structure for all nodes\n    const nodes = [\n        {\n            id: \"b61d28486ad60365\",\n            type: \"queue\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            input: \"payload\",\n            inputType: \"msg\",\n            addFields: '[\"news\",\"tech\"]',\n            addFieldsType: \"json\",\n            pourType: \"interval\",\n            pourTypeType: \"pourType\",\n            pourTime: \"1\",\n            pourTimeType: \"num\",\n            pourAmount: \"1\",\n            pourAmountType: \"num\",\n            maxUseMemory: \"\",\n            x: 630,\n            y: 40,\n            wires: [[\"245fad708cf8508a\"]]\n        },\n        {\n            id: \"4bf9d21f8d23e77d\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [{\n                t: \"set\",\n                p: \"payload\",\n                pt: \"msg\",\n                to: `{\n                    \"title\": article.title,\n                    \"description\": article.description,\n                    \"summary\": article.summary,\n                    \"date\": article.date,\n                    \"pubdate\": article.pubdate,\n                    \"link\": article.link,\n                    \"guid\": article.guid,\n                    \"author\": article.author,\n                    \"image\": article.image,\n                    \"enclosures\": article.enclosures,\n                    \"sourceMetadata\": sourceMetadata \n                }`,\n                tot: \"jsonata\"\n            }],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 460,\n            y: 40,\n            wires: [[\"b61d28486ad60365\"]]\n        },\n        {\n            id: \"245fad708cf8508a\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [\n                {t: \"set\", p: \"routingKey\", pt: \"msg\", to: \"router\", tot: \"str\"},\n                {t: \"set\", p: \"payload\", pt: \"msg\", to: \"payload[0]\", tot: \"msg\"}\n            ],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 800,\n            y: 40,\n            wires: [[\"ec10675d9ce489dc\"]]\n        },\n        {\n            id: \"ec10675d9ce489dc\",\n            type: \"link out\",\n            z: \"98d41cddef00471d\",\n            name: \"link out 1\",\n            mode: \"link\",\n            links: [\"73c4bf0b72565dc6\"],\n            x: 935,\n            y: 40\n        }\n    ];\n\n    // Add feedparse nodes for each URL\n    sources.forEach((source, index) => {\n\n        nodes.push({\n                \"id\": \"c4c3213606800a7\" + index,\n                \"type\": \"change\",\n                \"z\": \"98d41cddef00471d\",\n                \"name\": \"metadata\",\n                \"rules\": [{\n                    t: \"set\",\n                    p: \"sourceMetadata\",\n                    pt: \"msg\",\n                    to: JSON.stringify(source),\n                    tot: \"json\"\n                }],\n                \"action\": \"\",\n                \"property\": \"\",\n                \"from\": \"\",\n                \"to\": \"\",\n                \"reg\": false,\n                \"x\": 280,\n                \"y\": baseY + 60 * index,\n                \"wires\": [\n                    [\n                        \"4bf9d21f8d23e77d\"\n                    ]\n                ]\n            },\n            {\n            id: \"06fe21b91623c38\" + index, // simple way to generate unique IDs\n            type: \"feedparse\",\n            z: \"98d41cddef00471d\",\n            name: \"rss client-\" + index,\n            url: source.url,\n            interval: source.interval,\n            ignorefirst: true,\n            x: 100,\n            y: baseY + 60 * index,\n            wires: [[\"c4c3213606800a7\" + index]]\n        });\n    });\n\n    return nodes;\n}\n\n// Example usage\nmsg.payload = {\n    id: \"98d41cddef00471d\",\n    label: \"rss\",\n    nodes: addRSSFeedParser(sources)\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 120,
+        "wires": [
+            [
+                "fd7d7b9982fc70db"
+            ]
+        ]
+    },
+    {
+        "id": "fd7d7b9982fc70db",
+        "type": "http request",
+        "z": "797b17216639c356",
+        "name": "update rss flow tab",
+        "method": "PUT",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:1880/flow/98d41cddef00471d",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 670,
+        "y": 120,
+        "wires": [
+            [
+                "94394a6ea904266c"
+            ]
+        ]
+    },
+    {
+        "id": "94394a6ea904266c",
+        "type": "debug",
+        "z": "797b17216639c356",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "329c45f9191fe7ed",
+        "type": "catch",
+        "z": "797b17216639c356",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "07526fc9234fe133"
+            ]
+        ]
+    },
+    {
+        "id": "07526fc9234fe133",
+        "type": "debug",
+        "z": "797b17216639c356",
+        "name": "debug 27",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "error",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 240,
+        "y": 40,
+        "wires": []
     },
     {
         "id": "b61d28486ad60365",
@@ -2601,7 +2533,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\n                    \"title\": article.title,\n                    \"description\": article.description,\n                    \"summary\": article.summary,\n                    \"date\": article.date,\n                    \"pubdate\": article.pubdate,\n                    \"link\": article.link,\n                    \"guid\": article.guid,\n                    \"author\": article.author,\n                    \"image\": article.image,\n                    \"enclosures\": article.enclosures\n                }",
+                "to": "{\n                    \"title\": article.title,\n                    \"description\": article.description,\n                    \"summary\": article.summary,\n                    \"date\": article.date,\n                    \"pubdate\": article.pubdate,\n                    \"link\": article.link,\n                    \"guid\": article.guid,\n                    \"author\": article.author,\n                    \"image\": article.image,\n                    \"enclosures\": article.enclosures,\n                    \"sourceMetadata\": sourceMetadata \n                }",
                 "tot": "jsonata"
             }
         ],
@@ -2669,13 +2601,13 @@
         "id": "c4c3213606800a70",
         "type": "change",
         "z": "98d41cddef00471d",
-        "name": "source metadata",
+        "name": "metadata",
         "rules": [
             {
                 "t": "set",
                 "p": "sourceMetadata",
                 "pt": "msg",
-                "to": "{\"a\":1,\"b\":2}",
+                "to": "{\"url\":\"https://feeds.nos.nl/nosnieuwstech\",\"person\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\"}],\"lang\":[\"EN\"],\"interval\":60}",
                 "tot": "json"
             }
         ],
@@ -2684,7 +2616,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 290,
+        "x": 280,
         "y": 40,
         "wires": [
             [
@@ -2698,7 +2630,7 @@
         "z": "98d41cddef00471d",
         "name": "rss client-0",
         "url": "https://feeds.nos.nl/nosnieuwstech",
-        "interval": 1,
+        "interval": 60,
         "ignorefirst": true,
         "x": 100,
         "y": 40,
