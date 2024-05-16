@@ -18,7 +18,7 @@
     "node-red-contrib-uibuilder": "~6.8.2",
     "node-red-debugger": "~1.1.1",
     "node-red-node-feedparser": "~0.3.0",
-    "node-red-notion": "~1.1.0",
+    "node-red-notion-client": "^1.1.0",
     "rss": "^1.2.2",
     "stopword": "^3.0.1"
   },
