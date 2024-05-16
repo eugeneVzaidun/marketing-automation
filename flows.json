@@ -1998,7 +1998,7 @@
         "type": "function",
         "z": "be070c1ddf78f5bd",
         "name": "function 4",
-        "func": "const sources = msg.sources;\n\nfunction addRSSFeedParser(sources) {\n    // Base Y coordinate for the first feedparse node\n    let baseY = 40;\n\n    // Base structure for all nodes\n    const nodes = [\n        {\n            id: \"b61d28486ad60365\",\n            type: \"queue\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            input: \"payload\",\n            inputType: \"msg\",\n            addFields: '[\"news\",\"tech\"]',\n            addFieldsType: \"json\",\n            pourType: \"interval\",\n            pourTypeType: \"pourType\",\n            pourTime: \"1\",\n            pourTimeType: \"num\",\n            pourAmount: \"1\",\n            pourAmountType: \"num\",\n            maxUseMemory: \"\",\n            x: 630,\n            y: 40,\n            wires: [[\"245fad708cf8508a\"]]\n        },\n        {\n            id: \"4bf9d21f8d23e77d\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [{\n                t: \"set\",\n                p: \"payload\",\n                pt: \"msg\",\n                to: `{\n                    \"title\": article.title,\n                    \"description\": article.description,\n                    \"summary\": article.summary,\n                    \"date\": article.date,\n                    \"pubdate\": article.pubdate,\n                    \"link\": article.link,\n                    \"guid\": article.guid,\n                    \"author\": article.author,\n                    \"image\": article.image,\n                    \"enclosures\": article.enclosures\n                }`,\n                tot: \"jsonata\"\n            }],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 460,\n            y: 40,\n            wires: [[\"b61d28486ad60365\"]]\n        },\n        {\n            id: \"245fad708cf8508a\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [\n                {t: \"set\", p: \"routingKey\", pt: \"msg\", to: \"router\", tot: \"str\"},\n                {t: \"set\", p: \"payload\", pt: \"msg\", to: \"payload[0]\", tot: \"msg\"}\n            ],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 800,\n            y: 40,\n            wires: [[\"ec10675d9ce489dc\"]]\n        },\n        {\n            id: \"ec10675d9ce489dc\",\n            type: \"link out\",\n            z: \"98d41cddef00471d\",\n            name: \"link out 1\",\n            mode: \"link\",\n            links: [\"73c4bf0b72565dc6\"],\n            x: 935,\n            y: 40\n        }\n    ];\n\n    // Add feedparse nodes for each URL\n    sources.forEach((source, index) => {\n        nodes.push({\n            id: \"06fe21b91623c38\" + index, // simple way to generate unique IDs\n            type: \"feedparse\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            url: source.url,\n            interval: source.interval,\n            ignorefirst: true,\n            x: 180,\n            y: baseY + 60 * index,\n            wires: [[\"4bf9d21f8d23e77d\"]]\n        });\n    });\n\n    return nodes;\n}\n\n// Example usage\nmsg.payload = {\n    id: \"98d41cddef00471d\",\n    label: \"rss\",\n    nodes: addRSSFeedParser(sources)\n}\n\nreturn msg;",
+        "func": "const sources = msg.sources;\n\nfunction addRSSFeedParser(sources) {\n    // Base Y coordinate for the first feedparse node\n    let baseY = 40;\n\n    // Base structure for all nodes\n    const nodes = [\n        {\n            id: \"b61d28486ad60365\",\n            type: \"queue\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            input: \"payload\",\n            inputType: \"msg\",\n            addFields: '[\"news\",\"tech\"]',\n            addFieldsType: \"json\",\n            pourType: \"interval\",\n            pourTypeType: \"pourType\",\n            pourTime: \"1\",\n            pourTimeType: \"num\",\n            pourAmount: \"1\",\n            pourAmountType: \"num\",\n            maxUseMemory: \"\",\n            x: 630,\n            y: 40,\n            wires: [[\"245fad708cf8508a\"]]\n        },\n        {\n            id: \"4bf9d21f8d23e77d\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [{\n                t: \"set\",\n                p: \"payload\",\n                pt: \"msg\",\n                to: `{\n                    \"title\": article.title,\n                    \"description\": article.description,\n                    \"summary\": article.summary,\n                    \"date\": article.date,\n                    \"pubdate\": article.pubdate,\n                    \"link\": article.link,\n                    \"guid\": article.guid,\n                    \"author\": article.author,\n                    \"image\": article.image,\n                    \"enclosures\": article.enclosures\n                }`,\n                tot: \"jsonata\"\n            }],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 460,\n            y: 40,\n            wires: [[\"b61d28486ad60365\"]]\n        },\n        {\n            id: \"245fad708cf8508a\",\n            type: \"change\",\n            z: \"98d41cddef00471d\",\n            name: \"\",\n            rules: [\n                {t: \"set\", p: \"routingKey\", pt: \"msg\", to: \"router\", tot: \"str\"},\n                {t: \"set\", p: \"payload\", pt: \"msg\", to: \"payload[0]\", tot: \"msg\"}\n            ],\n            action: \"\",\n            property: \"\",\n            from: \"\",\n            to: \"\",\n            reg: false,\n            x: 800,\n            y: 40,\n            wires: [[\"ec10675d9ce489dc\"]]\n        },\n        {\n            id: \"ec10675d9ce489dc\",\n            type: \"link out\",\n            z: \"98d41cddef00471d\",\n            name: \"link out 1\",\n            mode: \"link\",\n            links: [\"73c4bf0b72565dc6\"],\n            x: 935,\n            y: 40\n        }\n    ];\n\n    // Add feedparse nodes for each URL\n    sources.forEach((source, index) => {\n        nodes.push({\n                \"id\": \"c4c3213606800a7\" + index,\n                \"type\": \"change\",\n                \"z\": \"98d41cddef00471d\",\n                \"name\": \"\",\n                \"rules\": [\n                    {\n                        \"t\": \"set\",\n                        \"p\": \"payload\",\n                        \"pt\": \"msg\",\n                        \"to\": \"\",\n                        \"tot\": \"str\"\n                    }\n                ],\n                \"action\": \"\",\n                \"property\": \"\",\n                \"from\": \"\",\n                \"to\": \"\",\n                \"reg\": false,\n                \"x\": 280,\n                \"y\": baseY + 60 * index,\n                \"wires\": [\n                    [\n                        \"4bf9d21f8d23e77d\"\n                    ]\n                ]\n            },\n            {\n            id: \"06fe21b91623c38\" + index, // simple way to generate unique IDs\n            type: \"feedparse\",\n            z: \"98d41cddef00471d\",\n            name: \"rss client-\" + index,\n            url: source.url,\n            interval: source.interval,\n            ignorefirst: true,\n            x: 100,\n            y: baseY + 60 * index,\n            wires: [[\"c4c3213606800a7\" + index]]\n        });\n    });\n\n    return nodes;\n}\n\n// Example usage\nmsg.payload = {\n    id: \"98d41cddef00471d\",\n    label: \"rss\",\n    nodes: addRSSFeedParser(sources)\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2666,14 +2666,25 @@
         "wires": []
     },
     {
-        "id": "06fe21b91623c380",
-        "type": "feedparse",
+        "id": "c4c3213606800a70",
+        "type": "change",
         "z": "98d41cddef00471d",
-        "name": "",
-        "url": "http://localhost:1880/feeds",
-        "interval": "1",
-        "ignorefirst": false,
-        "x": 150,
+        "name": "source metadata",
+        "rules": [
+            {
+                "t": "set",
+                "p": "sourceMetadata",
+                "pt": "msg",
+                "to": "{\"a\":1,\"b\":2}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
         "y": 40,
         "wires": [
             [
@@ -2682,18 +2693,18 @@
         ]
     },
     {
-        "id": "06fe21b91623c381",
+        "id": "06fe21b91623c380",
         "type": "feedparse",
         "z": "98d41cddef00471d",
-        "name": "",
+        "name": "rss client-0",
         "url": "https://feeds.nos.nl/nosnieuwstech",
-        "interval": "10",
+        "interval": 1,
         "ignorefirst": true,
-        "x": 180,
-        "y": 100,
+        "x": 100,
+        "y": 40,
         "wires": [
             [
-                "4bf9d21f8d23e77d"
+                "c4c3213606800a70"
             ]
         ]
     }
