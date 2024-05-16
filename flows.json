@@ -887,7 +887,7 @@
         "name": "",
         "scope": null,
         "uncaught": false,
-        "x": 80,
+        "x": 100,
         "y": 40,
         "wires": [
             [
@@ -933,8 +933,7 @@
         "y": 540,
         "wires": [
             [
-                "7f416a1bd177c666",
-                "81ae3b68f78a7601"
+                "7f416a1bd177c666"
             ]
         ]
     },
@@ -981,8 +980,7 @@
         "y": 540,
         "wires": [
             [
-                "db29f7c0edbc9205",
-                "81ae3b68f78a7601"
+                "db29f7c0edbc9205"
             ]
         ]
     },
@@ -997,22 +995,6 @@
         ],
         "x": 675,
         "y": 540,
-        "wires": []
-    },
-    {
-        "id": "81ae3b68f78a7601",
-        "type": "debug",
-        "z": "adb9cf7a321a3e04",
-        "name": "debug 28",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 270,
-        "y": 600,
         "wires": []
     },
     {
@@ -1171,7 +1153,7 @@
         "type": "function",
         "z": "76076b827daf890b",
         "name": "function 4",
-        "func": "const translations = msg.tempPayload.translations;\nconst lang = msg.tempPayload.sourceMetadata.lang[0].toLowerCase();\nlet titleContent = msg.tempPayload.titleOrigin;\nlet descriptionContent = msg.tempPayload.descriptionOrigin;\n\nif (translations && translations[lang]) {\n    titleContent = translations[lang].title || titleContent;\n    descriptionContent = translations[lang].description || descriptionContent;\n}\n\nconst payload = {\n    \"parent\": {\n        \"database_id\": \"86fac854e975475a8435b6fe3fe922b8\"\n    },\n    \"properties\": {\n        \"Name\": {\n            \"title\": [\n                {\n                    \"text\": {\n                        \"content\": titleContent\n                    }\n                }\n            ]\n        },\n        \"Date\": {\n            \"date\": {\n                \"start\": new Date().toISOString().split('T')[0]\n            }\n        }\n    }\n};\nmsg.payload = payload;\nreturn msg;\n",
+        "func": "const translations = msg.tempPayload.translations;\nconst lang = msg.tempPayload.sourceMetadata.lang[0].toLowerCase();\nlet titleContent = msg.tempPayload.titleOrigin;\nlet descriptionContent = msg.tempPayload.descriptionOrigin;\n\nif (translations && translations[lang]) {\n    titleContent = translations[lang].title || titleContent;\n    descriptionContent = translations[lang].description || descriptionContent;\n}\n\nconst payload = {\n    \"parent\": {\n        \"database_id\": \"86fac854e975475a8435b6fe3fe922b8\"\n    },\n    \"properties\": {\n        \"Name\": {\n            \"title\": [\n                {\n                    \"text\": {\n                        \"content\": titleContent\n                    }\n                }\n            ]\n        },\n        \"Date\": {\n            \"date\": {\n                \"start\": new Date().toISOString().split('T')[0]\n            }\n        },\n        \"Note\": {\n            \"rich_text\": [\n                {\n                    \"text\": {\n                        \"content\": \"robot\"\n                    }\n                }\n            ]\n        }\n    }\n};\nmsg.payload = payload;\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2058,7 +2040,7 @@
             },
             {
                 "p": "schema",
-                "v": "{\"URL\":\"url\",\"Type\":\"select\",\"Active\":\"checkbox\",\"Language\":\"multi_select\",\"Person\":\"people\",\"Location\":\"multi_select\"}",
+                "v": "{\"Note\":\"rich_text\"}",
                 "vt": "json"
             }
         ],
@@ -2067,7 +2049,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"database_id\":\"528f47c1cc014ce1b601b8afacda9c23\",\"filter\":{\"or\":[{\"property\":\"Active\",\"checkbox\":{\"equals\":true}}]}}",
+        "payload": "{\"database_id\":\"86fac854e975475a8435b6fe3fe922b8\"}",
         "payloadType": "json",
         "x": 110,
         "y": 1040,
@@ -2547,7 +2529,7 @@
         "type": "function",
         "z": "797b17216639c356",
         "name": "flow generator",
-        "func": "try {\n    const sources = msg.payload.map(item => ({\n        url: item.URL,\n        person: item.Person,\n        lang: item.Language,\n        interval: item.Interval\n    }));\n\n    function addRSSFeedParser(sources) {\n        // Base Y coordinate for the first feedparse node\n        let baseY = 40;\n\n        // Base structure for all nodes\n        const nodes = [\n            {\n                id: \"b61d28486ad60365\",\n                type: \"queue\",\n                z: \"98d41cddef00471d\",\n                name: \"\",\n                input: \"payload\",\n                inputType: \"msg\",\n                addFields: '[\"news\",\"tech\"]',\n                addFieldsType: \"json\",\n                pourType: \"interval\",\n                pourTypeType: \"pourType\",\n                pourTime: \"1\",\n                pourTimeType: \"num\",\n                pourAmount: \"1\",\n                pourAmountType: \"num\",\n                maxUseMemory: \"\",\n                x: 630,\n                y: 40,\n                wires: [[\"245fad708cf8508a\"]]\n            },\n            {\n                id: \"4bf9d21f8d23e77d\",\n                type: \"change\",\n                z: \"98d41cddef00471d\",\n                name: \"\",\n                rules: [{\n                    t: \"set\",\n                    p: \"payload\",\n                    pt: \"msg\",\n                    to: `{\n                        \"title\": article.title,\n                        \"description\": article.description,\n                        \"summary\": article.summary,\n                        \"date\": article.date,\n                        \"pubdate\": article.pubdate,\n                        \"link\": article.link,\n                        \"guid\": article.guid,\n                        \"author\": article.author,\n                        \"image\": article.image,\n                        \"enclosures\": article.enclosures,\n                        \"sourceMetadata\": sourceMetadata \n                    }`,\n                    tot: \"jsonata\"\n                }],\n                action: \"\",\n                property: \"\",\n                from: \"\",\n                to: \"\",\n                reg: false,\n                x: 460,\n                y: 40,\n                wires: [[\"b61d28486ad60365\"]]\n            },\n            {\n                id: \"245fad708cf8508a\",\n                type: \"change\",\n                z: \"98d41cddef00471d\",\n                name: \"\",\n                rules: [\n                    {t: \"set\", p: \"routingKey\", pt: \"msg\", to: \"router\", tot: \"str\"},\n                    {t: \"set\", p: \"payload\", pt: \"msg\", to: \"payload[0]\", tot: \"msg\"}\n                ],\n                action: \"\",\n                property: \"\",\n                from: \"\",\n                to: \"\",\n                reg: false,\n                x: 800,\n                y: 40,\n                wires: [[\"ec10675d9ce489dc\"]]\n            },\n            {\n                id: \"ec10675d9ce489dc\",\n                type: \"link out\",\n                z: \"98d41cddef00471d\",\n                name: \"link out 1\",\n                mode: \"link\",\n                links: [\"73c4bf0b72565dc6\"],\n                x: 935,\n                y: 40\n            }\n        ];\n\n        // Add feedparse nodes for each URL\n        sources.forEach((source, index) => {\n\n            nodes.push({\n                    \"id\": \"c4c3213606800a7\" + index,\n                    \"type\": \"change\",\n                    \"z\": \"98d41cddef00471d\",\n                    \"name\": \"metadata\",\n                    \"rules\": [{\n                        t: \"set\",\n                        p: \"sourceMetadata\",\n                        pt: \"msg\",\n                        to: JSON.stringify(source),\n                        tot: \"json\"\n                    }],\n                    \"action\": \"\",\n                    \"property\": \"\",\n                    \"from\": \"\",\n                    \"to\": \"\",\n                    \"reg\": false,\n                    \"x\": 280,\n                    \"y\": baseY + 60 * index,\n                    \"wires\": [\n                        [\n                            \"4bf9d21f8d23e77d\"\n                        ]\n                    ]\n                },\n                {\n                id: \"06fe21b91623c38\" + index, // simple way to generate unique IDs\n                type: \"feedparse\",\n                z: \"98d41cddef00471d\",\n                name: \"rss client-\" + index,\n                url: source.url,\n                interval: source.interval,\n                ignorefirst: true,\n                x: 100,\n                y: baseY + 60 * index,\n                wires: [[\"c4c3213606800a7\" + index]]\n            });\n        });\n\n        return nodes;\n    }\n\n    // Example usage\n    msg.payload = {\n        id: \"98d41cddef00471d\",\n        label: \"rss\",\n        nodes: addRSSFeedParser(sources)\n    }\n\n    return msg;\n} catch (error) {\n    msg.error = `Error occurred: ${error.message}`;\n    node.error(msg)\n}\n",
+        "func": "try {\n    const sources = msg.payload.map(item => ({\n        url: item.URL,\n        subscribers: item.Subscribers,\n        lang: item.Language,\n        interval: item.Interval\n    }));\n\n    function addRSSFeedParser(sources) {\n        // Base Y coordinate for the first feedparse node\n        let baseY = 40;\n\n        // Base structure for all nodes\n        const nodes = [\n            {\n                id: \"b61d28486ad60365\",\n                type: \"queue\",\n                z: \"98d41cddef00471d\",\n                name: \"\",\n                input: \"payload\",\n                inputType: \"msg\",\n                addFields: '[\"news\",\"tech\"]',\n                addFieldsType: \"json\",\n                pourType: \"interval\",\n                pourTypeType: \"pourType\",\n                pourTime: \"1\",\n                pourTimeType: \"num\",\n                pourAmount: \"1\",\n                pourAmountType: \"num\",\n                maxUseMemory: \"\",\n                x: 630,\n                y: 40,\n                wires: [[\"245fad708cf8508a\"]]\n            },\n            {\n                id: \"4bf9d21f8d23e77d\",\n                type: \"change\",\n                z: \"98d41cddef00471d\",\n                name: \"\",\n                rules: [{\n                    t: \"set\",\n                    p: \"payload\",\n                    pt: \"msg\",\n                    to: `{\n                        \"titleOrigin\": article.title,\n                        \"descriptionOrigin\": article.description,\n                        \"summary\": article.summary,\n                        \"date\": article.date,\n                        \"pubdate\": article.pubdate,\n                        \"link\": article.link,\n                        \"guid\": article.guid,\n                        \"author\": article.author,\n                        \"image\": article.image,\n                        \"enclosures\": article.enclosures,\n                        \"sourceMetadata\": sourceMetadata \n                    }`,\n                    tot: \"jsonata\"\n                }],\n                action: \"\",\n                property: \"\",\n                from: \"\",\n                to: \"\",\n                reg: false,\n                x: 460,\n                y: 40,\n                wires: [[\"b61d28486ad60365\"]]\n            },\n            {\n                id: \"245fad708cf8508a\",\n                type: \"change\",\n                z: \"98d41cddef00471d\",\n                name: \"\",\n                rules: [\n                    {t: \"set\", p: \"routingKey\", pt: \"msg\", to: \"router\", tot: \"str\"},\n                    {t: \"set\", p: \"payload\", pt: \"msg\", to: \"payload[0]\", tot: \"msg\"}\n                ],\n                action: \"\",\n                property: \"\",\n                from: \"\",\n                to: \"\",\n                reg: false,\n                x: 800,\n                y: 40,\n                wires: [[\"ec10675d9ce489dc\"]]\n            },\n            {\n                id: \"ec10675d9ce489dc\",\n                type: \"link out\",\n                z: \"98d41cddef00471d\",\n                name: \"link out 1\",\n                mode: \"link\",\n                links: [\"73c4bf0b72565dc6\"],\n                x: 935,\n                y: 40\n            }\n        ];\n\n        // Add feedparse nodes for each URL\n        sources.forEach((source, index) => {\n\n            nodes.push({\n                    \"id\": \"c4c3213606800a7\" + index,\n                    \"type\": \"change\",\n                    \"z\": \"98d41cddef00471d\",\n                    \"name\": \"metadata\",\n                    \"rules\": [{\n                        t: \"set\",\n                        p: \"sourceMetadata\",\n                        pt: \"msg\",\n                        to: JSON.stringify(source),\n                        tot: \"json\"\n                    }],\n                    \"action\": \"\",\n                    \"property\": \"\",\n                    \"from\": \"\",\n                    \"to\": \"\",\n                    \"reg\": false,\n                    \"x\": 280,\n                    \"y\": baseY + 60 * index,\n                    \"wires\": [\n                        [\n                            \"4bf9d21f8d23e77d\"\n                        ]\n                    ]\n                },\n                {\n                id: \"06fe21b91623c38\" + index, // simple way to generate unique IDs\n                type: \"feedparse\",\n                z: \"98d41cddef00471d\",\n                name: \"rss client-\" + index,\n                url: source.url,\n                interval: source.interval,\n                ignorefirst: true,\n                x: 100,\n                y: baseY + 60 * index,\n                wires: [[\"c4c3213606800a7\" + index]]\n            });\n        });\n\n        return nodes;\n    }\n\n    // Example usage\n    msg.payload = {\n        id: \"98d41cddef00471d\",\n        label: \"rss\",\n        nodes: addRSSFeedParser(sources)\n    }\n\n    return msg;\n} catch (error) {\n    msg.error = `Error occurred: ${error.message}`;\n    node.error(msg)\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2668,7 +2650,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t   \"titleOrigin\": article.title,\t   \"descriptionOrigin\": article.description,\t   \"summaryOrigin\": article.summary,\t   \"date\": article.date,\t   \"pubdate\": article.pubdate,\t   \"link\": article.link,\t   \"guid\": article.guid,\t   \"author\": article.author,\t   \"image\": article.image,\t   \"enclosures\": article.enclosures,\t   \"sourceMetadata\": sourceMetadata                     \t}",
+                "to": "{\n                        \"titleOrigin\": article.title,\n                        \"descriptionOrigin\": article.description,\n                        \"summary\": article.summary,\n                        \"date\": article.date,\n                        \"pubdate\": article.pubdate,\n                        \"link\": article.link,\n                        \"guid\": article.guid,\n                        \"author\": article.author,\n                        \"image\": article.image,\n                        \"enclosures\": article.enclosures,\n                        \"sourceMetadata\": sourceMetadata \n                    }",
                 "tot": "jsonata"
             }
         ],
@@ -2742,7 +2724,7 @@
                 "t": "set",
                 "p": "sourceMetadata",
                 "pt": "msg",
-                "to": "{\"url\":\"http://localhost:1880/feeds\",\"person\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\"}],\"lang\":[\"EN\"],\"interval\":60}",
+                "to": "{\"url\":\"http://localhost:1880/feeds\",\"subscribers\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\"}],\"lang\":[\"DA\"],\"interval\":1}",
                 "tot": "json"
             }
         ],
@@ -2751,7 +2733,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 260,
+        "x": 280,
         "y": 40,
         "wires": [
             [
@@ -2765,7 +2747,7 @@
         "z": "98d41cddef00471d",
         "name": "rss client-0",
         "url": "http://localhost:1880/feeds",
-        "interval": "1",
+        "interval": 1,
         "ignorefirst": false,
         "x": 80,
         "y": 40,
