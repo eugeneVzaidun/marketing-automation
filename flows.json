@@ -981,7 +981,8 @@
         "y": 540,
         "wires": [
             [
-                "db29f7c0edbc9205"
+                "db29f7c0edbc9205",
+                "81ae3b68f78a7601"
             ]
         ]
     },
@@ -1035,7 +1036,7 @@
         "type": "create page",
         "z": "76076b827daf890b",
         "integration": "2e9215f9fed73afd",
-        "x": 610,
+        "x": 530,
         "y": 100,
         "wires": [
             [
@@ -1048,7 +1049,7 @@
         "type": "append block children",
         "z": "76076b827daf890b",
         "integration": "2e9215f9fed73afd",
-        "x": 1020,
+        "x": 900,
         "y": 100,
         "wires": [
             [
@@ -1082,7 +1083,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 800,
+        "x": 700,
         "y": 100,
         "wires": [
             [
@@ -1129,7 +1130,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1220,
+        "x": 1080,
         "y": 100,
         "wires": []
     },
@@ -1170,20 +1171,38 @@
         "type": "function",
         "z": "76076b827daf890b",
         "name": "function 4",
-        "func": "const translations = msg.tempPayload.translations;\nconst lang = msg.tempPayload.sourceMetadata.lang[0].toLowerCase();\nlet titleContent = msg.tempPayload.titleOrigin;\nlet descriptionContent = msg.tempPayload.descriptionOrigin;\n\nif (translations && translations[lang]) {\n    titleContent = translations[lang].title || titleContent;\n    descriptionContent = translations[lang].description || descriptionContent;\n}\n\nconst payload = {\n    \"parent\": {\n        \"database_id\": \"86fac854e975475a8435b6fe3fe922b8\"\n    },\n    \"properties\": {\n        \"Name\": {\n            \"title\": [\n                {\n                    \"text\": {\n                        \"content\": titleContent\n                    }\n                }\n            ]\n        },\n        \"Date\": {\n            \"date\": {\n                \"start\": new Date().toISOString().split('T')[0]\n            }\n        }\n    }\n};\n\nreturn msg;\n",
+        "func": "const translations = msg.tempPayload.translations;\nconst lang = msg.tempPayload.sourceMetadata.lang[0].toLowerCase();\nlet titleContent = msg.tempPayload.titleOrigin;\nlet descriptionContent = msg.tempPayload.descriptionOrigin;\n\nif (translations && translations[lang]) {\n    titleContent = translations[lang].title || titleContent;\n    descriptionContent = translations[lang].description || descriptionContent;\n}\n\nconst payload = {\n    \"parent\": {\n        \"database_id\": \"86fac854e975475a8435b6fe3fe922b8\"\n    },\n    \"properties\": {\n        \"Name\": {\n            \"title\": [\n                {\n                    \"text\": {\n                        \"content\": titleContent\n                    }\n                }\n            ]\n        },\n        \"Date\": {\n            \"date\": {\n                \"start\": new Date().toISOString().split('T')[0]\n            }\n        }\n    }\n};\nmsg.payload = payload;\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
+        "x": 360,
         "y": 100,
         "wires": [
             [
-                "c90be7dfa8ba550d"
+                "c90be7dfa8ba550d",
+                "779668cc7e1d3580"
             ]
         ]
+    },
+    {
+        "id": "779668cc7e1d3580",
+        "type": "debug",
+        "z": "76076b827daf890b",
+        "name": "debug 29",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 240,
+        "wires": []
     },
     {
         "id": "76530509eae4d170",
@@ -2504,7 +2523,7 @@
             },
             {
                 "p": "schema",
-                "v": "{\"URL\":\"url\",\"Type\":\"select\",\"Active\":\"checkbox\",\"Language\":\"multi_select\",\"Person\":\"people\",\"Location\":\"multi_select\",\"Interval\":\"number\"}",
+                "v": "{\"URL\":\"url\",\"Type\":\"select\",\"Active\":\"checkbox\",\"Language\":\"multi_select\",\"Subscribers\":\"people\",\"Interval\":\"number\"}",
                 "vt": "json"
             }
         ],
@@ -2732,7 +2751,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 280,
+        "x": 260,
         "y": 40,
         "wires": [
             [
