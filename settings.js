@@ -480,6 +480,7 @@ module.exports = {
     detectLanguage: require("./detect-language.js"),
     generateTags: require("./detect-tags.js"),
     RSS: require("rss"),
+    Translate: require("@google-cloud/translate").v2.Translate,
   },
 
   /** The maximum number of messages nodes will buffer internally as part of their
