@@ -745,8 +745,8 @@
             "ec10675d9ce489dc",
             "a33b2495b8913650"
         ],
-        "x": 45,
-        "y": 680,
+        "x": 35,
+        "y": 620,
         "wires": [
             [
                 "a46bd2365b22f364"
@@ -768,7 +768,7 @@
         "rpcTimeoutMilliseconds": 3000,
         "outputs": 0,
         "x": 180,
-        "y": 680,
+        "y": 620,
         "wires": []
     },
     {
@@ -1014,66 +1014,6 @@
         ]
     },
     {
-        "id": "c90be7dfa8ba550d",
-        "type": "create page",
-        "z": "76076b827daf890b",
-        "integration": "2e9215f9fed73afd",
-        "x": 530,
-        "y": 100,
-        "wires": [
-            [
-                "abfc52a6d7caabee"
-            ]
-        ]
-    },
-    {
-        "id": "624c2c82ab96a6b2",
-        "type": "append block children",
-        "z": "76076b827daf890b",
-        "integration": "2e9215f9fed73afd",
-        "x": 900,
-        "y": 100,
-        "wires": [
-            [
-                "3d8efdacb869e5a0"
-            ]
-        ]
-    },
-    {
-        "id": "abfc52a6d7caabee",
-        "type": "change",
-        "z": "76076b827daf890b",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "blockId",
-                "pt": "msg",
-                "to": "payload.id",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\t   \"children\":[\t       {\t           \"paragraph\":{\t               \"rich_text\":[\t                   {\t                       \"text\":{\t                           \"content\":tempPayload.linkedInPost\t                       }\t                   }\t               ]\t           }\t       }\t   ]\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 700,
-        "y": 100,
-        "wires": [
-            [
-                "624c2c82ab96a6b2"
-            ]
-        ]
-    },
-    {
         "id": "272c9f5b9c872375",
         "type": "change",
         "z": "76076b827daf890b",
@@ -1096,25 +1036,9 @@
         "y": 100,
         "wires": [
             [
-                "b6a9b2790d9b11b8"
+                "15397e19cb3554bd"
             ]
         ]
-    },
-    {
-        "id": "3d8efdacb869e5a0",
-        "type": "debug",
-        "z": "76076b827daf890b",
-        "name": "debug 11",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1080,
-        "y": 100,
-        "wires": []
     },
     {
         "id": "01278428362ff0cf",
@@ -1144,47 +1068,181 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 250,
+        "x": 270,
         "y": 40,
         "wires": []
     },
     {
-        "id": "b6a9b2790d9b11b8",
+        "id": "94343045395642e7",
+        "type": "amqp-out",
+        "z": "76076b827daf890b",
+        "name": "",
+        "broker": "204746069e0ec785",
+        "exchangeName": "notion",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "send",
+        "exchangeRoutingKeyType": "str",
+        "exchangeDurable": true,
+        "amqpProperties": "{ \"headers\": {} }",
+        "rpcTimeoutMilliseconds": 3000,
+        "outputs": 0,
+        "x": 550,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "97816360e771cfdf",
+        "type": "amqp-in",
+        "z": "76076b827daf890b",
+        "name": "",
+        "broker": "204746069e0ec785",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "notion",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "send",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": true,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "{}",
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "1cf9d1d4f3e4d1bb"
+            ]
+        ]
+    },
+    {
+        "id": "15397e19cb3554bd",
         "type": "function",
         "z": "76076b827daf890b",
-        "name": "function 4",
-        "func": "const translations = msg.tempPayload.translations;\nconst lang = msg.tempPayload.sourceMetadata.lang[0].toLowerCase();\nlet titleContent = msg.tempPayload.titleOrigin;\nlet descriptionContent = msg.tempPayload.descriptionOrigin;\n\nif (translations && translations[lang]) {\n    titleContent = translations[lang].title || titleContent;\n    descriptionContent = translations[lang].description || descriptionContent;\n}\n\nconst payload = {\n    \"parent\": {\n        \"database_id\": \"86fac854e975475a8435b6fe3fe922b8\"\n    },\n    \"properties\": {\n        \"Name\": {\n            \"title\": [\n                {\n                    \"text\": {\n                        \"content\": titleContent\n                    }\n                }\n            ]\n        },\n        \"Date\": {\n            \"date\": {\n                \"start\": new Date().toISOString().split('T')[0]\n            }\n        },\n        \"Note\": {\n            \"rich_text\": [\n                {\n                    \"text\": {\n                        \"content\": \"robot\"\n                    }\n                }\n            ]\n        }\n    }\n};\nmsg.payload = payload;\nreturn msg;\n",
+        "name": "function 6",
+        "func": "const translations = msg.tempPayload.translations;\nconst lang = msg.tempPayload.sourceMetadata.lang[0].toLowerCase();\nlet titleContent = msg.tempPayload.titleOrigin;\nlet descriptionContent = msg.tempPayload.descriptionOrigin;\n\nif (translations && translations[lang]) {\n    titleContent = translations[lang].title || titleContent;\n    descriptionContent = translations[lang].description || descriptionContent;\n}\n\nconst subscribers = msg.tempPayload.sourceMetadata.subscribers;\n\nsubscribers.forEach(subscriber => {\n    const payload = {\n        linkedInPost: msg.tempPayload.linkedInPost,\n        \"parent\": {\n            \"database_id\": subscriber.databaseId\n        },\n        \"properties\": {\n            \"Name\": {\n                \"title\": [\n                    {\n                        \"text\": {\n                            \"content\": titleContent\n                        }\n                    }\n                ]\n            },\n            \"Date\": {\n                \"date\": {\n                    \"start\": new Date().toISOString().split('T')[0]\n                }\n            },\n            \"Note\": {\n                \"rich_text\": [\n                    {\n                        \"text\": {\n                            \"content\": \"robot\"\n                        }\n                    }\n                ]\n            }\n        }\n    };\n    const newMsg = { ...msg, payload };\n    node.send(newMsg);\n});\n\nreturn null;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
+        "x": 380,
         "y": 100,
         "wires": [
             [
-                "c90be7dfa8ba550d",
-                "779668cc7e1d3580"
+                "94343045395642e7"
             ]
         ]
     },
     {
-        "id": "779668cc7e1d3580",
+        "id": "bd4d70a55e225ac4",
+        "type": "create page",
+        "z": "76076b827daf890b",
+        "integration": "2e9215f9fed73afd",
+        "x": 470,
+        "y": 160,
+        "wires": [
+            [
+                "def5cd5bf6962d4c"
+            ]
+        ]
+    },
+    {
+        "id": "4b4a166031b8490b",
+        "type": "append block children",
+        "z": "76076b827daf890b",
+        "integration": "2e9215f9fed73afd",
+        "x": 880,
+        "y": 160,
+        "wires": [
+            [
+                "54aa3ed3b04ff0a1"
+            ]
+        ]
+    },
+    {
+        "id": "def5cd5bf6962d4c",
+        "type": "change",
+        "z": "76076b827daf890b",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "blockId",
+                "pt": "msg",
+                "to": "payload.id",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t   \"children\":[\t       {\t           \"paragraph\":{\t               \"rich_text\":[\t                   {\t                       \"text\":{\t                           \"content\":tempPayload.linkedInPost\t                       }\t                   }\t               ]\t           }\t       }\t   ]\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 160,
+        "wires": [
+            [
+                "4b4a166031b8490b"
+            ]
+        ]
+    },
+    {
+        "id": "54aa3ed3b04ff0a1",
         "type": "debug",
         "z": "76076b827daf890b",
-        "name": "debug 29",
+        "name": "debug 34",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
+        "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
-        "y": 240,
+        "x": 1080,
+        "y": 160,
         "wires": []
+    },
+    {
+        "id": "1cf9d1d4f3e4d1bb",
+        "type": "change",
+        "z": "76076b827daf890b",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "tempPayload",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg",
+                "dc": true
+            },
+            {
+                "t": "delete",
+                "p": "payload.linkedInPost",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 160,
+        "wires": [
+            [
+                "bd4d70a55e225ac4"
+            ]
+        ]
     },
     {
         "id": "76530509eae4d170",
@@ -2205,8 +2263,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
         "x": 1320,
@@ -2264,7 +2322,7 @@
                 "t": "set",
                 "p": "schema",
                 "pt": "msg",
-                "to": "{\"Subscriber\":\"people\",\"Database\":\"rich_text\"}",
+                "to": "{\"Subscriber\":\"people\",\"Database\":\"rich_text\",\"Language\":\"multi_select\"}",
                 "tot": "json"
             }
         ],
@@ -2286,7 +2344,7 @@
         "type": "function",
         "z": "be070c1ddf78f5bd",
         "name": "consolidate",
-        "func": "const { subscribers, sources} = msg.paths\nconst subscriberToDatabaseMap = {};\nsubscribers.forEach(subscriberObj => {\n    const subscriberId = subscriberObj.Subscriber[0].id;\n    const databaseId = subscriberObj.Database.rich_text[0].text.content;\n    subscriberToDatabaseMap[subscriberId] = databaseId;\n});\n\nsources.forEach(source => {\n    source.Subscribers.forEach(subscriber => {\n        const databaseId = subscriberToDatabaseMap[subscriber.id];\n        if (databaseId) {\n            subscriber.databaseId = databaseId;\n        }\n        delete subscriber.avatar_url;\n    });\n});\nmsg.payload = sources;\nreturn msg;",
+        "func": "const { subscribers, sources} = msg.paths\nconst subscriberToDatabaseMap = {};\nsubscribers.forEach(subscriberObj => {\n    const subscriberId = subscriberObj.Subscriber[0].id;\n    const databaseId = subscriberObj.Database.rich_text[0].text.content;\n    const languages = subscriberObj.Language;\n    subscriberToDatabaseMap[subscriberId] = {\n        databaseId: databaseId,\n        languages: languages\n    };\n});\n\nsources.forEach(source => {\n    source.Subscribers.forEach(subscriber => {\n        const subscriberData = subscriberToDatabaseMap[subscriber.id];\n        if (subscriberData) {\n            subscriber.databaseId = subscriberData.databaseId;\n            subscriber.languages = subscriberData.languages;\n        }\n    });\n});\n\nmsg.payload = sources;\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3014,7 +3072,7 @@
                 "t": "set",
                 "p": "schema",
                 "pt": "msg",
-                "to": "{\"Subscriber\":\"people\",\"Database\":\"rich_text\"}",
+                "to": "{\"Subscriber\":\"people\",\"Database\":\"rich_text\",\"Language\":\"multi_select\"}",
                 "tot": "json"
             }
         ],
@@ -3036,7 +3094,7 @@
         "type": "function",
         "z": "797b17216639c356",
         "name": "consolidate",
-        "func": "const { subscribers, sources} = msg.paths\nconst subscriberToDatabaseMap = {};\nsubscribers.forEach(subscriberObj => {\n    const subscriberId = subscriberObj.Subscriber[0].id;\n    const databaseId = subscriberObj.Database.rich_text[0].text.content;\n    subscriberToDatabaseMap[subscriberId] = databaseId;\n});\n\nsources.forEach(source => {\n    source.Subscribers.forEach(subscriber => {\n        const databaseId = subscriberToDatabaseMap[subscriber.id];\n        if (databaseId) {\n            subscriber.databaseId = databaseId;\n        }\n        delete subscriber.avatar_url;\n    });\n});\nmsg.payload = sources;\nreturn msg;",
+        "func": "const { subscribers, sources} = msg.paths\nconst subscriberToDatabaseMap = {};\n\nsubscribers.forEach(subscriberObj => {\n    const subscriberId = subscriberObj.Subscriber[0].id;\n    const databaseId = subscriberObj.Database.rich_text[0].text.content;\n    const languages = subscriberObj.Language;\n    subscriberToDatabaseMap[subscriberId] = {\n        databaseId: databaseId,\n        languages: languages\n    };\n});\n\nsources.forEach(source => {\n    source.Subscribers.forEach(subscriber => {\n        const subscriberData = subscriberToDatabaseMap[subscriber.id];\n        if (subscriberData) {\n            subscriber.databaseId = subscriberData.databaseId;\n            subscriber.languages = subscriberData.languages || ['EN'];\n        }\n    });\n});\n\nmsg.payload = sources;\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3219,7 +3277,7 @@
                 "t": "set",
                 "p": "sourceMetadata",
                 "pt": "msg",
-                "to": "{\"url\":\"http://localhost:1880/feeds\",\"subscribers\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\"}],\"lang\":[\"DA\"],\"interval\":1}",
+                "to": "{\"url\":\"http://localhost:1880/feeds\",\"subscribers\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"databaseId\":\"86fac854e975475a8435b6fe3fe922b8\"}],\"lang\":[\"DA\"],\"interval\":1}",
                 "tot": "json"
             }
         ],
