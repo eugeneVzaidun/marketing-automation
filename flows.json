@@ -3277,7 +3277,7 @@
                 "t": "set",
                 "p": "sourceMetadata",
                 "pt": "msg",
-                "to": "{\"url\":\"http://localhost:1880/feeds\",\"subscribers\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"databaseId\":\"86fac854e975475a8435b6fe3fe922b8\"}],\"lang\":[\"DA\"],\"interval\":1}",
+                "to": "{\"url\":\"http://localhost:1880/feeds\",\"subscribers\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\",\"databaseId\":\"86fac854e975475a8435b6fe3fe922b8\",\"languages\":[\"EN\"]}],\"lang\":[\"EN\"],\"interval\":1}",
                 "tot": "json"
             }
         ],
@@ -3302,7 +3302,7 @@
         "url": "http://localhost:1880/feeds",
         "interval": 1,
         "ignorefirst": false,
-        "x": 80,
+        "x": 100,
         "y": 40,
         "wires": [
             [
