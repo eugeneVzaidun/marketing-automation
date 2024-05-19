@@ -16,6 +16,7 @@
     "natural": "^7.0.5",
     "node-red": "^3.1.9",
     "node-red-contrib-mongodb4": "~2.5.2",
+    "node-red-contrib-wait-paths": "~0.3.2",
     "node-red-debugger": "~1.1.1",
     "node-red-node-feedparser": "~0.3.0",
     "node-red-notion-client": "^1.1.1",
