@@ -2322,7 +2322,7 @@
                 "t": "set",
                 "p": "schema",
                 "pt": "msg",
-                "to": "{\"Subscriber\":\"people\",\"Database\":\"rich_text\",\"Language\":\"multi_select\"}",
+                "to": "{\"Subscriber\":\"people\",\"Database\":\"rich_text\",\"Language\":\"select\"}",
                 "tot": "json"
             }
         ],
@@ -2344,7 +2344,7 @@
         "type": "function",
         "z": "be070c1ddf78f5bd",
         "name": "consolidate",
-        "func": "const { subscribers, sources} = msg.paths\nconst subscriberToDatabaseMap = {};\nsubscribers.forEach(subscriberObj => {\n    const subscriberId = subscriberObj.Subscriber[0].id;\n    const databaseId = subscriberObj.Database.rich_text[0].text.content;\n    const languages = subscriberObj.Language;\n    subscriberToDatabaseMap[subscriberId] = {\n        databaseId: databaseId,\n        languages: languages\n    };\n});\n\nsources.forEach(source => {\n    source.Subscribers.forEach(subscriber => {\n        const subscriberData = subscriberToDatabaseMap[subscriber.id];\n        if (subscriberData) {\n            subscriber.databaseId = subscriberData.databaseId;\n            subscriber.languages = subscriberData.languages;\n        }\n    });\n});\n\nmsg.payload = sources;\nreturn msg;",
+        "func": "const { subscribers, sources} = msg.paths\nconst subscriberToDatabaseMap = {};\nsubscribers.forEach(subscriberObj => {\n    const subscriberId = subscriberObj.Subscriber[0].id;\n    const databaseId = subscriberObj.Database.rich_text[0].text.content;\n    const languages = subscriberObj.Language;\n    subscriberToDatabaseMap[subscriberId] = {\n        databaseId: databaseId,\n        languages: [languages]\n    };\n});\n\nsources.forEach(source => {\n    source.Subscribers.forEach(subscriber => {\n        const subscriberData = subscriberToDatabaseMap[subscriber.id];\n        if (subscriberData) {\n            subscriber.databaseId = subscriberData.databaseId;\n            subscriber.languages = subscriberData.languages;\n        }\n    });\n});\n\nmsg.payload = sources;\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3094,7 +3094,7 @@
         "type": "function",
         "z": "797b17216639c356",
         "name": "consolidate",
-        "func": "const { subscribers, sources} = msg.paths\nconst subscriberToDatabaseMap = {};\n\nsubscribers.forEach(subscriberObj => {\n    const subscriberId = subscriberObj.Subscriber[0].id;\n    const databaseId = subscriberObj.Database.rich_text[0].text.content;\n    const languages = subscriberObj.Language;\n    subscriberToDatabaseMap[subscriberId] = {\n        databaseId: databaseId,\n        languages: languages\n    };\n});\n\nsources.forEach(source => {\n    source.Subscribers.forEach(subscriber => {\n        const subscriberData = subscriberToDatabaseMap[subscriber.id];\n        if (subscriberData) {\n            subscriber.databaseId = subscriberData.databaseId;\n            subscriber.languages = subscriberData.languages || ['EN'];\n        }\n    });\n});\n\nmsg.payload = sources;\nreturn msg;",
+        "func": "const { subscribers, sources} = msg.paths\nconst subscriberToDatabaseMap = {};\nsubscribers.forEach(subscriberObj => {\n    const subscriberId = subscriberObj.Subscriber[0].id;\n    const databaseId = subscriberObj.Database.rich_text[0].text.content;\n    const languages = subscriberObj.Language;\n    subscriberToDatabaseMap[subscriberId] = {\n        databaseId: databaseId,\n        languages: [languages]\n    };\n});\n\nsources.forEach(source => {\n    source.Subscribers.forEach(subscriber => {\n        const subscriberData = subscriberToDatabaseMap[subscriber.id];\n        if (subscriberData) {\n            subscriber.databaseId = subscriberData.databaseId;\n            subscriber.languages = subscriberData.languages;\n        }\n    });\n});\n\nmsg.payload = sources;\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
