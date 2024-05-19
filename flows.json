@@ -194,7 +194,7 @@
         "type": "function",
         "z": "adb9cf7a321a3e04",
         "name": "language detected",
-        "func": "try {\n    const detectLanguage = global.get('detectLanguage');\n\n    msg.payload.descriptionOriginLanguage = detectLanguage(msg.payload.descriptionOrigin);\n    msg.payload.languageDeteced = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;",
+        "func": "try {\n    const detectLanguage = global.get('detectLanguage');\n\n    msg.payload.descriptionOriginLanguage = detectLanguage(msg.payload.descriptionOrigin);\n    msg.payload.languageDetected = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -239,7 +239,7 @@
         "type": "function",
         "z": "adb9cf7a321a3e04",
         "name": "route key detector",
-        "func": "if (msg.payload.error) {\n    return [null, null, msg];\n}\n\nif (msg.payload.documentCount > 0) {\n    return null\n}\nif (msg.payload.languageDeteced &&\n    msg.payload.translated &&\n    msg.payload.keywordsExtracted && \n    msg.payload.formated && \n    msg.payload.linkedInPostCreated &&\n    msg.payload.documentCount === 0) \n{\n    return [null,msg];\n}\n\nif (msg.payload.documentCount === undefined) {\n    msg.routingKey = 'deduplication_check';\n    return [msg, null];\n}\n\nif (!msg.payload.formated) {\n    msg.routingKey = 'format';\n    return [msg, null];\n}\n\nif (!msg.payload.languageDeteced) {\n    msg.routingKey = 'language_detection';\n    return [msg, null];\n}\n\nif (!msg.payload.translated) {\n    msg.routingKey = 'translation';\n    return [msg, null];\n}\n\nif (!msg.payload.keywordsExtracted) {\n    msg.routingKey = 'extract_keywords';\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostCreated) {\n    msg.routingKey = 'linkedin_post'\n    return [msg, null];\n}",
+        "func": "if (msg.payload.error) {\n    return [null, null, msg];\n}\n\nif (msg.payload.documentCount > 0) {\n    return null\n}\nif (msg.payload.languageDetected &&\n    msg.payload.translated &&\n    msg.payload.keywordsExtracted && \n    msg.payload.formated && \n    msg.payload.linkedInPostCreated &&\n    msg.payload.documentCount === 0) \n{\n    return [null,msg];\n}\n\nif (msg.payload.documentCount === undefined) {\n    msg.routingKey = 'deduplication_check';\n    return [msg, null];\n}\n\nif (!msg.payload.formated) {\n    msg.routingKey = 'format';\n    return [msg, null];\n}\n\nif (!msg.payload.languageDetected) {\n    msg.routingKey = 'language_detection';\n    return [msg, null];\n}\n\nif (!msg.payload.translated) {\n    msg.routingKey = 'translation';\n    return [msg, null];\n}\n\nif (!msg.payload.keywordsExtracted) {\n    msg.routingKey = 'extract_keywords';\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostCreated) {\n    msg.routingKey = 'linkedin_post'\n    return [msg, null];\n}",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -767,7 +767,7 @@
         "amqpProperties": "{\"headers\":{}}",
         "rpcTimeoutMilliseconds": 3000,
         "outputs": 0,
-        "x": 180,
+        "x": 160,
         "y": 620,
         "wires": []
     },
@@ -781,7 +781,7 @@
             "73c4bf0b72565dc6"
         ],
         "x": 505,
-        "y": 60,
+        "y": 80,
         "wires": []
     },
     {
@@ -956,7 +956,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 530,
+        "x": 430,
         "y": 540,
         "wires": [
             [
@@ -969,14 +969,14 @@
         "type": "function",
         "z": "adb9cf7a321a3e04",
         "name": "translator",
-        "func": "const Translate = global.get('Translate')\n\nconst translate = new Translate();\ntry {\n  if (msg.payload.languageDeteced && \n    msg.payload.descriptionOriginLanguage !== msg.payload.sourceMetadata.lang[0].toLocaleLowerCase()) {\n    let descriptionTranslationResult = await translate.translate(msg.payload.descriptionOrigin, msg.payload.sourceMetadata.lang[0].toLocaleLowerCase());\n    let titleTranslationResult = await translate.translate(msg.payload.titleOrigin, msg.payload.sourceMetadata.lang[0].toLocaleLowerCase());\n    msg.payload.translations = { \n      [`${msg.payload.sourceMetadata.lang[0].toLocaleLowerCase()}`]: {\n        title: titleTranslationResult[0],\n        description: descriptionTranslationResult[0],\n      }\n    }\n  }\n  msg.payload.translated = true;\n} catch (e) {\n    msg.payload.error = e.message;\n}\n\nreturn msg;\n\n",
+        "func": "const Translate = global.get('Translate');\n\nconst translate = new Translate();\ntry {\n  // Extract unique languages from the subscribers\n  const uniqueLanguages = [...new Set(msg.payload.sourceMetadata.subscribers.flatMap(subscriber => subscriber.languages))];\n  // Initialize translations object\n  msg.payload.translations = {};\n\n  // Translate the description and title to each unique language\n  for (const lang of uniqueLanguages) {\n    if (msg.payload.languageDetected && msg.payload.descriptionOriginLanguage.toLocaleLowerCase() !== lang.toLocaleLowerCase()) {\n      let descriptionTranslationResult = await translate.translate(msg.payload.descriptionOrigin, lang.toLocaleLowerCase());\n      let titleTranslationResult = await translate.translate(msg.payload.titleOrigin, lang.toLocaleLowerCase());\n      node.log(JSON.stringify({\n        title: titleTranslationResult[0],\n        description: descriptionTranslationResult[0],\n      }))\n      msg.payload.translations[lang.toLocaleLowerCase()] = {\n        title: titleTranslationResult[0],\n        description: descriptionTranslationResult[0],\n      };\n    }\n  }\n\n  msg.payload.translated = true;\n} catch (e) {\n  msg.payload.error = e.message;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 260,
+        "x": 240,
         "y": 540,
         "wires": [
             [
@@ -993,7 +993,7 @@
         "links": [
             "73c4bf0b72565dc6"
         ],
-        "x": 675,
+        "x": 575,
         "y": 540,
         "wires": []
     },
@@ -3286,7 +3286,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 280,
+        "x": 260,
         "y": 40,
         "wires": [
             [
