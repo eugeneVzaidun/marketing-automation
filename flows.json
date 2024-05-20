@@ -971,7 +971,7 @@
         "type": "function",
         "z": "adb9cf7a321a3e04",
         "name": "translator linkedin post",
-        "func": "const Translate = global.get('Translate');\n\nnode.status({ fill: 'green', shape: 'ring', text: 'translating'})\nconst translate = new Translate();\ntry {\n  // Extract unique languages from the subscribers\n  const uniqueLanguages = [...new Set(msg.payload.sourceMetadata.subscribers.flatMap(subscriber => subscriber.languages))]\n  .map(lang => lang.toLowerCase());\n  // Initialize translations object\n  // msg.payload.translations = {};\n\n  // Translate the LinkedIn post content to each unique language\n  for (const lang of uniqueLanguages) {\n    if (msg.payload.languageDetected && msg.payload.descriptionOriginLanguage !== lang) {\n      let postTranslationResult = await translate.translate(msg.payload.linkedInPost, lang);\n      msg.payload.translations[lang] = {\n        linkedInPost: postTranslationResult[0],\n        ...msg.payload.translations[lang]\n      };\n    }\n  }\n  \n  msg.payload.linkedInPostsTranslated = true;\n  node.status({ fill: 'green', shape: 'ring', text: 'done' })\n} catch (e) {\n  msg.payload.error = e.message;\n  node.status({ fill: \"red\", shape: \"ring\", text: \"hmmm\" });\n}\n\nreturn msg;",
+        "func": "const Translate = global.get('Translate');\n\nnode.status({ fill: 'green', shape: 'ring', text: 'translating'})\nconst translate = new Translate();\ntry {\n  const uniqueLanguages = [...new Set(msg.payload.sourceMetadata.subscribers.flatMap(subscriber => subscriber.languages))]\n  .map(lang => lang.toLowerCase());\n  // Initialize translations object\n  // msg.payload.translations = {};\n\n  for (const lang of uniqueLanguages) {\n    if (msg.payload.languageDetected && msg.payload.descriptionOriginLanguage !== lang) {\n      let postTranslationResult = await translate.translate(msg.payload.linkedInPost, lang);\n      msg.payload.translations[lang] = {\n        linkedInPost: postTranslationResult[0],\n        ...msg.payload.translations[lang]\n      };\n    }\n  }\n  \n  msg.payload.linkedInPostsTranslated = true;\n  node.status({ fill: 'green', shape: 'ring', text: 'done' })\n} catch (e) {\n  msg.payload.error = e.message;\n  node.status({ fill: \"red\", shape: \"ring\", text: \"hmmm\" });\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3141,7 +3141,7 @@
                 "t": "set",
                 "p": "schema",
                 "pt": "msg",
-                "to": "{\"URL\":\"url\",\"Type\":\"select\",\"Active\":\"checkbox\",\"Language\":\"multi_select\",\"Subscribers\":\"people\",\"Interval\":\"number\"}",
+                "to": "{\"URL\":\"url\",\"Type\":\"select\",\"Active\":\"checkbox\",\"Subscribers\":\"people\",\"Interval\":\"number\"}",
                 "tot": "json"
             }
         ],
@@ -3380,7 +3380,7 @@
                 "t": "set",
                 "p": "sourceMetadata",
                 "pt": "msg",
-                "to": "{\"url\":\"http://localhost:1880/feeds\",\"subscribers\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\",\"databaseId\":\"86fac854e975475a8435b6fe3fe922b8\",\"languages\":[\"EN\"]}],\"lang\":[\"EN\"],\"interval\":2}",
+                "to": "{\"url\":\"http://localhost:1880/feeds\",\"subscribers\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\",\"databaseId\":\"86fac854e975475a8435b6fe3fe922b8\",\"languages\":[\"EN\"]}],\"interval\":2}",
                 "tot": "json"
             }
         ],
@@ -3405,7 +3405,7 @@
         "url": "http://localhost:1880/feeds",
         "interval": "1",
         "ignorefirst": false,
-        "x": 80,
+        "x": 100,
         "y": 40,
         "wires": [
             [
