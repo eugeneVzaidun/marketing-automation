@@ -230,7 +230,8 @@
         "y": 120,
         "wires": [
             [
-                "ff354ce87bb3dae0"
+                "ff354ce87bb3dae0",
+                "20ed446164a5f4c2"
             ]
         ]
     },
@@ -239,7 +240,7 @@
         "type": "function",
         "z": "adb9cf7a321a3e04",
         "name": "route key detector",
-        "func": "if (msg.payload.error) {\n    return [null, null, msg];\n}\n\nif (msg.payload.documentCount > 0) {\n    return null\n}\nif (msg.payload.languageDetected &&\n    msg.payload.translated &&\n    msg.payload.keywordsExtracted && \n    msg.payload.formated && \n    msg.payload.linkedInPostCreated &&\n    msg.payload.documentCount === 0) \n{\n    return [null,msg];\n}\n\nif (msg.payload.documentCount === undefined) {\n    msg.routingKey = 'deduplication_check';\n    return [msg, null];\n}\n\nif (!msg.payload.formated) {\n    msg.routingKey = 'format';\n    return [msg, null];\n}\n\nif (!msg.payload.languageDetected) {\n    msg.routingKey = 'language_detection';\n    return [msg, null];\n}\n\nif (!msg.payload.translated) {\n    msg.routingKey = 'translation';\n    return [msg, null];\n}\n\nif (!msg.payload.keywordsExtracted) {\n    msg.routingKey = 'extract_keywords';\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostCreated) {\n    msg.routingKey = 'linkedin_post'\n    return [msg, null];\n}",
+        "func": "if (msg.payload.error) {\n    return [null, null, msg];\n}\n\nif (msg.payload.documentCount > 0) {\n    return null\n}\nif (msg.payload.languageDetected &&\n    msg.payload.translated &&\n    msg.payload.linkedInPostsTranslated &&\n    msg.payload.keywordsExtracted && \n    msg.payload.formated && \n    msg.payload.linkedInPostCreated &&\n    msg.payload.documentCount === 0) \n{\n    return [null,msg];\n}\n\nif (msg.payload.documentCount === undefined) {\n    msg.routingKey = 'deduplication_check';\n    return [msg, null];\n}\n\nif (!msg.payload.formated) {\n    msg.routingKey = 'format';\n    return [msg, null];\n}\n\nif (!msg.payload.languageDetected) {\n    msg.routingKey = 'language_detection';\n    return [msg, null];\n}\n\nif (!msg.payload.translated) {\n    msg.routingKey = 'translation';\n    return [msg, null];\n}\n\nif (!msg.payload.keywordsExtracted) {\n    msg.routingKey = 'extract_keywords';\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostCreated) {\n    msg.routingKey = 'linkedin_post'\n    return [msg, null];\n}\n\nif (!msg.payload.linkedInPostsTranslated) {\n    msg.routingKey = 'linkedin_post_translation'\n    return [msg, null];\n}",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -472,7 +473,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 950,
+        "x": 970,
         "y": 460,
         "wires": [
             [
@@ -492,7 +493,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 760,
+        "x": 780,
         "y": 460,
         "wires": [
             [
@@ -542,7 +543,7 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 610,
+        "x": 630,
         "y": 460,
         "wires": [
             [
@@ -743,10 +744,11 @@
             "6895c07f025872d5",
             "e0baddf4372fde3f",
             "ec10675d9ce489dc",
-            "a33b2495b8913650"
+            "a33b2495b8913650",
+            "9c6e48601cf70a65"
         ],
         "x": 35,
-        "y": 620,
+        "y": 720,
         "wires": [
             [
                 "a46bd2365b22f364"
@@ -768,7 +770,7 @@
         "rpcTimeoutMilliseconds": 3000,
         "outputs": 0,
         "x": 160,
-        "y": 620,
+        "y": 720,
         "wires": []
     },
     {
@@ -845,7 +847,7 @@
         "links": [
             "73c4bf0b72565dc6"
         ],
-        "x": 1095,
+        "x": 1135,
         "y": 460,
         "wires": []
     },
@@ -916,20 +918,20 @@
         "id": "b380bcc338c817b6",
         "type": "amqp-in",
         "z": "adb9cf7a321a3e04",
-        "name": "translation",
+        "name": "linkedin post translation",
         "broker": "204746069e0ec785",
         "prefetch": 0,
         "noAck": true,
         "exchangeName": "feeds",
         "exchangeType": "topic",
-        "exchangeRoutingKey": "translation",
+        "exchangeRoutingKey": "linkedin_post_translation",
         "exchangeDurable": true,
         "queueName": "",
         "queueExclusive": true,
         "queueDurable": false,
         "queueAutoDelete": true,
         "headers": "{}",
-        "x": 80,
+        "x": 120,
         "y": 540,
         "wires": [
             [
@@ -956,7 +958,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 430,
+        "x": 590,
         "y": 540,
         "wires": [
             [
@@ -968,15 +970,15 @@
         "id": "7f416a1bd177c666",
         "type": "function",
         "z": "adb9cf7a321a3e04",
-        "name": "translator",
-        "func": "const Translate = global.get('Translate');\n\nconst translate = new Translate();\ntry {\n  // Extract unique languages from the subscribers\n  const uniqueLanguages = [...new Set(msg.payload.sourceMetadata.subscribers.flatMap(subscriber => subscriber.languages))];\n  // Initialize translations object\n  msg.payload.translations = {};\n\n  // Translate the description and title to each unique language\n  for (const lang of uniqueLanguages) {\n    if (msg.payload.languageDetected && msg.payload.descriptionOriginLanguage.toLocaleLowerCase() !== lang.toLocaleLowerCase()) {\n      let descriptionTranslationResult = await translate.translate(msg.payload.descriptionOrigin, lang.toLocaleLowerCase());\n      let titleTranslationResult = await translate.translate(msg.payload.titleOrigin, lang.toLocaleLowerCase());\n      node.log(JSON.stringify({\n        title: titleTranslationResult[0],\n        description: descriptionTranslationResult[0],\n      }))\n      msg.payload.translations[lang.toLocaleLowerCase()] = {\n        title: titleTranslationResult[0],\n        description: descriptionTranslationResult[0],\n      };\n    }\n  }\n\n  msg.payload.translated = true;\n} catch (e) {\n  msg.payload.error = e.message;\n}\n\nreturn msg;",
+        "name": "translator linkedin post",
+        "func": "const Translate = global.get('Translate');\n\nnode.status({ fill: 'green', shape: 'ring', text: 'translating'})\nconst translate = new Translate();\ntry {\n  // Extract unique languages from the subscribers\n  const uniqueLanguages = [...new Set(msg.payload.sourceMetadata.subscribers.flatMap(subscriber => subscriber.languages))]\n  .map(lang => lang.toLowerCase());\n  // Initialize translations object\n  // msg.payload.translations = {};\n\n  // Translate the LinkedIn post content to each unique language\n  for (const lang of uniqueLanguages) {\n    if (msg.payload.languageDetected && msg.payload.descriptionOriginLanguage !== lang) {\n      let postTranslationResult = await translate.translate(msg.payload.linkedInPost, lang);\n      msg.payload.translations[lang] = {\n        linkedInPost: postTranslationResult[0],\n        ...msg.payload.translations[lang]\n      };\n    }\n  }\n  \n  msg.payload.linkedInPostsTranslated = true;\n  node.status({ fill: 'green', shape: 'ring', text: 'done' })\n} catch (e) {\n  msg.payload.error = e.message;\n  node.status({ fill: \"red\", shape: \"ring\", text: \"hmmm\" });\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 240,
+        "x": 360,
         "y": 540,
         "wires": [
             [
@@ -993,8 +995,109 @@
         "links": [
             "73c4bf0b72565dc6"
         ],
-        "x": 575,
+        "x": 735,
         "y": 540,
+        "wires": []
+    },
+    {
+        "id": "20ed446164a5f4c2",
+        "type": "debug",
+        "z": "adb9cf7a321a3e04",
+        "name": "debug 35",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 170,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d94c8b09d3ef540f",
+        "type": "amqp-in",
+        "z": "adb9cf7a321a3e04",
+        "name": "translation",
+        "broker": "204746069e0ec785",
+        "prefetch": 0,
+        "noAck": true,
+        "exchangeName": "feeds",
+        "exchangeType": "topic",
+        "exchangeRoutingKey": "translation",
+        "exchangeDurable": true,
+        "queueName": "",
+        "queueExclusive": true,
+        "queueDurable": false,
+        "queueAutoDelete": true,
+        "headers": "{}",
+        "x": 80,
+        "y": 640,
+        "wires": [
+            [
+                "7767ccf3e25afec6"
+            ]
+        ]
+    },
+    {
+        "id": "774d383f412b41b6",
+        "type": "change",
+        "z": "adb9cf7a321a3e04",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "routingKey",
+                "pt": "msg",
+                "to": "router",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 640,
+        "wires": [
+            [
+                "9c6e48601cf70a65"
+            ]
+        ]
+    },
+    {
+        "id": "7767ccf3e25afec6",
+        "type": "function",
+        "z": "adb9cf7a321a3e04",
+        "name": "translator",
+        "func": "node.status({ fill: 'green', shape: 'ring', text: 'translating' })\nconst Translate = global.get('Translate');\n\nconst translate = new Translate();\ntry {\n  // Extract unique languages from the subscribers\n  const uniqueLanguages = [...new Set(msg.payload.sourceMetadata.subscribers.flatMap(subscriber => subscriber.languages))]\n    .map(lang => lang.toLowerCase());\n  // Initialize translations object\n  msg.payload.translations = {};\n\n  // Translate the description and title to each unique language\n\n  for (const lang of uniqueLanguages) {\n      if (msg.payload.languageDetected && msg.payload.descriptionOriginLanguage !== lang) {\n      let descriptionTranslationResult = await translate.translate(msg.payload.descriptionOrigin, lang);\n      let titleTranslationResult = await translate.translate(msg.payload.titleOrigin, lang);\n      msg.payload.translations[lang] = {\n        title: titleTranslationResult[0],\n        description: descriptionTranslationResult[0],\n      };\n    }\n  }\n\n  msg.payload.translated = true;\n  node.status({ fill: 'green', shape: 'ring', text: 'done' })\n   \n} catch (e) {\n  node.status({ fill: \"red\", shape: \"ring\", text: \"hmmm\" });\n  msg.payload.error = e;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 640,
+        "wires": [
+            [
+                "774d383f412b41b6"
+            ]
+        ]
+    },
+    {
+        "id": "9c6e48601cf70a65",
+        "type": "link out",
+        "z": "adb9cf7a321a3e04",
+        "name": "link out 10",
+        "mode": "link",
+        "links": [
+            "73c4bf0b72565dc6"
+        ],
+        "x": 595,
+        "y": 640,
         "wires": []
     },
     {
@@ -1120,7 +1223,7 @@
         "type": "function",
         "z": "76076b827daf890b",
         "name": "function 6",
-        "func": "const translations = msg.tempPayload.translations;\nconst lang = msg.tempPayload.sourceMetadata.lang[0].toLowerCase();\nlet titleContent = msg.tempPayload.titleOrigin;\nlet descriptionContent = msg.tempPayload.descriptionOrigin;\n\nif (translations && translations[lang]) {\n    titleContent = translations[lang].title || titleContent;\n    descriptionContent = translations[lang].description || descriptionContent;\n}\n\nconst subscribers = msg.tempPayload.sourceMetadata.subscribers;\n\nsubscribers.forEach(subscriber => {\n    const payload = {\n        linkedInPost: msg.tempPayload.linkedInPost,\n        \"parent\": {\n            \"database_id\": subscriber.databaseId\n        },\n        \"properties\": {\n            \"Name\": {\n                \"title\": [\n                    {\n                        \"text\": {\n                            \"content\": titleContent\n                        }\n                    }\n                ]\n            },\n            \"Date\": {\n                \"date\": {\n                    \"start\": new Date().toISOString().split('T')[0]\n                }\n            },\n            \"Note\": {\n                \"rich_text\": [\n                    {\n                        \"text\": {\n                            \"content\": \"robot\"\n                        }\n                    }\n                ]\n            }\n        }\n    };\n    const newMsg = { ...msg, payload };\n    node.send(newMsg);\n});\n\nreturn null;",
+        "func": "const translations = msg.tempPayload.translations;\nconst subscribers = msg.tempPayload.sourceMetadata.subscribers;\n\nsubscribers.forEach(subscriber => {\n    const subscriberLang = subscriber.languages[0].toLowerCase();\n    let titleContent = msg.tempPayload.titleOrigin;\n    let descriptionContent = msg.tempPayload.descriptionOrigin;\n\n    if (translations && translations[subscriberLang]) {\n        titleContent = translations[subscriberLang].title || titleContent;\n        descriptionContent = translations[subscriberLang].description || descriptionContent;\n    }\n\n    const payload = {\n        linkedInPost: translations[subscriberLang].linkedInPost,\n        \"parent\": {\n            \"database_id\": subscriber.databaseId\n        },\n        \"properties\": {\n            \"Name\": {\n                \"title\": [\n                    {\n                        \"text\": {\n                            \"content\": titleContent\n                        }\n                    }\n                ]\n            },\n            \"Date\": {\n                \"date\": {\n                    \"start\": new Date().toISOString().split('T')[0]\n                }\n            },\n            \"Note\": {\n                \"rich_text\": [\n                    {\n                        \"text\": {\n                            \"content\": \"robot\"\n                        }\n                    }\n                ]\n            }\n        }\n    };\n\n    const newMsg = { ...msg, payload };\n    node.send(newMsg);\n});\n\nreturn null;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3072,7 +3175,7 @@
                 "t": "set",
                 "p": "schema",
                 "pt": "msg",
-                "to": "{\"Subscriber\":\"people\",\"Database\":\"rich_text\",\"Language\":\"multi_select\"}",
+                "to": "{\"Subscriber\":\"people\",\"Database\":\"rich_text\",\"Language\":\"select\"}",
                 "tot": "json"
             }
         ],
@@ -3277,7 +3380,7 @@
                 "t": "set",
                 "p": "sourceMetadata",
                 "pt": "msg",
-                "to": "{\"url\":\"http://localhost:1880/feeds\",\"subscribers\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\",\"databaseId\":\"86fac854e975475a8435b6fe3fe922b8\",\"languages\":[\"EN\"]}],\"lang\":[\"EN\"],\"interval\":1}",
+                "to": "{\"url\":\"http://localhost:1880/feeds\",\"subscribers\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\",\"databaseId\":\"86fac854e975475a8435b6fe3fe922b8\",\"languages\":[\"EN\"]}],\"lang\":[\"EN\"],\"interval\":2}",
                 "tot": "json"
             }
         ],
@@ -3286,7 +3389,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 260,
+        "x": 280,
         "y": 40,
         "wires": [
             [
@@ -3300,9 +3403,9 @@
         "z": "98d41cddef00471d",
         "name": "rss client-0",
         "url": "http://localhost:1880/feeds",
-        "interval": 1,
+        "interval": "1",
         "ignorefirst": false,
-        "x": 100,
+        "x": 80,
         "y": 40,
         "wires": [
             [
