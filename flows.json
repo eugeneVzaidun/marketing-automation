@@ -42,7 +42,9 @@
     {
         "id": "98d41cddef00471d",
         "type": "tab",
-        "label": "rss"
+        "label": "rss",
+        "disabled": false,
+        "info": ""
     },
     {
         "id": "2e9215f9fed73afd",
@@ -2727,7 +2729,7 @@
         "maxTimeMS": "0",
         "handleDocId": false,
         "name": "",
-        "x": 810,
+        "x": 670,
         "y": 220,
         "wires": [
             []
@@ -2745,7 +2747,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 540,
+        "x": 500,
         "y": 220,
         "wires": [
             [
@@ -3380,7 +3382,7 @@
                 "t": "set",
                 "p": "sourceMetadata",
                 "pt": "msg",
-                "to": "{\"url\":\"http://localhost:1880/feeds\",\"subscribers\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\",\"databaseId\":\"86fac854e975475a8435b6fe3fe922b8\",\"languages\":[\"EN\"]}],\"interval\":2}",
+                "to": "{\"url\":\"http://localhost:1880/feeds\",\"subscribers\":[{\"name\":\"Eugene Zaidun\",\"id\":\"06ad3b96-eae0-426c-b513-2b42894b7d55\",\"avatar_url\":\"https://s3-us-west-2.amazonaws.com/public.notion-static.com/4abc095c-8b8b-411e-ac22-7593663bf9fb/Photo_on_06-05-2024_at_09.41.jpg\",\"databaseId\":\"86fac854e975475a8435b6fe3fe922b8\",\"languages\":[\"DA\"]}],\"interval\":60}",
                 "tot": "json"
             }
         ],
